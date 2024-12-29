@@ -1,9 +1,19 @@
 // Caricamento delle domande dal file JSON
 fetch('questions.json')
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Problema nel caricare il file JSON");
+        }
+        return response.json();
+    })
     .then(data => {
         questions = data.questions;
+        console.log("Domande caricate: ", questions); // Aggiunto il log per debug
         startGame();
+    })
+    .catch(error => {
+        console.error("Errore nel caricamento del JSON: ", error);
+        alert("Errore nel caricamento delle domande. Assicurati che il file questions.json sia presente.");
     });
 
 let currentQuestionIndex = 0;
@@ -24,6 +34,7 @@ const wrongSound = document.getElementById("wrong-sound");
 backgroundMusic.play();
 
 function startGame() {
+    console.log("Inizio del gioco"); // Aggiunto log per debug
     showQuestion();
     nextButton.addEventListener("click", nextQuestion);
     submitLeaderboardButton.addEventListener("click", submitLeaderboard);
@@ -81,4 +92,3 @@ function submitLeaderboard() {
         window.location.href = "leaderboard.html";
     }
 }
-
