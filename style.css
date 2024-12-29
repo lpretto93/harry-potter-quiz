@@ -127,3 +127,14 @@ button:hover {
         padding: 15px;
     }
 }
+
+/* Icona volume in alto a destra */
+.volume-icon {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 100;
+}
