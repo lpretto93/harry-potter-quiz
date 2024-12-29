@@ -62,19 +62,16 @@ button:hover {
     box-sizing: border-box;
 }
 
-/* Modale classifica */
-#leaderboard-modal {
-    position: fixed;
+/* Effetto immagine per le risposte giuste o sbagliate */
+.answer-effect {
+    width: 50px;
+    height: 50px;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: var(--background-overlay);
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
-    max-width: 90%;
-    overflow-y: auto;
-    max-height: 80%;
+    z-index: 1000;
+    transition: all 1s ease-in-out;
 }
 
 /* Media query per dispositivi mobili */
@@ -98,30 +95,9 @@ button:hover {
     #game-container {
         width: 90%;
     }
-
-    #leaderboard-modal {
-        max-width: 95%;
-        padding: 15px;
-    }
-}
-@media (max-width: 768px) {
-    body {
-        background-size: cover; /* Rende lo sfondo responsive */
-    }
-
-    /* Se vuoi rendere le immagini di risposta più visibili su dispositivi mobili */
+    
     .answer-btn {
-        font-size: 1rem; /* Modifica la dimensione del testo su dispositivi piccoli */
+        font-size: 1rem;
         padding: 15px;
-    }
-}
-body {
-    background: url('background.jpeg') no-repeat center center;
-    background-size: cover; /* Per fare in modo che l'immagine di sfondo si adatti */
-}
-@media (max-width: 768px) {
-    .answer-effect {
-        width: 50px; /* Riduci la dimensione dell'effetto immagine su mobile */
-        height: 50px;
     }
 }
