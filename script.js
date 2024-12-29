@@ -27,10 +27,10 @@ async function loadQuestions() {
     }
 }
 
-// Funzione per selezionare casualmente 25 domande
+// Funzione per selezionare casualmente 50 domande
 function getRandomQuestions(allQuestions) {
     const selectedQuestions = [];
-    while (selectedQuestions.length < 25 && allQuestions.length > 0) {
+    while (selectedQuestions.length < 50 && allQuestions.length > 0) {
         const randomIndex = Math.floor(Math.random() * allQuestions.length);
         selectedQuestions.push(allQuestions.splice(randomIndex, 1)[0]);
     }
@@ -73,7 +73,7 @@ function checkAnswer(selectedIndex) {
     const image = document.createElement('img');
     image.classList.add('answer-effect');
     image.style.position = 'absolute';
-    image.style.top = '80%'; // Sposta l'immagine più in basso su mobile
+    image.style.top = '70%'; // Posizione dell'immagine più in basso
     image.style.left = '50%';
     image.style.transform = 'translateX(-50%)';
     image.style.zIndex = '1000';
@@ -108,7 +108,7 @@ function checkAnswer(selectedIndex) {
         }, 2000);  // Tempo ridotto per mobile
     } else {
         setTimeout(() => {
-            alert("Hai completato il gioco!"); // Mostra un messaggio di fine gioco
+            alert(`Hai completato il quiz! Il tuo punteggio finale è ${score}`); // Messaggio di fine gioco
         }, 2000); // Tempo ridotto per mobile
     }
 }
