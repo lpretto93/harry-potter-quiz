@@ -4,9 +4,6 @@ const playerNameInput = document.getElementById('player-name');
 const gameContainer = document.getElementById('game-container');
 const questionTitle = document.getElementById('question-title');
 const answerButtons = document.querySelectorAll('.answer-btn');
-const leaderboardModal = document.getElementById('leaderboard-modal');
-const leaderboardList = document.getElementById('leaderboard-list');
-const nextButton = document.getElementById('next-btn');
 
 // Variabili globali per lo stato del gioco
 let playerName = '';
@@ -76,10 +73,11 @@ function checkAnswer(selectedIndex) {
     const image = document.createElement('img');
     image.classList.add('answer-effect');
     image.style.position = 'absolute';
-    image.style.top = '50%';
+    image.style.top = '80%'; // Sposta l'immagine più in basso su mobile
     image.style.left = '50%';
-    image.style.transform = 'translate(-50%, -50%)';
+    image.style.transform = 'translateX(-50%)';
     image.style.zIndex = '1000';
+    image.style.width = '50vw';  // Imposta la larghezza dell'immagine su mobile (50% della larghezza)
 
     if (selectedIndex === correctAnswerIndex) {
         image.src = 'right.png';  // Usa il percorso relativo per le immagini locali
@@ -87,7 +85,7 @@ function checkAnswer(selectedIndex) {
     } else {
         image.src = 'wrong.png';
     }
-    
+
     document.body.appendChild(image);
 
     // Rimuovi l'immagine dopo un paio di secondi
@@ -107,11 +105,11 @@ function checkAnswer(selectedIndex) {
         setTimeout(() => {
             showQuestion(); // Mostra la prossima domanda dopo 3 secondi
             isAnswering = false; // Permette di rispondere nuovamente
-        }, 3000);
+        }, 2000);  // Tempo ridotto per mobile
     } else {
         setTimeout(() => {
             alert("Hai completato il gioco!"); // Mostra un messaggio di fine gioco
-        }, 3000);
+        }, 2000); // Tempo ridotto per mobile
     }
 }
 
@@ -135,4 +133,3 @@ startButton.addEventListener('click', async () => {
     gameContainer.style.display = 'block';
     showQuestion();
 });
-
