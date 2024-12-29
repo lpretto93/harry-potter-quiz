@@ -151,4 +151,8 @@ volumeIcon.addEventListener('click', () => {
         volumeIcon.src = 'volume.png';
         backgroundMusic.play(); // Ripristina la musica di sottofondo
     }
+
+    // Muta anche gli altri effetti sonori
+    correctSound.muted = isMuted;
+    wrongSound.muted = isMuted;
 });
