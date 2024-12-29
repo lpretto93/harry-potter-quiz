@@ -8,18 +8,28 @@
 </head>
 <body>
     <div id="game-container">
-        <h1>Harry Potter Quiz</h1>
-        <div id="question-container">
-            <p id="question"></p>
-            <div id="answer-buttons">
-                <!-- Answer buttons will be dynamically inserted here -->
-            </div>
+        <!-- Sezione per il nome utente -->
+        <div id="username-container">
+            <h1>Harry Potter Quiz</h1>
+            <p>Per favore, inserisci il tuo nome:</p>
+            <input type="text" id="username" placeholder="Nome Utente">
+            <button id="start-button">Inizia il Gioco</button>
         </div>
-        <div id="result"></div>
-        <button id="next-button" class="hidden">Next Question</button>
-        <div id="score-container" class="hidden">
-            <p>Score: <span id="score"></span></p>
-            <button id="submit-leaderboard">Submit to Leaderboard</button>
+
+        <!-- Sezione del quiz -->
+        <div id="quiz-container" class="hidden">
+            <div id="question-container">
+                <p id="question"></p>
+                <div id="answer-buttons">
+                    <!-- Risposte vengono inserite dinamicamente -->
+                </div>
+            </div>
+            <div id="result"></div>
+            <button id="next-button" class="hidden">Next Question</button>
+            <div id="score-container" class="hidden">
+                <p>Score: <span id="score"></span></p>
+                <button id="submit-leaderboard">Submit to Leaderboard</button>
+            </div>
         </div>
     </div>
     <audio id="background-music" loop>
