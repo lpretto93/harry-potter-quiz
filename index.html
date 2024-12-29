@@ -3,39 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gioco Harry Potter</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Harry Potter Quiz</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Schermata iniziale -->
-    <div id="player-name-container">
-        <h1>Benvenuto nel Gioco di Harry Potter!</h1>
-        <input type="text" id="player-name" placeholder="Inserisci il tuo nome">
-        <button id="start-btn">Inizia il gioco</button>
-    </div>
-
-    <!-- Gioco -->
     <div id="game-container">
-        <h2 id="question-title"></h2>
-        <div id="answers-container">
-            <button class="answer-btn"></button>
-            <button class="answer-btn"></button>
-            <button class="answer-btn"></button>
-            <button class="answer-btn"></button>
+        <h1>Harry Potter Quiz</h1>
+        <div id="question-container">
+            <p id="question"></p>
+            <div id="answer-buttons">
+                <!-- Answer buttons will be dynamically inserted here -->
+            </div>
+        </div>
+        <div id="result"></div>
+        <button id="next-button" class="hidden">Next Question</button>
+        <div id="score-container" class="hidden">
+            <p>Score: <span id="score"></span></p>
+            <button id="submit-leaderboard">Submit to Leaderboard</button>
         </div>
     </div>
-
-    <!-- Modale Classifica -->
-    <div id="leaderboard-modal">
-        <h2>Classifica</h2>
-        <ul id="leaderboard-list"></ul>
-        <button id="next-btn">Gioca ancora</button>
-    </div>
-
-    <!-- Audio per le risposte -->
-    <audio id="correct-audio" src="right.mp3" preload="auto"></audio>
-    <audio id="wrong-audio" src="wrong.mp3" preload="auto"></audio>
-
+    <audio id="background-music" loop>
+        <source src="background-music.mp3" type="audio/mp3">
+    </audio>
+    <audio id="right-sound">
+        <source src="right.mp3" type="audio/mp3">
+    </audio>
+    <audio id="wrong-sound">
+        <source src="wrong.mp3" type="audio/mp3">
+    </audio>
     <script src="script.js"></script>
 </body>
 </html>
