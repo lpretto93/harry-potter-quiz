@@ -9,7 +9,7 @@
 body {
     font-family: 'Almendra SC', serif;
     background: url('background.jpeg') no-repeat center center fixed;
-    background-size: cover;
+    background-size: cover; /* Adatta lo sfondo */
     color: var(--text-color);
     margin: 0;
     padding: 0;
@@ -20,6 +20,7 @@ body {
     flex-direction: column;
     box-sizing: border-box;
     text-align: center; /* Aggiunto per migliorare l'aspetto su mobile */
+    height: 100%; /* Aggiunto per garantire che l'elemento body prenda tutta l'altezza della finestra */
 }
 
 /* Titoli */
@@ -77,9 +78,12 @@ button:hover {
 /* Media query per dispositivi mobili */
 @media (max-width: 768px) {
     body {
+        background: url('background.jpeg') no-repeat center center fixed; /* Mantenere lo sfondo fisso su mobile */
+        background-size: cover; /* Adatta lo sfondo */
         flex-direction: column;
         justify-content: flex-start;
         padding-top: 20px;
+        text-align: center;
     }
 
     h1, h2, h3 {
@@ -99,5 +103,33 @@ button:hover {
     .answer-btn {
         font-size: 1rem;
         padding: 15px;
+    }
+    
+    /* Stile per il pulsante start nella schermata iniziale */
+    #start-btn {
+        font-size: 1.5rem;
+    }
+    
+    /* Modifica lo spazio tra i pulsanti in modalità mobile */
+    #answers-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+/* Media query per dispositivi con schermi più grandi */
+@media (min-width: 769px) {
+    body {
+        background-size: cover;
+    }
+
+    #game-container {
+        width: 70%;
+    }
+
+    .answer-btn {
+        font-size: 1.2rem;
+        padding: 20px;
     }
 }
