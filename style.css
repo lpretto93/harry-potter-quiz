@@ -62,19 +62,29 @@ button:hover {
     box-sizing: border-box;
 }
 
-/* Modale classifica */
-#leaderboard-modal {
-    position: fixed;
+/* Immagini di feedback */
+.answer-effect {
+    max-width: 80%;  /* Riduce la larghezza dell'immagine */
+    max-height: 80%; /* Riduce l'altezza dell'immagine */
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: var(--background-overlay);
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
-    max-width: 90%;
-    overflow-y: auto;
-    max-height: 80%;
+    z-index: 1000;
+    object-fit: contain; /* Mantiene l'aspetto dell'immagine */
+}
+
+/* Media query per dispositivi mobili */
+@media (max-width: 768px) {
+    .answer-effect {
+        max-width: 100%; /* Immagine a tutto schermo su dispositivi mobili */
+        max-height: 100%;
+    }
+}
+
+/* Modale classifica (rimosso dalla logica) */
+#leaderboard-modal {
+    display: none; /* Non verrà più mostrato */
 }
 
 /* Media query per dispositivi mobili */
@@ -83,11 +93,10 @@ button:hover {
         flex-direction: column;
         justify-content: flex-start;
         padding-top: 20px;
-        background-size: cover; /* Rende lo sfondo responsive */
     }
 
     h1, h2, h3 {
-        font-size: 1.5rem; /* Riduce la dimensione del testo per mobile */
+        font-size: 1.5rem;
     }
 
     input[type="text"], button {
@@ -103,15 +112,5 @@ button:hover {
     #leaderboard-modal {
         max-width: 95%;
         padding: 15px;
-    }
-
-    .answer-btn {
-        font-size: 1rem; /* Modifica la dimensione del testo su dispositivi piccoli */
-        padding: 15px;
-    }
-
-    .answer-effect {
-        width: 50px; /* Riduce la dimensione dell'effetto immagine su mobile */
-        height: 50px;
     }
 }
