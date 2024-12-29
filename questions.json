@@ -1,0 +1,192 @@
+[
+    {
+        "question": "Chi è l'autore del libro 'Magia per principianti'?",
+        "answers": ["Gilderoy Lockhart", "Hermione Granger", "Newt Scamander", "Phineas Nigellus Black"],
+        "correct": 0
+    },
+    {
+        "question": "Qual è il nome della creatura che custodisce il Segreto di Hogwarts?",
+        "answers": ["Basilisco", "Griffone", "Cerbero", "Hippogriffo"],
+        "correct": 0
+    },
+    {
+        "question": "Chi ha ucciso il basilisco nel secondo libro?",
+        "answers": ["Harry Potter", "Ron Weasley", "Hermione Granger", "Ginny Weasley"],
+        "correct": 0
+    },
+    {
+        "question": "Qual è il nome del professore di Pozioni alla Scuola di Magia?",
+        "answers": ["Severus Snape", "Minerva McGonagall", "Albus Dumbledore", "Gilderoy Lockhart"],
+        "correct": 0
+    },
+    {
+        "question": "Cosa significa 'Expelliarmus'?",
+        "answers": ["Disarmare", "Levitate", "Accendere", "Migliorare"],
+        "correct": 0
+    },
+    {
+        "question": "Cosa significa l'incantesimo 'Avada Kedavra'?",
+        "answers": ["Morte istantanea", "Disarma", "Blocca", "Teletrasporta"],
+        "correct": 0
+    },
+    {
+        "question": "In quale libro Harry Potter affronta per la prima volta Lord Voldemort?",
+        "answers": ["Harry Potter e la Pietra Filosofale", "Harry Potter e la Camera dei Segreti", "Harry Potter e il Prigioniero di Azkaban", "Harry Potter e il Calice di Fuoco"],
+        "correct": 0
+    },
+    {
+        "question": "Chi è l'autore del libro 'Storia della Magia'?",
+        "answers": ["Bathilda Bagshot", "Miranda Goshawk", "Phyllida Spore", "Bode"],
+        "correct": 0
+    },
+    {
+        "question": "Chi ha creato il gioco degli Scacchi Magici?",
+        "answers": ["Felix Summerbee", "Godric Grifondoro", "Helga Tassorosso", "Salazar Serpeverde"],
+        "correct": 0
+    },
+    {
+        "question": "Qual è il nome dell'ippogriffo che Harry cavalca nel terzo libro?",
+        "answers": ["Buckbeak", "Firenze", "Aragog", "Fluffy"],
+        "correct": 0
+    },
+    {
+        "question": "Chi ha creato la Mappa del Malandrino?",
+        "answers": ["James Potter, Sirius Black, Remus Lupin, Peter Pettigrew", "Albus Dumbledore", "Salazar Serpeverde", "Minerva McGonagall"],
+        "correct": 0
+    },
+    {
+        "question": "Qual è il nome del gemello che muore durante la Battaglia di Hogwarts?",
+        "answers": ["Fred Weasley", "George Weasley", "Ron Weasley", "Percy Weasley"],
+        "correct": 0
+    },
+    {
+        "question": "Dove si trova il negozio di bacchette di Ollivander?",
+        "answers": ["Diagon Alley", "Hogsmeade", "London", "Knockturn Alley"],
+        "correct": 0
+    },
+    {
+        "question": "Qual è il nome del drago che Harry affronta nel Triwizard Tournament?",
+        "answers": ["Hungarian Horntail", "Chinese Fireball", "Welsh Green", "Norwegian Ridgeback"],
+        "correct": 0
+    },
+    {
+        "question": "Chi è il capo della Casa di Serpeverde durante il periodo in cui Harry frequenta Hogwarts?",
+        "answers": ["Severus Snape", "Horace Slughorn", "Delores Umbridge", "Minerva McGonagall"],
+        "correct": 0
+    },
+    {
+        "question": "Qual è la formula dell'incantesimo 'Lumos'?",
+        "answers": ["Accende la bacchetta", "Blocca l'incantesimo", "Crea una luce", "Disarma il nemico"],
+        "correct": 2
+    },
+    {
+        "question": "Che tipo di creatura è Fawkes?",
+        "answers": ["Fenice", "Basilisco", "Cervo", "Hippogriffo"],
+        "correct": 0
+    },
+    {
+        "question": "Chi è il fondatore di Grifondoro?",
+        "answers": ["Godric Grifondoro", "Salazar Serpeverde", "Helga Tassorosso", "Rowena Ravenclaw"],
+        "correct": 0
+    },
+    {
+        "question": "Cosa significa l'incantesimo 'Accio'?",
+        "answers": ["Attira un oggetto", "Blocca un oggetto", "Teletrasporta un oggetto", "Vola un oggetto"],
+        "correct": 0
+    },
+    {
+        "question": "Qual è il nome della biblioteca di Hogwarts?",
+        "answers": ["Biblioteca di Hogwarts", "Biblioteca di Dumbledore", "Biblioteca di Sirius", "Biblioteca di Grifondoro"],
+        "correct": 0
+    },
+    {
+        "question": "Chi è il Ministro della Magia durante il quarto libro?",
+        "answers": ["Cornelius Fudge", "Rufus Scrimgeour", "Kingsley Shacklebolt", "Percy Weasley"],
+        "correct": 0
+    },
+    {
+        "question": "Qual è il nome del fondatore di Serpeverde?",
+        "answers": ["Salazar Serpeverde", "Godric Grifondoro", "Rowena Ravenclaw", "Helga Tassorosso"],
+        "correct": 0
+    },
+    {
+        "question": "Chi è l'autore del libro 'Il grande libro delle pozioni'?",
+        "answers": ["Phyllida Spore", "Miranda Goshawk", "Gilderoy Lockhart", "Horace Slughorn"],
+        "correct": 0
+    },
+    {
+        "question": "Qual è la massima velocità di un Nimbus 2000?",
+        "answers": ["250 km/h", "150 km/h", "180 km/h", "200 km/h"],
+        "correct": 0
+    },
+    {
+        "question": "Chi è il professor di Difesa contro le Arti Oscure nel quinto anno di Harry?",
+        "answers": ["Dolores Umbridge", "Severus Snape", "Remus Lupin", "Gilderoy Lockhart"],
+        "correct": 0
+    },
+    {
+        "question": "Qual è il nome del villaggio dove si trova il negozio di Gelati di Florean Fortescue?",
+        "answers": ["Hogsmeade", "Diagon Alley", "Godric's Hollow", "Little Hangleton"],
+        "correct": 0
+    },
+    {
+        "question": "Chi ha scritto il libro 'La Storia di Hogwarts'?",
+        "answers": ["Bathilda Bagshot", "Gilderoy Lockhart", "Newt Scamander", "Helga Tassorosso"],
+        "correct": 0
+    },
+    {
+        "question": "Cosa significa l'incantesimo 'Petrificus Totalus'?",
+        "answers": ["Congela un oggetto", "Congela una persona", "Disarma un nemico", "Teletrasporta un oggetto"],
+        "correct": 1
+    },
+    {
+        "question": "Quale dei seguenti personaggi non è mai stato a Hogwarts?",
+        "answers": ["Sirius Black", "Peter Pettigrew", "Tom Riddle", "Luna Lovegood"],
+        "correct": 3
+    },
+    {
+        "question": "Che tipo di animale è il Patronus di Harry?",
+        "answers": ["Cervo", "Lupo", "Cervo Albino", "Un cavallo"],
+        "correct": 0
+    },
+    {
+        "question": "Come si chiama il drago che Hagrid vince in 'Harry Potter e la Pietra Filosofale'?",
+        "answers": ["Norberto", "Fluffy", "Buckbeak", "Aragog"],
+        "correct": 0
+    },
+    {
+        "question": "Dove si trova la Gringott?",
+        "answers": ["Diagon Alley", "Hogsmeade", "Knockturn Alley", "London"],
+        "correct": 0
+    },
+    {
+        "question": "Chi è il preside della Scuola di Magia e Stregoneria di Beauxbatons?",
+        "answers": ["Madame Olympe Maxime", "Filius Flitwick", "Minerva McGonagall", "Horace Slughorn"],
+        "correct": 0
+    },
+    {
+        "question": "Come si chiama il leggendario bassotto di Sirius?",
+        "answers": ["Padfoot", "Crookshanks", "Fang", "Hedwig"],
+        "correct": 0
+    },
+    {
+        "question": "Qual è la forma del Patronus di Severus Snape?",
+        "answers": ["Cervo", "Cane", "Coniglio", "Serpente"],
+        "correct": 3
+    },
+    {
+        "question": "Chi è il professore di Difesa contro le Arti Oscure nel quarto libro?",
+        "answers": ["Madame Olympe Maxime", "Gilderoy Lockhart", "Dolores Umbridge", "Barty Crouch Jr."],
+        "correct": 3
+    },
+    {
+        "question": "Qual è il nome del Ministero della Magia?",
+        "answers": ["Ministero della Magia", "Ministry of Magic", "Goblin Ministry", "Ufficio dei Maghi"],
+        "correct": 0
+    },
+    {
+        "question": "Come si chiamava il genitore di Draco Malfoy?",
+        "answers": ["Lucius Malfoy", "Voldemort", "Barty Crouch", "Sirius Black"],
+        "correct": 0
+    }
+]
