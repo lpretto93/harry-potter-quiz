@@ -8,7 +8,10 @@ const answerButtons = document.querySelectorAll('.answer-btn');
 // Elementi audio
 const correctSound = new Audio('right.mp3'); // Carica l'audio per la risposta corretta
 const wrongSound = new Audio('wrong.mp3'); // Carica l'audio per la risposta errata
-const backgroundMusic = document.getElementById('background-music'); // Elemento audio per la musica di sottofondo
+const backgroundMusic = new Audio('background-music.mp3'); // Musica di sottofondo
+
+// Pulsante mute
+const muteButton = document.getElementById('mute-btn');
 
 // Variabili globali per lo stato del gioco
 let playerName = '';
@@ -91,8 +94,9 @@ function showFeedback(imageSrc) {
     image.classList.add('answer-effect');
     document.body.appendChild(image);
 
+    // Rimuovi l'immagine dopo l'animazione (dopo 1 secondo)
     setTimeout(() => {
-        image.remove(); // Rimuovi l'immagine dopo 1 secondo
+        image.remove(); // Rimuove l'immagine dopo che l'animazione è finita
     }, 1000);
 }
 
@@ -126,12 +130,12 @@ startButton.addEventListener('click', async () => {
     gameContainer.style.display = 'block';
     showQuestion();
 
-    // Avvia la musica di sottofondo
+    // Riproduce la musica di sottofondo
+    backgroundMusic.loop = true;  // Imposta la musica in loop
     backgroundMusic.play();
 });
 
-// Gestisce la muta della musica
-const muteButton = document.getElementById('mute-music-btn');
+// Gestisce il mute/unmute della musica
 muteButton.addEventListener('click', () => {
     if (backgroundMusic.paused) {
         backgroundMusic.play();
