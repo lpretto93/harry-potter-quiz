@@ -42,6 +42,10 @@ function getRandomQuestions(allQuestions) {
 
 // Mostra la domanda corrente
 function showQuestion() {
+    if (currentQuestionIndex >= questions.length) {
+        return showEndGame(); // Mostra la fine del gioco quando non ci sono più domande
+    }
+
     const questionObj = questions[currentQuestionIndex];
     questionTitle.textContent = questionObj.question;
 
@@ -75,12 +79,8 @@ function handleAnswer(selectedIndex) {
     // Passa alla domanda successiva
     currentQuestionIndex++;
 
-    // Verifica se ci sono altre domande
-    if (currentQuestionIndex < questions.length) {
-        showQuestion(); // Mostra la prossima domanda
-    } else {
-        showEndGame(); // Fine del gioco
-    }
+    // Mostra la prossima domanda
+    showQuestion();
 }
 
 // Mostra il feedback visivo (giusta o sbagliata)
