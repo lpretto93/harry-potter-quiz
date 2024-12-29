@@ -5,15 +5,12 @@ const gameContainer = document.getElementById('game-container');
 const questionTitle = document.getElementById('question-title');
 const answerButtons = document.querySelectorAll('.answer-btn');
 
-// Elementi audio
-const correctSound = new Audio('right.mp3'); // Carica l'audio per la risposta corretta
-const wrongSound = new Audio('wrong.mp3'); // Carica l'audio per la risposta errata
-
 // Variabili globali per lo stato del gioco
 let playerName = '';
 let currentQuestionIndex = 0;
 let score = 0;
 let questions = [];
+let isAnswering = false; // Per evitare risposte durante il "black screen"
 
 // Funzione per caricare le domande dal file JSON
 async function loadQuestions() {
@@ -49,10 +46,11 @@ function showQuestion() {
     const questionObj = questions[currentQuestionIndex];
     questionTitle.textContent = questionObj.question;
 
-    // Assegna le risposte ai pulsanti
+    // Assegna le risposte ai pulsanti e ripristina i pulsanti (senza selezione)
     answerButtons.forEach((button, index) => {
         button.textContent = questionObj.answers[index];
         button.disabled = false; // Rende i pulsanti nuovamente attivi
+        button.classList.remove('selected'); // Rimuove la classe di selezione se presente
         button.onclick = () => handleAnswer(index); // Gestisce il click
     });
 }
@@ -80,7 +78,9 @@ function handleAnswer(selectedIndex) {
     currentQuestionIndex++;
 
     // Mostra la prossima domanda
-    showQuestion();
+    setTimeout(() => {
+        showQuestion();
+    }, 1000); // Aspetta un secondo prima di passare alla prossima domanda
 }
 
 // Mostra il feedback visivo (giusta o sbagliata)
@@ -88,11 +88,6 @@ function showFeedback(imageSrc) {
     const image = document.createElement('img');
     image.src = imageSrc;
     image.classList.add('answer-effect');
-    image.style.position = 'absolute';
-    image.style.top = '50%';
-    image.style.left = '50%';
-    image.style.transform = 'translate(-50%, -50%)';
-    image.style.zIndex = '1000';
     document.body.appendChild(image);
 
     setTimeout(() => {
@@ -130,3 +125,4 @@ startButton.addEventListener('click', async () => {
     gameContainer.style.display = 'block';
     showQuestion();
 });
+
