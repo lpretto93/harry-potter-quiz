@@ -24,7 +24,12 @@ backgroundMusic.play();
 
 // Caricamento delle domande dal file JSON
 fetch('questions.json')
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Errore nel caricamento delle domande');
+        }
+        return response.json();
+    })
     .then(data => {
         questions = data.questions;
     })
@@ -33,7 +38,7 @@ fetch('questions.json')
         alert("Errore nel caricamento delle domande.");
     });
 
-// Inizializza il gioco
+// Inizializza il gioco quando si preme il tasto "Inizia il Gioco"
 startButton.addEventListener("click", () => {
     username = usernameInput.value.trim();
     if (username === '') {
@@ -41,12 +46,14 @@ startButton.addEventListener("click", () => {
         return;
     }
 
+    // Nasconde la sezione del nome utente e mostra il quiz
     usernameContainer.classList.add("hidden");
     quizContainer.classList.remove("hidden");
+
     startGame();
 });
 
-// Avvia il gioco
+// Funzione per avviare il gioco
 function startGame() {
     showQuestion();
     nextButton.addEventListener("click", nextQuestion);
