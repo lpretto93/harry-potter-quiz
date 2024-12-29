@@ -19,7 +19,7 @@ body {
     min-height: 100vh;
     flex-direction: column;
     box-sizing: border-box;
-    text-align: center; /* Aggiunto per migliorare l'aspetto su mobile */
+    text-align: center;
 }
 
 /* Titoli */
@@ -40,11 +40,11 @@ input[type="text"], button {
     width: 80%;
     max-width: 400px;
     box-sizing: border-box;
+    transition: all 0.3s ease;
 }
 
 button {
     cursor: pointer;
-    transition: all 0.3s ease;
     width: 100%;
     padding: 12px;
 }
@@ -62,29 +62,16 @@ button:hover {
     box-sizing: border-box;
 }
 
-/* Immagini di feedback */
+/* Immagini di risposta (right e wrong) */
 .answer-effect {
-    width: 60%;  /* Imposta una larghezza moderata per desktop */
-    height: auto;
     position: absolute;
-    bottom: 20px; /* Posiziona l'immagine nella parte inferiore */
+    top: 70%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
-    object-fit: contain;
-}
-
-/* Media query per dispositivi mobili */
-@media (max-width: 768px) {
-    .answer-effect {
-        width: 80%; /* Rende l'immagine più grande su dispositivi mobili */
-        bottom: 20px; /* Mantieni l'immagine verso il basso */
-    }
-}
-
-/* Modale classifica (rimosso dalla logica) */
-#leaderboard-modal {
-    display: none; /* Non verrà più mostrato */
+    width: 50vw;  /* Imposta la larghezza su mobile */
+    max-width: 200px;
+    max-height: 200px;
 }
 
 /* Media query per dispositivi mobili */
@@ -108,4 +95,98 @@ button:hover {
     #game-container {
         width: 90%;
     }
+
+    #leaderboard-modal {
+        max-width: 95%;
+        padding: 15px;
+    }
+
+    /* Immagini di risposta su mobile: più grandi e centrato */
+    .answer-effect {
+        width: 70vw;  /* Imposta la larghezza delle immagini più grandi su mobile */
+        max-width: 300px;  /* Limita la larghezza massima */
+        max-height: 300px;  /* Limita l'altezza massima */
+    }
+}
+
+/* Sezione per la schermata iniziale (form per il nome del giocatore) */
+#player-name-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Modale classifica */
+#leaderboard-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--background-overlay);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+    max-width: 90%;
+    overflow-y: auto;
+    max-height: 80%;
+}
+
+/* Pulsante "Gioca ancora" */
+#next-btn {
+    padding: 12px;
+    width: 100%;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    font-size: 1.2rem;
+    color: var(--text-color);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+#next-btn:hover {
+    transform: scale(1.05);
+    background-color: #ffb300;
+}
+
+/* Bottone di avvio del gioco */
+#start-btn {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+/* Allineamento dei pulsanti delle risposte */
+#answers-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Pulsanti delle risposte */
+.answer-btn {
+    padding: 10px;
+    margin: 10px;
+    width: 80%;
+    max-width: 400px;
+    background-color: var(--background-overlay);
+    border: 2px solid var(--primary-color);
+    color: var(--text-color);
+    font-size: 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.answer-btn:hover {
+    background-color: var(--primary-color);
+    transform: scale(1.05);
+}
+
+/* Hovering e selezione delle risposte */
+.answer-btn.selected {
+    background-color: rgba(255, 255, 255, 0.2);
 }
