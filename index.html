@@ -3,37 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harry Potter Quiz</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Gioco Harry Potter</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="start-screen">
-        <h1>Benvenuto al Quiz su Harry Potter!</h1>
-        <input type="text" id="username" placeholder="Inserisci il tuo nome" />
+    <!-- Schermata iniziale -->
+    <div id="player-name-container">
+        <h1>Benvenuto nel Gioco di Harry Potter!</h1>
+        <input type="text" id="player-name" placeholder="Inserisci il tuo nome">
         <button id="start-btn">Inizia il gioco</button>
     </div>
 
-    <div class="quiz-container">
-        <div class="question-container">
-            <h2 id="question"></h2>
+    <!-- Gioco -->
+    <div id="game-container" style="display: none;">
+        <h2 id="question-title"></h2>
+        <div id="answers-container">
+            <button class="answer-btn"></button>
+            <button class="answer-btn"></button>
+            <button class="answer-btn"></button>
+            <button class="answer-btn"></button>
         </div>
-        <div class="answers-container">
-            <button class="answer-btn">Risposta 1</button>
-            <button class="answer-btn">Risposta 2</button>
-            <button class="answer-btn">Risposta 3</button>
-            <button class="answer-btn">Risposta 4</button>
-        </div>
-        <div class="feedback">
-            <img id="feedback-image" src="" alt="feedback" />
-            <audio id="feedback-sound" src=""></audio>
-        </div>
-        <div id="score-container">
-            <h3>Punteggio: <span id="score">0</span></h3>
-        </div>
-    </div>
-
-    <div id="leaderboard-container">
-        <button id="view-leaderboard-btn">Vedi classifica</button>
     </div>
 
     <script src="script.js"></script>
