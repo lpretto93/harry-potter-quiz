@@ -9,7 +9,7 @@
 body {
     font-family: 'Almendra SC', serif;
     background: url('background.jpeg') no-repeat center center fixed;
-    background-size: cover; /* Adatta lo sfondo */
+    background-size: cover;
     color: var(--text-color);
     margin: 0;
     padding: 0;
@@ -78,8 +78,8 @@ button:hover {
 /* Media query per dispositivi mobili */
 @media (max-width: 768px) {
     body {
-        background: url('background.jpeg') no-repeat center center fixed; /* Mantenere lo sfondo fisso su mobile */
-        background-size: cover; /* Adatta lo sfondo */
+        background: url('background.jpeg') no-repeat center center fixed;
+        background-size: cover;
         flex-direction: column;
         justify-content: flex-start;
         padding-top: 20px;
@@ -99,17 +99,17 @@ button:hover {
     #game-container {
         width: 90%;
     }
-    
+
     .answer-btn {
         font-size: 1rem;
         padding: 15px;
     }
-    
+
     /* Stile per il pulsante start nella schermata iniziale */
     #start-btn {
         font-size: 1.5rem;
     }
-    
+
     /* Modifica lo spazio tra i pulsanti in modalità mobile */
     #answers-container {
         display: flex;
