@@ -19,8 +19,7 @@ body {
     min-height: 100vh;
     flex-direction: column;
     box-sizing: border-box;
-    text-align: center; /* Aggiunto per migliorare l'aspetto su mobile */
-    height: 100%; /* Aggiunto per garantire che l'elemento body prenda tutta l'altezza della finestra */
+    text-align: center;
 }
 
 /* Titoli */
@@ -65,25 +64,48 @@ button:hover {
 
 /* Effetto immagine per le risposte giuste o sbagliate */
 .answer-effect {
-    width: 50px;
-    height: 50px;
-    position: absolute;
+    width: 100vw;  /* Imposta la larghezza dell'immagine al 100% della larghezza dello schermo */
+    height: 100vh; /* Imposta l'altezza dell'immagine al 100% dell'altezza dello schermo */
+    position: fixed;  /* Fissa l'immagine sullo schermo */
+    top: 0;  /* Posiziona l'immagine nella parte superiore dello schermo */
+    left: 0; /* Posiziona l'immagine a sinistra dello schermo */
+    object-fit: contain; /* Mantiene le proporzioni dell'immagine */
+    z-index: 1000; /* Assicura che l'immagine sia sopra gli altri elementi */
+    display: block;  /* Assicura che l'immagine sia visibile */
+    animation: fade-out 1s ease-out forwards;  /* Animazione per farla scomparire dopo 1 secondo */
+}
+
+/* Animazione per far scomparire l'immagine dopo un secondo */
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Modale classifica */
+#leaderboard-modal {
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1000;
-    transition: all 1s ease-in-out;
+    background: var(--background-overlay);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+    max-width: 90%;
+    overflow-y: auto;
+    max-height: 80%;
 }
 
 /* Media query per dispositivi mobili */
 @media (max-width: 768px) {
     body {
-        background: url('background.jpeg') no-repeat center center fixed;
-        background-size: cover;
         flex-direction: column;
         justify-content: flex-start;
         padding-top: 20px;
-        text-align: center;
     }
 
     h1, h2, h3 {
@@ -100,36 +122,8 @@ button:hover {
         width: 90%;
     }
 
-    .answer-btn {
-        font-size: 1rem;
+    #leaderboard-modal {
+        max-width: 95%;
         padding: 15px;
-    }
-
-    /* Stile per il pulsante start nella schermata iniziale */
-    #start-btn {
-        font-size: 1.5rem;
-    }
-
-    /* Modifica lo spazio tra i pulsanti in modalità mobile */
-    #answers-container {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-}
-
-/* Media query per dispositivi con schermi più grandi */
-@media (min-width: 769px) {
-    body {
-        background-size: cover;
-    }
-
-    #game-container {
-        width: 70%;
-    }
-
-    .answer-btn {
-        font-size: 1.2rem;
-        padding: 20px;
     }
 }
