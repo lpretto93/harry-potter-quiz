@@ -5,19 +5,16 @@ const gameContainer = document.getElementById('game-container');
 const questionTitle = document.getElementById('question-title');
 const answerButtons = document.querySelectorAll('.answer-btn');
 
+// Icona del volume
+const volumeIcon = document.getElementById('volume-icon');
+
 // Elementi audio
 const correctSound = new Audio('right.mp3'); // Carica l'audio per la risposta corretta
 const wrongSound = new Audio('wrong.mp3'); // Carica l'audio per la risposta errata
 const backgroundMusic = new Audio('background-music.mp3'); // Musica di sottofondo
 
-// Pulsante mute
-const muteButton = document.getElementById('mute-btn');
-
-// Variabili globali per lo stato del gioco
-let playerName = '';
-let currentQuestionIndex = 0;
-let score = 0;
-let questions = [];
+// Variabili per controllare lo stato del volume
+let isMuted = false;
 
 // Funzione per caricare le domande dal file JSON
 async function loadQuestions() {
@@ -68,11 +65,11 @@ function handleAnswer(selectedIndex) {
 
     // Effetto visivo e sonoro
     if (selectedIndex === correctAnswerIndex) {
-        correctSound.play(); // Suono giusto
+        playSound(correctSound); // Suono giusto
         showFeedback('right.png');
         score++; // Incrementa il punteggio
     } else {
-        wrongSound.play(); // Suono sbagliato
+        playSound(wrongSound); // Suono sbagliato
         showFeedback('wrong.png');
     }
 
@@ -84,6 +81,13 @@ function handleAnswer(selectedIndex) {
         showQuestion(); // Mostra la prossima domanda
     } else {
         showEndGame(); // Fine del gioco
+    }
+}
+
+// Funzione per riprodurre il suono, considerando se il volume è mutato
+function playSound(sound) {
+    if (!isMuted) {
+        sound.play();
     }
 }
 
@@ -135,13 +139,16 @@ startButton.addEventListener('click', async () => {
     backgroundMusic.play();
 });
 
-// Gestisce il mute/unmute della musica
-muteButton.addEventListener('click', () => {
-    if (backgroundMusic.paused) {
-        backgroundMusic.play();
-        muteButton.textContent = "Silenziamento Musica"; // Cambia testo se la musica è ripresa
+// Gestisce l'icona del volume (mute/unmute per tutti i suoni)
+volumeIcon.addEventListener('click', () => {
+    isMuted = !isMuted; // Cambia lo stato di mute
+
+    // Cambia l'icona in base allo stato di mute
+    if (isMuted) {
+        volumeIcon.src = 'mute.png';
+        backgroundMusic.pause(); // Mute per la musica di sottofondo
     } else {
-        backgroundMusic.pause();
-        muteButton.textContent = "Attiva Musica"; // Cambia testo se la musica è in pausa
+        volumeIcon.src = 'volume.png';
+        backgroundMusic.play(); // Ripristina la musica di sottofondo
     }
 });
