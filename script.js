@@ -88,11 +88,6 @@ function showFeedback(imageSrc) {
     const image = document.createElement('img');
     image.src = imageSrc;
     image.classList.add('answer-effect');
-    image.style.position = 'absolute';
-    image.style.top = '50%';
-    image.style.left = '50%';
-    image.style.transform = 'translate(-50%, -50%)';
-    image.style.zIndex = '1000';
     document.body.appendChild(image);
 
     setTimeout(() => {
@@ -124,6 +119,8 @@ startButton.addEventListener('click', async () => {
 
     // Carica le domande e avvia il gioco
     const allQuestions = await loadQuestions();
+    if (!allQuestions) return; // Se le domande non sono state caricate correttamente, interrompi
+
     questions = getRandomQuestions(allQuestions);
 
     // Mostra la prima domanda
