@@ -1,24 +1,8 @@
-// Caricamento delle domande dal file JSON
-fetch('questions.json')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Problema nel caricare il file JSON");
-        }
-        return response.json();
-    })
-    .then(data => {
-        questions = data.questions;
-        console.log("Domande caricate: ", questions); // Aggiunto il log per debug
-        startGame();
-    })
-    .catch(error => {
-        console.error("Errore nel caricamento del JSON: ", error);
-        alert("Errore nel caricamento delle domande. Assicurati che il file questions.json sia presente.");
-    });
-
 let currentQuestionIndex = 0;
 let score = 0;
 let questions = [];
+let username = '';
+
 const questionContainer = document.getElementById("question-container");
 const answerButtons = document.getElementById("answer-buttons");
 const resultContainer = document.getElementById("result");
@@ -31,21 +15,51 @@ const backgroundMusic = document.getElementById("background-music");
 const rightSound = document.getElementById("right-sound");
 const wrongSound = document.getElementById("wrong-sound");
 
+const usernameInput = document.getElementById("username");
+const startButton = document.getElementById("start-button");
+const usernameContainer = document.getElementById("username-container");
+const quizContainer = document.getElementById("quiz-container");
+
 backgroundMusic.play();
 
+// Caricamento delle domande dal file JSON
+fetch('questions.json')
+    .then(response => response.json())
+    .then(data => {
+        questions = data.questions;
+    })
+    .catch(error => {
+        console.error("Errore nel caricamento delle domande: ", error);
+        alert("Errore nel caricamento delle domande.");
+    });
+
+// Inizializza il gioco
+startButton.addEventListener("click", () => {
+    username = usernameInput.value.trim();
+    if (username === '') {
+        alert("Per favore, inserisci un nome.");
+        return;
+    }
+
+    usernameContainer.classList.add("hidden");
+    quizContainer.classList.remove("hidden");
+    startGame();
+});
+
+// Avvia il gioco
 function startGame() {
-    console.log("Inizio del gioco"); // Aggiunto log per debug
     showQuestion();
     nextButton.addEventListener("click", nextQuestion);
     submitLeaderboardButton.addEventListener("click", submitLeaderboard);
 }
 
+// Mostra la domanda e le risposte
 function showQuestion() {
     const question = questions[currentQuestionIndex];
     document.getElementById("question").innerText = question.question;
     answerButtons.innerHTML = ''; // Clear previous answers
 
-    question.answers.forEach((answer, index) => {
+    question.answers.forEach((answer) => {
         const button = document.createElement("button");
         button.innerText = answer.text;
         button.addEventListener("click", () => checkAnswer(answer.correct));
@@ -53,6 +67,7 @@ function showQuestion() {
     });
 }
 
+// Controlla se la risposta è corretta
 function checkAnswer(isCorrect) {
     if (isCorrect) {
         resultContainer.innerHTML = "<img src='right.png' alt='Correct' style='width:100%; height:auto;'>";
@@ -65,6 +80,7 @@ function checkAnswer(isCorrect) {
     nextButton.classList.remove("hidden");
 }
 
+// Passa alla domanda successiva
 function nextQuestion() {
     currentQuestionIndex++;
     if (currentQuestionIndex < questions.length) {
@@ -76,19 +92,19 @@ function nextQuestion() {
     nextButton.classList.add("hidden");
 }
 
+// Fine del gioco
 function endGame() {
     scoreContainer.classList.remove("hidden");
     scoreElement.innerText = score;
     nextButton.classList.add("hidden");
 }
 
+// Salva la classifica
 function submitLeaderboard() {
-    const playerName = prompt("Enter your name for the leaderboard:");
-    if (playerName) {
-        let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
-        leaderboard.push({ name: playerName, score: score });
-        leaderboard.sort((a, b) => b.score - a.score); // Sort leaderboard by score
-        localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
-        window.location.href = "leaderboard.html";
-    }
+    let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+    leaderboard.push({ name: username, score: score });
+    leaderboard.sort((a, b) => b.score - a.score); // Sort leaderboard by score
+    localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+    window.location.href = "leaderboard.html";
 }
+
