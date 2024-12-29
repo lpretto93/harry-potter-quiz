@@ -4,6 +4,9 @@ const playerNameInput = document.getElementById('player-name');
 const gameContainer = document.getElementById('game-container');
 const questionTitle = document.getElementById('question-title');
 const answerButtons = document.querySelectorAll('.answer-btn');
+const leaderboardModal = document.getElementById('leaderboard-modal');
+const leaderboardList = document.getElementById('leaderboard-list');
+const nextButton = document.getElementById('next-btn');
 
 // Variabili globali per lo stato del gioco
 let playerName = '';
@@ -37,72 +40,79 @@ function getRandomQuestions(allQuestions) {
     return selectedQuestions;
 }
 
+// Funzione per resettare la selezione delle risposte
+function resetAnswerSelection() {
+    answerButtons.forEach(button => {
+        button.classList.remove('selected'); // Rimuove la classe "selected" da ogni pulsante
+        button.disabled = false; // Riabilita i pulsanti (nel caso fossero disabilitati)
+    });
+}
+
 // Mostra la domanda corrente
 function showQuestion() {
-    if (currentQuestionIndex >= questions.length) {
-        return showEndGame(); // Mostra la fine del gioco quando non ci sono più domande
-    }
+    if (isAnswering) return; // Non permette di rispondere durante il "black screen"
+    
+    // Reset della selezione precedente delle risposte
+    resetAnswerSelection();
 
     const questionObj = questions[currentQuestionIndex];
     questionTitle.textContent = questionObj.question;
 
-    // Assegna le risposte ai pulsanti e ripristina i pulsanti (senza selezione)
+    // Assegna le risposte ai pulsanti
     answerButtons.forEach((button, index) => {
         button.textContent = questionObj.answers[index];
-        button.disabled = false; // Rende i pulsanti nuovamente attivi
-        button.classList.remove('selected'); // Rimuove la classe di selezione se presente
-        button.onclick = () => handleAnswer(index); // Gestisce il click
+        button.onclick = () => checkAnswer(index); // Gestisce il click
     });
 }
 
-// Gestisce la risposta selezionata
-function handleAnswer(selectedIndex) {
+// Verifica la risposta selezionata
+function checkAnswer(selectedIndex) {
+    if (isAnswering) return; // Evita di rispondere se già in attesa
+    isAnswering = true;
+
     const correctAnswerIndex = questions[currentQuestionIndex].correct;
 
-    // Disabilita i pulsanti dopo che è stata selezionata una risposta
-    answerButtons.forEach(button => {
-        button.disabled = true;
-    });
-
-    // Effetto visivo e sonoro
-    if (selectedIndex === correctAnswerIndex) {
-        correctSound.play(); // Suono giusto
-        showFeedback('right.png');
-        score++; // Incrementa il punteggio
-    } else {
-        wrongSound.play(); // Suono sbagliato
-        showFeedback('wrong.png');
-    }
-
-    // Passa alla domanda successiva
-    currentQuestionIndex++;
-
-    // Mostra la prossima domanda
-    setTimeout(() => {
-        showQuestion();
-    }, 1000); // Aspetta un secondo prima di passare alla prossima domanda
-}
-
-// Mostra il feedback visivo (giusta o sbagliata)
-function showFeedback(imageSrc) {
+    // Mostra l'effetto visivo (immagine giusta o sbagliata)
     const image = document.createElement('img');
-    image.src = imageSrc;
-    image.classList.add('answer-effect');  // Classe per l'effetto visivo
+    image.classList.add('answer-effect');
+    image.style.position = 'absolute';
+    image.style.top = '50%';
+    image.style.left = '50%';
+    image.style.transform = 'translate(-50%, -50%)';
+    image.style.zIndex = '1000';
+
+    if (selectedIndex === correctAnswerIndex) {
+        image.src = 'right.png';  // Usa il percorso relativo per le immagini locali
+        score++; // Incrementa il punteggio se la risposta è corretta
+    } else {
+        image.src = 'wrong.png';
+    }
+    
     document.body.appendChild(image);
 
+    // Rimuovi l'immagine dopo un paio di secondi
     setTimeout(() => {
-        image.remove(); // Rimuovi l'immagine dopo 1 secondo
-    }, 1000);
-}
+        image.remove();
+    }, 2000);
 
-// Mostra il punteggio finale
-function showEndGame() {
-    alert(`Hai finito il gioco! Il tuo punteggio finale è: ${score}`);
-    // Resetta il gioco per una nuova partita
-    currentQuestionIndex = 0;
-    score = 0;
-    gameContainer.style.display = 'none';
-    document.getElementById('player-name-container').style.display = 'block'; // Mostra la schermata iniziale
+    // Mostra la schermata nera per mezzo secondo
+    document.body.style.backgroundColor = 'black';
+    setTimeout(() => {
+        document.body.style.backgroundColor = ''; // Torna al colore normale
+    }, 500);
+
+    currentQuestionIndex++; // Passa alla prossima domanda
+
+    if (currentQuestionIndex < questions.length) {
+        setTimeout(() => {
+            showQuestion(); // Mostra la prossima domanda dopo 3 secondi
+            isAnswering = false; // Permette di rispondere nuovamente
+        }, 3000);
+    } else {
+        setTimeout(() => {
+            alert("Hai completato il gioco!"); // Mostra un messaggio di fine gioco
+        }, 3000);
+    }
 }
 
 // Gestisce l'inizio del gioco
