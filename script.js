@@ -1,114 +1,84 @@
-// Selezione degli elementi dal DOM
-const startButton = document.getElementById('start-btn');
-const playerNameInput = document.getElementById('player-name');
-const gameContainer = document.getElementById('game-container');
-const questionTitle = document.getElementById('question-title');
-const answerButtons = document.querySelectorAll('.answer-btn');
-const correctAudio = document.getElementById('correct-audio');
-const wrongAudio = document.getElementById('wrong-audio');
+// Caricamento delle domande dal file JSON
+fetch('questions.json')
+    .then(response => response.json())
+    .then(data => {
+        questions = data.questions;
+        startGame();
+    });
 
-// Variabili globali per lo stato del gioco
-let playerName = '';
 let currentQuestionIndex = 0;
 let score = 0;
 let questions = [];
-let isAnswering = false; // Per evitare risposte durante il "black screen"
+const questionContainer = document.getElementById("question-container");
+const answerButtons = document.getElementById("answer-buttons");
+const resultContainer = document.getElementById("result");
+const nextButton = document.getElementById("next-button");
+const scoreContainer = document.getElementById("score-container");
+const scoreElement = document.getElementById("score");
+const submitLeaderboardButton = document.getElementById("submit-leaderboard");
 
-// Funzione per caricare le domande dal file JSON
-async function loadQuestions() {
-    try {
-        const response = await fetch('questions.json'); // Carica il file JSON dallo stesso livello
-        if (!response.ok) {
-            throw new Error('Errore nel caricamento delle domande');
-        }
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error(error);
-        alert('Impossibile caricare le domande. Riprova più tardi.');
-    }
+const backgroundMusic = document.getElementById("background-music");
+const rightSound = document.getElementById("right-sound");
+const wrongSound = document.getElementById("wrong-sound");
+
+backgroundMusic.play();
+
+function startGame() {
+    showQuestion();
+    nextButton.addEventListener("click", nextQuestion);
+    submitLeaderboardButton.addEventListener("click", submitLeaderboard);
 }
 
-// Funzione per selezionare casualmente 25 domande
-function getRandomQuestions(allQuestions) {
-    const selectedQuestions = [];
-    while (selectedQuestions.length < 25 && allQuestions.length > 0) {
-        const randomIndex = Math.floor(Math.random() * allQuestions.length);
-        selectedQuestions.push(allQuestions.splice(randomIndex, 1)[0]);
-    }
-    return selectedQuestions;
-}
-
-// Mostra la domanda corrente
 function showQuestion() {
-    const questionObj = questions[currentQuestionIndex];
-    questionTitle.textContent = questionObj.question;
+    const question = questions[currentQuestionIndex];
+    document.getElementById("question").innerText = question.question;
+    answerButtons.innerHTML = ''; // Clear previous answers
 
-    // Assegna le risposte ai pulsanti
-    answerButtons.forEach((button, index) => {
-        button.textContent = questionObj.answers[index];
-        button.onclick = () => checkAnswer(index); // Gestisce il click
-        button.classList.remove('selected'); // Rimuove la selezione da tutte le risposte
+    question.answers.forEach((answer, index) => {
+        const button = document.createElement("button");
+        button.innerText = answer.text;
+        button.addEventListener("click", () => checkAnswer(answer.correct));
+        answerButtons.appendChild(button);
     });
 }
 
-// Verifica la risposta selezionata
-function checkAnswer(selectedIndex) {
-    if (isAnswering) return; // Evita di rispondere se già in attesa
-    isAnswering = true;
-
-    const correctAnswerIndex = questions[currentQuestionIndex].correct;
-
-    // Mostra l'effetto visivo (immagine giusta o sbagliata)
-    const image = document.createElement('img');
-    image.classList.add('answer-effect');
-    image.style.position = 'absolute';
-    image.style.top = '70%';
-    image.style.left = '50%';
-    image.style.transform = 'translateX(-50%)';
-    image.style.zIndex = '1000';
-
-    if (selectedIndex === correctAnswerIndex) {
-        image.src = 'right.png';
-        correctAudio.play(); // Suona l'audio giusto
-        score++; // Incrementa il punteggio se la risposta è corretta
+function checkAnswer(isCorrect) {
+    if (isCorrect) {
+        resultContainer.innerHTML = "<img src='right.png' alt='Correct' style='width:100%; height:auto;'>";
+        rightSound.play();
+        score++;
     } else {
-        image.src = 'wrong.png';
-        wrongAudio.play(); // Suona l'audio sbagliato
+        resultContainer.innerHTML = "<img src='wrong.png' alt='Wrong' style='width:100%; height:auto;'>";
+        wrongSound.play();
     }
+    nextButton.classList.remove("hidden");
+}
 
-    document.body.appendChild(image);
-
-    // Rimuovi l'immagine dopo un paio di secondi
-    setTimeout(() => {
-        image.remove();
-    }, 2000);
-
-    // Passa alla prossima domanda
+function nextQuestion() {
     currentQuestionIndex++;
     if (currentQuestionIndex < questions.length) {
-        setTimeout(() => {
-            showQuestion(); // Mostra la prossima domanda dopo 1 secondo
-            isAnswering = false; // Permette di rispondere nuovamente
-        }, 1500);
+        showQuestion();
+    } else {
+        endGame();
+    }
+    resultContainer.innerHTML = ''; // Clear result
+    nextButton.classList.add("hidden");
+}
+
+function endGame() {
+    scoreContainer.classList.remove("hidden");
+    scoreElement.innerText = score;
+    nextButton.classList.add("hidden");
+}
+
+function submitLeaderboard() {
+    const playerName = prompt("Enter your name for the leaderboard:");
+    if (playerName) {
+        let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+        leaderboard.push({ name: playerName, score: score });
+        leaderboard.sort((a, b) => b.score - a.score); // Sort leaderboard by score
+        localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+        window.location.href = "leaderboard.html";
     }
 }
 
-// Gestisce l'inizio del gioco
-startButton.addEventListener('click', async () => {
-    playerName = playerNameInput.value.trim();
-    if (playerName === '') {
-        alert('Inserisci un nome!');
-        return;
-    }
-
-    // Nasconde la schermata iniziale
-    document.getElementById('player-name-container').style.display = 'none';
-
-    // Carica le domande
-    const allQuestions = await loadQuestions();
-    questions = getRandomQuestions(allQuestions);
-    gameContainer.style.display = 'block'; // Mostra il gioco
-
-    showQuestion(); // Mostra la prima domanda
-});
