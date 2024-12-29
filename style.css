@@ -1,0 +1,152 @@
+body {
+    font-family: 'Almendra SC', serif;
+    background: url('hpbg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #f5deb3;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+h1, h2, h3 {
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.9), 0 0 30px rgba(255, 140, 0, 0.7);
+    text-align: center; /* Centra i titoli */
+}
+
+input[type="text"], button {
+    border-radius: 10px;
+    border: 2px solid #ffcc00;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #f5deb3;
+    font-family: 'Almendra SC', serif;
+    padding: 10px;
+    font-size: 1.2rem;
+    width: 80%; /* Rende gli input e i pulsanti più larghi su schermi piccoli */
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+button {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    padding: 12px; /* Aumenta l'area cliccabile */
+}
+
+button:hover {
+    background-color: #ffcc00;
+    transform: scale(1.05);
+}
+
+#game-container {
+    width: 80%;
+    max-width: 1000px;
+    display: none;
+    box-sizing: border-box;
+}
+
+#leaderboard-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+    max-width: 90%;
+    overflow-y: auto; /* Permette lo scorrimento verticale su schermi più piccoli */
+    max-height: 80%; /* Limita l'altezza della finestra per evitare troppa spaziatura su schermi piccoli */
+}
+
+#lightning-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.lightning {
+    position: absolute;
+    width: 100px;
+    height: 400px;
+    background: url('images/lightning.png') no-repeat center center;
+    background-size: contain;
+    animation: fadeOut 1s forwards;
+}
+
+/* Aggiungi le media query per dispositivi mobili */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-top: 20px;
+    }
+
+    h1, h2, h3 {
+        font-size: 1.5rem; /* Riduce la dimensione dei titoli sui dispositivi mobili */
+    }
+
+    input[type="text"], button {
+        width: 90%;
+        font-size: 1rem;
+        padding: 8px;
+    }
+
+    button {
+        padding: 12px;
+    }
+
+    #game-container {
+        width: 90%;
+    }
+
+    #leaderboard-modal {
+        max-width: 95%;
+        padding: 15px;
+    }
+
+    .lightning {
+        width: 70px; /* Riduce la larghezza delle saette per dispositivi più piccoli */
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding-top: 30px;
+    }
+
+    h1, h2, h3 {
+        font-size: 1.2rem;
+    }
+
+    input[type="text"], button {
+        font-size: 1rem;
+        width: 95%;
+        padding: 6px;
+    }
+
+    button {
+        padding: 10px;
+    }
+
+    #leaderboard-modal {
+        max-width: 90%;
+        padding: 10px;
+    }
+
+    .lightning {
+        width: 60px; /* Ancora più piccole per schermi più piccoli */
+        height: 250px;
+    }
+}
