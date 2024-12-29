@@ -7,21 +7,28 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Aggiungi il tag audio per la musica di sottofondo -->
+    <audio id="background-music" loop>
+        <source src="background-music.mp3" type="audio/mp3">
+        Il tuo browser non supporta l'elemento audio.
+    </audio>
+
     <!-- Schermata iniziale -->
     <div id="player-name-container">
         <h1>Benvenuto nel Gioco di Harry Potter!</h1>
         <input type="text" id="player-name" placeholder="Inserisci il tuo nome">
         <button id="start-btn">Inizia il gioco</button>
+        <button id="mute-music-btn">Silenziamento Musica</button> <!-- Pulsante per mutare la musica -->
     </div>
 
     <!-- Gioco -->
     <div id="game-container" style="display: none;">
         <h2 id="question-title"></h2>
         <div id="answers-container">
-            <button class="answer-btn">Risposta 1</button>
-            <button class="answer-btn">Risposta 2</button>
-            <button class="answer-btn">Risposta 3</button>
-            <button class="answer-btn">Risposta 4</button>
+            <button class="answer-btn"></button>
+            <button class="answer-btn"></button>
+            <button class="answer-btn"></button>
+            <button class="answer-btn"></button>
         </div>
     </div>
 
