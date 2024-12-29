@@ -23,8 +23,21 @@ h1 {
     margin-bottom: 2rem;
 }
 
-#question-container {
-    margin-bottom: 20px;
+#username-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+input {
+    padding: 10px;
+    margin: 20px 0;
+    font-size: 1.2rem;
+    width: 200px;
+    border: 2px solid #f1c40f;
+    background-color: #fff;
+    color: #333;
 }
 
 button {
@@ -42,6 +55,10 @@ button:hover {
 
 .hidden {
     display: none;
+}
+
+#question-container {
+    margin-bottom: 20px;
 }
 
 #result {
