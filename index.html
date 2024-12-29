@@ -15,7 +15,7 @@
     </div>
 
     <!-- Gioco -->
-    <div id="game-container" style="display: none;">
+    <div id="game-container">
         <h2 id="question-title"></h2>
         <div id="answers-container">
             <button class="answer-btn"></button>
@@ -24,6 +24,17 @@
             <button class="answer-btn"></button>
         </div>
     </div>
+
+    <!-- Modale Classifica -->
+    <div id="leaderboard-modal">
+        <h2>Classifica</h2>
+        <ul id="leaderboard-list"></ul>
+        <button id="next-btn">Gioca ancora</button>
+    </div>
+
+    <!-- Audio per le risposte -->
+    <audio id="correct-audio" src="right.mp3" preload="auto"></audio>
+    <audio id="wrong-audio" src="wrong.mp3" preload="auto"></audio>
 
     <script src="script.js"></script>
 </body>
