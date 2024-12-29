@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gioco Harry Potter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Schermata iniziale -->
+    <div id="player-name-container">
+        <h1>Benvenuto nel Gioco di Harry Potter!</h1>
+        <input type="text" id="player-name" placeholder="Inserisci il tuo nome">
+        <button id="start-btn">Inizia il gioco</button>
+    </div>
+
+    <!-- Gioco -->
+    <div id="game-container">
+        <h2 id="question-title"></h2>
+        <div id="answers-container">
+            <button class="answer-btn"></button>
+            <button class="answer-btn"></button>
+            <button class="answer-btn"></button>
+            <button class="answer-btn"></button>
+        </div>
+    </div>
+	<audio id="correct-sound" src="right.mp3" preload="auto"></audio>
+<audio id="wrong-sound" src="wrong.mp3" preload="auto"></audio>
+
+
+    <!-- Modale Classifica -->
+    <div id="leaderboard-modal">
+        <h2>Classifica</h2>
+        <ul id="leaderboard-list"></ul>
+        <button id="next-btn">Gioca ancora</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
