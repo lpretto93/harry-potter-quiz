@@ -64,21 +64,21 @@ button:hover {
 
 /* Immagini di feedback */
 .answer-effect {
-    max-width: 80%;  /* Riduce la larghezza dell'immagine */
-    max-height: 80%; /* Riduce l'altezza dell'immagine */
+    width: 60%;  /* Imposta una larghezza moderata per desktop */
+    height: auto;
     position: absolute;
-    top: 50%;
+    bottom: 20px; /* Posiziona l'immagine nella parte inferiore */
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     z-index: 1000;
-    object-fit: contain; /* Mantiene l'aspetto dell'immagine */
+    object-fit: contain;
 }
 
 /* Media query per dispositivi mobili */
 @media (max-width: 768px) {
     .answer-effect {
-        max-width: 100%; /* Immagine a tutto schermo su dispositivi mobili */
-        max-height: 100%;
+        width: 80%; /* Rende l'immagine più grande su dispositivi mobili */
+        bottom: 20px; /* Mantieni l'immagine verso il basso */
     }
 }
 
@@ -107,10 +107,5 @@ button:hover {
 
     #game-container {
         width: 90%;
-    }
-
-    #leaderboard-modal {
-        max-width: 95%;
-        padding: 15px;
     }
 }
