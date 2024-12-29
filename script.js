@@ -87,7 +87,7 @@ function handleAnswer(selectedIndex) {
 function showFeedback(imageSrc) {
     const image = document.createElement('img');
     image.src = imageSrc;
-    image.classList.add('answer-effect');
+    image.classList.add('answer-effect');  // Classe per l'effetto visivo
     document.body.appendChild(image);
 
     setTimeout(() => {
