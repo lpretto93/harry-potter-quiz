@@ -8,6 +8,7 @@ const answerButtons = document.querySelectorAll('.answer-btn');
 // Elementi audio
 const correctSound = new Audio('right.mp3'); // Carica l'audio per la risposta corretta
 const wrongSound = new Audio('wrong.mp3'); // Carica l'audio per la risposta errata
+const backgroundMusic = document.getElementById('background-music'); // Elemento audio per la musica di sottofondo
 
 // Variabili globali per lo stato del gioco
 let playerName = '';
@@ -119,12 +120,24 @@ startButton.addEventListener('click', async () => {
 
     // Carica le domande e avvia il gioco
     const allQuestions = await loadQuestions();
-    if (!allQuestions) return; // Se le domande non sono state caricate correttamente, interrompi
-
     questions = getRandomQuestions(allQuestions);
 
     // Mostra la prima domanda
     gameContainer.style.display = 'block';
     showQuestion();
+
+    // Avvia la musica di sottofondo
+    backgroundMusic.play();
 });
 
+// Gestisce la muta della musica
+const muteButton = document.getElementById('mute-music-btn');
+muteButton.addEventListener('click', () => {
+    if (backgroundMusic.paused) {
+        backgroundMusic.play();
+        muteButton.textContent = "Silenziamento Musica"; // Cambia testo se la musica è ripresa
+    } else {
+        backgroundMusic.pause();
+        muteButton.textContent = "Attiva Musica"; // Cambia testo se la musica è in pausa
+    }
+});
