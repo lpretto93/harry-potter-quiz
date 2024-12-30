@@ -30,6 +30,23 @@ function startGame() {
     }
     document.getElementById('invitation-container').style.display = 'none';
     document.getElementById('thank-you-letter').style.display = 'block';
+    typeWriter("thank-you-letter", "We are excited to welcome you to Hogwarts! Before we proceed, please complete the following short knowledge test to begin your magical journey.");
+}
+
+// Funzione di scrittura del testo
+function typeWriter(id, text) {
+    let i = 0;
+    let speed = 50; // Velocità della scrittura
+
+    function write() {
+        if (i < text.length) {
+            document.getElementById(id).innerHTML += text.charAt(i);
+            i++;
+            setTimeout(write, speed);
+        }
+    }
+
+    write();
 }
 
 // Funzione per iniziare il quiz
