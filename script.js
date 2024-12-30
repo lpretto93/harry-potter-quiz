@@ -1,18 +1,35 @@
-function goToHousesIntro() {
-  const playerName = document.getElementById('player-name').value.trim();
-  if (!playerName) {
-    alert("Per favore, inserisci il tuo nome prima di continuare!");
+// Variabile per l'audio
+let audio = document.getElementById('background-audio');
+
+// Funzione per iniziare la musica al caricamento della pagina
+window.addEventListener('load', () => {
+  // Verifica se l'audio non è già in riproduzione
+  if (!audio.paused) {
     return;
   }
+  audio.play().catch((err) => {
+    console.log('Errore nel riprodurre l\'audio: ' + err);
+  });
+});
 
-  // Salva il nome del giocatore per usarlo nelle schermate successive
-  localStorage.setItem('playerName', playerName);
+// Funzione per attivare/disattivare l'audio
+function toggleAudio() {
+  const audioIcon = document.getElementById('audio-icon');
 
-  // Passa alla schermata delle casate
-  window.location.href = 'houses.html';
+  if (audio.paused) {
+    // Se l'audio è in pausa, lo riproduciamo
+    audio.play();
+    audioIcon.src = 'volume.png'; // Cambia l'icona in volume attivo
+    audioIcon.alt = 'Audio On';
+  } else {
+    // Se l'audio è in riproduzione, lo mettiamo in pausa
+    audio.pause();
+    audioIcon.src = 'mute.png'; // Cambia l'icona in mute
+    audioIcon.alt = 'Audio Off';
+  }
 }
 
-function goToQuiz() {
-  // Passa alla schermata del quiz
-  window.location.href = 'quiz.html';
+// Funzione per andare alla pagina successiva (casate)
+function goToHousesIntro() {
+  window.location.href = 'houses.html'; // Cambia URL per la pagina delle casate
 }
