@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hogwarts Invitation</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Contenitore della lettera di invito -->
+    <div id="invitation-container">
+        <!-- Logo di Hogwarts -->
+        <div id="hogwarts-logo-container">
+            <img id="hogwarts-logo" src="hogwarts.png" alt="Hogwarts Logo">
+        </div>
+
+        <div id="invitation-content">
+            <h1 id="title">Welcome to Hogwarts</h1>
+            <p id="letter-body">Dear 
+                <!-- Textbox dove l'utente inserirà il proprio nome -->
+                <input type="text" id="name-input" placeholder="Enter your name" oninput="updateName()" />
+            </p>
+            <p id="letter-content">
+                We are pleased to inform you that you have been accepted to Hogwarts School of Witchcraft and Wizardry. 
+                As a student at Hogwarts, you must possess certain qualities in order to be worthy of admission. Among these are the courage to face the challenges ahead, the wisdom to make the right choices when confronted with difficult decisions, the creativity to approach magic with an open mind, compassion for your fellow students, and the determination to persevere in the face of adversity. 
+                These are the qualities we value and that we will nurture throughout your years here. Your potential for greatness is enormous, but it will be up to you to harness it and grow. In the coming days, you will be introduced to the magical arts, and you will discover your own path among the four Houses of Hogwarts: Gryffindor, Hufflepuff, Ravenclaw, and Slytherin. Each House values different strengths, and you will find that it is not just your magic, but your heart and your spirit that will shape your journey.
+                <br><br>We look forward to seeing how these qualities will shape your time here at Hogwarts. It will be a time of great joy, immense learning, and lasting friendships.
+                <br><br>Yours sincerely,
+            </p>
+            <!-- Firma di Silente -->
+            <span id="signature">Albus Dumbledore</span>
+            
+            <!-- Pulsante con immagine per avanzare -->
+            <a href="#" id="sign-btn">
+                <img src="next-page.png" alt="Next Page">
+            </a>
+        </div>
+    </div>
+
+    <!-- Seconda Pagina: Lettera di Ammissione con informazioni sulle Casate -->
+    <div id="admission-letter" style="display: none;">
+        <div id="hogwarts-logo-container">
+            <img id="hogwarts-logo" src="hogwarts.png" alt="Hogwarts Logo">
+        </div>
+
+        <div id="invitation-content">
+            <h1 id="title">Hogwarts School of Witchcraft and Wizardry</h1>
+            <p id="letter-body">Dear <span id="user-name"></span>, Choose a House.</p>
+        </div>
+
+        <!-- Sezione delle Casate con scroll verticale e centrato -->
+        <div id="houses-container">
+            <!-- Casata Gryffindor -->
+            <div class="house" onclick="chooseHouse('Gryffindor')">
+                <div class="house-logo-container">
+                    <img src="Gryffindor.png" alt="Gryffindor House" class="house-logo">
+                </div>
+                <div class="house-description">
+                    <h3>Gryffindor</h3>
+                    <p>
+                        Known for their bravery, courage, and daring, Gryffindors are a proud group of students
+                        who value determination and standing up for what is right. The house was founded by Godric
+                        Gryffindor and its emblematic animal is the lion.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Casata Hufflepuff -->
+            <div class="house" onclick="chooseHouse('Hufflepuff')">
+                <div class="house-logo-container">
+                    <img src="Hufflepuff.png" alt="Hufflepuff House" class="house-logo">
+                </div>
+                <div class="house-description">
+                    <h3>Hufflepuff</h3>
+                    <p>
+                        Hufflepuff is known for its values of loyalty, hard work, and fair play. Students of Hufflepuff 
+                        are known for their patience and kindness, and the house was founded by Helga Hufflepuff. The emblem 
+                        animal is the badger.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Casata Ravenclaw -->
+            <div class="house" onclick="chooseHouse('Ravenclaw')">
+                <div class="house-logo-container">
+                    <img src="Ravenclaw.png" alt="Ravenclaw House" class="house-logo">
+                </div>
+                <div class="house-description">
+                    <h3>Ravenclaw</h3>
+                    <p>
+                        Ravenclaw students are known for their intelligence, wisdom, and individuality. Founded by Rowena 
+                        Ravenclaw, this house values creativity, learning, and open-mindedness. Its animal is the eagle.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Casata Slytherin -->
+            <div class="house" onclick="chooseHouse('Slytherin')">
+                <div class="house-logo-container">
+                    <img src="Slytherin.png" alt="Slytherin House" class="house-logo">
+                </div>
+                <div class="house-description">
+                    <h3>Slytherin</h3>
+                    <p>
+                        Known for ambition, cunning, and resourcefulness, Slytherins are determined and strategic individuals. 
+                        Founded by Salazar Slytherin, its emblem animal is the serpent. Slytherins value leadership and self-preservation.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Selezione della Casata -->
+        <div id="house-selection-result" style="display: none;">
+            <h2>You have chosen: <span id="chosen-house"></span></h2>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
