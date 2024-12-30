@@ -131,6 +131,10 @@ function showQuestion() {
         button.textContent = questionObj.answers[index];
         button.onclick = () => handleAnswer(index); // Gestisce il click
     });
+
+    // Nascondi il feedback e riabilita i pulsanti
+    correctFeedback.style.display = 'none';
+    incorrectFeedback.style.display = 'none';
 }
 
 // Mostra il punteggio finale e salva la classifica
