@@ -1,4 +1,4 @@
-/* Variabili per colori principali */
+/* Variabili CSS per colori principali */
 :root {
     --primary-color: #ffcc00;
     --background-overlay: rgba(0, 0, 0, 0.8);
@@ -18,11 +18,12 @@ body {
     align-items: center;
     min-height: 100vh;
     flex-direction: column;
+    box-sizing: border-box;
     text-align: center;
 }
 
 /* Titoli */
-h1, h2 {
+h1, h2, h3 {
     text-shadow: 0 0 15px rgba(255, 215, 0, 0.9), 0 0 30px rgba(255, 140, 0, 0.7);
     font-size: 2rem;
 }
@@ -33,6 +34,7 @@ input[type="text"], button {
     border: 2px solid var(--primary-color);
     background-color: var(--background-overlay);
     color: var(--text-color);
+    font-family: inherit;
     padding: 10px;
     font-size: 1.2rem;
     width: 80%;
@@ -57,68 +59,69 @@ button:hover {
     width: 80%;
     max-width: 1000px;
     display: none;
+    box-sizing: border-box;
 }
 
-/* Effetto immagine per risposte */
-.answer-effect {
+/* Icona volume in alto a destra */
+#volume-container {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 100;
+}
+
+#volume-icon {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+
+/* Feedback a schermo intero per la risposta corretta o sbagliata */
+.feedback-icon {
     width: 100vw;
     height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
     object-fit: contain;
+    display: none; /* Le immagini sono nascoste per default */
     z-index: 1000;
-    animation: fade-out 1s ease-out forwards;
 }
 
+/* Animazione per far scomparire l'immagine dopo 1 secondo */
 @keyframes fade-out {
-    0% { opacity: 1; }
-    100% { opacity: 0; }
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
-/* Icona volume */
-.volume-icon {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-    z-index: 100;
-}
-
-/* Mobile responsive */
+/* Media query per dispositivi mobili */
 @media (max-width: 768px) {
     body {
+        flex-direction: column;
+        justify-content: flex-start;
         padding-top: 20px;
     }
-    h1, h2 {
+
+    h1, h2, h3 {
         font-size: 1.5rem;
     }
+
     input[type="text"], button {
         width: 90%;
         font-size: 1rem;
         padding: 8px;
     }
-    .volume-icon {
+
+    #game-container {
+        width: 90%;
+    }
+
+    #volume-icon {
         width: 35px;
         height: 35px;
     }
-}
-.feedback-icon {
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50px;
-    height: 50px;
-}
-
-.correct {
-    background-color: #28a745; /* verde per la risposta corretta */
-}
-
-.incorrect {
-    background-color: #dc3545; /* rosso per la risposta sbagliata */
 }
