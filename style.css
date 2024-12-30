@@ -11,7 +11,7 @@
     top: 0;
     left: 0;
     z-index: -1; /* Impostiamo un valore basso per metterlo dietro gli altri contenuti */
-    overflow-y: auto; /* Aggiungi lo scroll verticale per la pagina */
+    overflow: auto; /* Aggiungi lo scroll verticale per la pagina */
 }
 
 /* Contenitore della lettera con margini laterali */
@@ -86,7 +86,7 @@
 #sign-btn {
     display: inline-block;
     position: absolute;
-    right: 10%; /* Sposta il pulsante più a destra */
+    right: 22%; /* Sposta il pulsante più a destra */
     bottom: 20px; /* Distanza dal fondo della pagina */
 }
 
@@ -107,6 +107,7 @@
     #invitation-content {
         padding: 0 20px; /* Ridurre il padding sui dispositivi mobili */
         max-width: 100%; /* Permetti al contenuto di adattarsi su schermi più piccoli */
+        text-align: center; /* Centrato orizzontalmente */
     }
 
     #name-input {
