@@ -1,205 +1,3 @@
-/* Stile generale */
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: url('letter.jpg') no-repeat center center fixed;
-  background-size: cover;
-  color: #000;
-  padding-left: 30px; /* Aumentato il margine sinistro */
-  padding-right: 30px; /* Aumentato il margine destro */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Questo aiuta a separare gli elementi tra sopra e sotto */
-  height: 100vh;
-}
-
-header {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.hogwarts-logo {
-  width: 120px;
-  height: auto;
-}
-
-.letter-heading {
-  font-family: 'Great Vibes', cursive;
-  font-size: 2.5rem;
-  text-align: left; /* Spostato a sinistra */
-  margin-bottom: 10px;
-}
-
-.letter-body {
-  font-family: 'Great Vibes', cursive;
-  font-size: 1.5rem;
-  line-height: 2;
-  text-align: left; /* Spostato a sinistra */
-  margin-bottom: 20px;
-  flex-grow: 1; /* Permette al testo di crescere per occupare spazio disponibile */
-}
-
-.signature {
-  font-family: 'Great Vibes', cursive;
-  font-size: 1.8rem;
-  text-align: left; /* Spostato a sinistra */
-  margin-top: 20px;
-  margin-bottom: 20px; /* Spazio extra per mobile */
-}
-
-input[type="text"] {
-  width: 80%;
-  padding: 10px;
-  margin: 10px 0;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.next-button {
-  cursor: pointer;
-  position: absolute;
-  bottom: 30px; /* Posizionato in basso */
-  right: 30px; /* Posizionato a destra */
-  width: 50px;
-  height: auto;
-  transition: transform 0.2s ease;
-}
-
-.next-button:hover {
-  transform: scale(1.1);
-}
-
-/* Stile per la pagina delle casate */
-.houses-screen {
-  text-align: center;
-  padding: 20px;
-}
-
-.houses {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-}
-
-.house {
-  text-align: center;
-  max-width: 350px;
-}
-
-.house img {
-  width: 120px;
-  height: auto;
-  margin-bottom: 15px;
-}
-
-.house-description {
-  font-family: 'Great Vibes', cursive;
-  font-size: 1.4rem;
-  line-height: 1.8;
-  text-align: justify;
-  margin-top: 15px;
-  max-width: 800px;
-}
-
-/* Ottimizzazioni per dispositivi mobili */
-@media screen and (max-width: 768px) {
-  .hogwarts-logo {
-    width: 100px;
-  }
-
-  .letter-heading {
-    font-size: 2rem;
-  }
-
-  .letter-body {
-    font-size: 1.2rem;
-    line-height: 1.8;
-  }
-
-  .signature {
-    font-size: 1.5rem;
-  }
-
-  input[type="text"] {
-    width: 90%;
-    font-size: 0.9rem;
-  }
-
-  .houses {
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-
-  .house {
-    max-width: 90%;
-  }
-
-  .house img {
-    width: 100px;
-  }
-
-  .house-description {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    max-width: 95%;
-  }
-
-  .next-button {
-    width: 40px;
-  }
-
-  /* Aggiunta la margine di sicurezza per dispositivi mobili */
-  body {
-    padding-bottom: 80px; /* Aggiungi spazio inferiore per evitare sovrapposizione dei contenuti */
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .hogwarts-logo {
-    width: 80px;
-  }
-
-  .letter-heading {
-    font-size: 1.8rem;
-  }
-
-  .letter-body {
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-
-  .signature {
-    font-size: 1.2rem;
-  }
-
-  .houses {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .house img {
-    width: 70px;
-  }
-
-  .house-description {
-    font-size: 1rem;
-    line-height: 1.4;
-  }
-
-  .next-button {
-    width: 35px;
-  }
-
-  /* Aggiunta la margine di sicurezza per dispositivi mobili */
-  body {
-    padding-bottom: 60px; /* Spazio inferiore per evitare sovrapposizione dei contenuti */
-  }
-}
-
 /* Pulsante audio in alto a sinistra */
 .audio-button {
   position: absolute;
@@ -214,7 +12,7 @@ input[type="text"] {
   height: auto;
 }
 
-/* Altri stili (già forniti in precedenza) */
+/* Stili generali */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -284,4 +82,28 @@ input[type="text"] {
 
 .next-button:hover {
   transform: scale(1.1);
+}
+
+/* Stili per la pagina delle casate */
+.houses {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.house-logo {
+  width: 150px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.house-description {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.5rem;
+  line-height: 1.8;
+  text-align: center;
+  margin-bottom: 20px;
+  width: 80%;
 }
