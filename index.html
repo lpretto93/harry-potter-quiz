@@ -1,42 +1,24 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gioco di Domande - Harry Potter</title>
-    <link rel="stylesheet" href="style.css"> <!-- Collega il file CSS -->
-    <!-- Importiamo un font ispirato a Harry Potter -->
-    <link href="https://fonts.googleapis.com/css2?family=Francois+One&display=swap" rel="stylesheet">
+    <title>Hogwarts Invitation</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="player-name-container">
-        <h1>Benvenuto a Hogwarts!</h1>
-        <p>Inserisci il tuo nome:</p>
-        <input type="text" id="player-name" placeholder="Nome utente">
-        <button id="start-btn">Inizia il Gioco</button>
-    </div>
 
-    <div id="game-container" style="display: none;">
-        <h2 id="question-title">Domanda</h2>
-        <div id="answers-container">
-            <button class="answer-btn">Risposta 1</button>
-            <button class="answer-btn">Risposta 2</button>
-            <button class="answer-btn">Risposta 3</button>
-            <button class="answer-btn">Risposta 4</button>
+    <div id="invitation-container">
+        <div id="invitation-content">
+            <h1>Welcome to Hogwarts</h1>
+            <p>Dear <span id="name-placeholder">__________</span>,</p>
+            <p>We are pleased to inform you that you have been accepted to Hogwarts School of Witchcraft and Wizardry. You will find all the necessary supplies for your first year in the list enclosed with this letter.</p>
+            <p>Please reply with your name below to confirm your attendance:</p>
+            <input type="text" id="player-name" placeholder="Enter your name" />
+            <button id="start-btn">Start Game</button>
         </div>
     </div>
 
-    <!-- Icona mute per il controllo audio -->
-    <div id="volume-container">
-        <img id="volume-icon" src="volume.png" alt="Mute Icon" />
-    </div>
-
-    <!-- Feedback a schermo intero -->
-    <div id="feedback-container">
-        <img id="correct-feedback" src="right.png" alt="Risposta Corretta" class="feedback-icon">
-        <img id="incorrect-feedback" src="wrong.png" alt="Risposta Errata" class="feedback-icon">
-    </div>
-
-    <script src="script.js"></script> <!-- Collega il file JavaScript -->
+    <script src="script.js"></script> <!-- Include your script here -->
 </body>
 </html>
