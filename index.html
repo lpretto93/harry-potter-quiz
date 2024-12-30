@@ -8,6 +8,7 @@
 </head>
 <body>
 
+    <!-- Schermata dell'invito -->
     <div id="invitation-container">
         <div id="invitation-content">
             <h1>Welcome to Hogwarts</h1>
@@ -15,7 +16,7 @@
             <p>We are pleased to inform you that you have been accepted to Hogwarts School of Witchcraft and Wizardry. You will find all the necessary supplies for your first year in the list enclosed with this letter.</p>
             <p>Please reply with your name below to confirm your attendance:</p>
 
-            <!-- Casella di testo per l'inserimento del nome -->
+            <!-- Casella di testo per il nome -->
             <input type="text" id="player-name" placeholder="Enter your name" />
 
             <!-- Pulsante per avviare il gioco -->
@@ -29,6 +30,17 @@
         </div>
     </div>
 
-    <script src="script.js"></script> <!-- Includi il tuo script qui -->
+    <!-- Contenitore del gioco -->
+    <div id="game-container" style="display: none;">
+        <h2 id="question-title"></h2>
+        <div id="answer-buttons">
+            <button class="answer-btn">Option 1</button>
+            <button class="answer-btn">Option 2</button>
+            <button class="answer-btn">Option 3</button>
+            <button class="answer-btn">Option 4</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script> <!-- Include il tuo script -->
 </body>
 </html>
