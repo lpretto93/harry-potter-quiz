@@ -8,7 +8,7 @@
 /* Stile generale */
 body {
     font-family: 'Almendra SC', serif;
-    background: url('background.jpeg') no-repeat center center fixed;
+    background: url('letter.jpg') no-repeat center center fixed; /* Modificato il percorso dell'immagine di sfondo */
     background-size: cover;
     color: var(--text-color);
     margin: 0;
