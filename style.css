@@ -1,127 +1,150 @@
-/* Impostazioni generali per il body */
-/* Body */
-body {
-    font-family: 'Francois One', sans-serif; /* Font in stile Harry Potter */
-    background-image: url('background.jpeg'); /* Sfondo per desktop */
-    background-size: cover; /* Assicura che lo sfondo copra tutta la pagina */
-    background-position: center center; /* Centra lo sfondo */
-    background-attachment: fixed; /* Fissa lo sfondo per un effetto parallax su desktop */
-    color: white;
-    margin: 0;
-    padding: 0;
-    height: 100vh; /* Imposta altezza della pagina a 100% per coprire tutto lo schermo */
-    background-repeat: no-repeat; /* Evita che l'immagine venga ripetuta */
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invito ad Hogwarts</title>
+    <style>
+        /* Impostazioni generali per il body */
+        body {
+            font-family: 'Francois One', sans-serif; /* Font in stile Harry Potter */
+            background-image: url('background.jpeg'); /* Sfondo per desktop */
+            background-size: cover; /* Assicura che lo sfondo copra tutta la pagina */
+            background-position: center center; /* Centra lo sfondo */
+            background-attachment: fixed; /* Fissa lo sfondo per un effetto parallax su desktop */
+            color: white;
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Imposta altezza della pagina a 100% per coprire tutto lo schermo */
+            background-repeat: no-repeat; /* Evita che l'immagine venga ripetuta */
+        }
 
+        /* Contenitore della lettera di invito */
+        #invitation-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 800px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 30px;
+            box-sizing: border-box;
+            background-image: url('letter.png'); /* Fondo della lettera */
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            color: #f4c542; /* Colore dorato per il testo */
+            font-style: italic; /* Testo in corsivo per l'effetto calligrafico */
+        }
 
+        /* Casella di testo per il nome dell'utente */
+        #player-name-container {
+            margin-top: 20px;
+        }
 
-/* Contenitore del gioco (domande e risposte) */
-#game-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%; /* Puoi regolare la larghezza come preferisci */
-    max-width: 600px; /* Limita la larghezza massima */
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box;
-    background-color: rgba(0, 0, 0, 0.6); /* Aggiunge un effetto di trasparenza sullo sfondo */
-    border-radius: 10px; /* Angoli arrotondati per un effetto più elegante */
-}
+        #player-name-input {
+            padding: 10px;
+            font-size: 20px;
+            border: 2px solid #f4c542;
+            border-radius: 5px;
+            width: 80%;
+            max-width: 300px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: black;
+        }
 
-/* Domande */
-#question-title {
-    font-size: 24px; /* Imposta una dimensione del font leggibile */
-    margin-bottom: 20px; /* Distanza tra la domanda e le risposte */
-    font-weight: bold;
-    color: #f4c542; /* Colore dorato per il titolo */
-}
+        /* Pulsante Partecipa */
+        #start-btn {
+            padding: 10px 20px;
+            background-color: #f4c542; /* Colore dorato */
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            color: black;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
 
-/* Risposte */
-.answer-btn {
-    display: block;
-    width: 100%;
-    margin: 10px 0; /* Aggiungi un po' di spazio tra le risposte */
-    padding: 15px;
-    font-size: 18px; /* Puoi regolare la dimensione del font */
-    cursor: pointer;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
+        #start-btn:hover {
+            background-color: #e0a800; /* Colore più scuro al passaggio del mouse */
+        }
 
-/* Aggiungi hover per le risposte */
-.answer-btn:hover {
-    background-color: #e0e0e0;
-}
+        /* Effetto di scrittura per la firma */
+        #signature {
+            position: absolute;
+            bottom: 30px;
+            right: 20px;
+            font-family: 'Brush Script MT', cursive;
+            font-size: 40px;
+            color: white;
+            visibility: hidden; /* Nascosto inizialmente */
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0; /* Imposta la larghezza iniziale a zero */
+            animation: write-signature 5s forwards; /* Animazione della scrittura */
+        }
 
-/* Feedback giusto o sbagliato */
-#correct-feedback, #incorrect-feedback {
-    display: none; /* Nascondi i feedback inizialmente */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 5;
-    width: 100%;
-    text-align: center;
-}
+        /* Animazione della firma */
+        @keyframes write-signature {
+            0% {
+                width: 0;
+            }
+            100% {
+                width: 100%; /* La larghezza finale è uguale alla larghezza del testo */
+            }
+        }
 
-#correct-feedback img, #incorrect-feedback img {
-    max-width: 50%;
-    max-height: 50%;
-}
+        /* Aggiungi un effetto di transizione morbido per il cambio di stato */
+        button:disabled {
+            background-color: #ccc; /* Colore disabilitato per i pulsanti */
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
 
-/* Posizione dell'icona di mute/unmute in basso a destra */
-#volume-icon {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 40px; /* Puoi regolare la dimensione */
-    height: 40px; /* Puoi regolare la dimensione */
-    cursor: pointer;
-    z-index: 10;
-}
+    <!-- Contenitore della lettera di invito -->
+    <div id="invitation-container">
+        <p>Dear Student,</p>
+        <p>You are invited to attend the Hogwarts School of Witchcraft and Wizardry.</p>
+        <p>Please enter your name to proceed:</p>
 
-/* Schermata iniziale (nome utente) */
-#player-name-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    max-width: 600px;
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    padding: 20px;
-    box-sizing: border-box;
-    background-color: rgba(0, 0, 0, 0.6); /* Trasparenza simile a quella del contenitore del gioco */
-    border-radius: 10px; /* Angoli arrotondati */
-    color: #f4c542; /* Colore dorato per il testo */
-}
+        <!-- Casella di testo per il nome dell'utente -->
+        <div id="player-name-container">
+            <input type="text" id="player-name-input" placeholder="Your Name">
+        </div>
 
-/* Stile dei pulsanti per lo start del gioco */
-#start-btn {
-    padding: 10px 20px;
-    background-color: #f4c542; /* Colore dorato */
-    border: none;
-    border-radius: 5px;
-    font-size: 18px;
-    color: black;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: background-color 0.3s ease;
-}
+        <!-- Pulsante per partecipare -->
+        <button id="start-btn" onclick="startGame()">Partecipa</button>
 
-#start-btn:hover {
-    background-color: #e0a800; /* Colore più scuro al passaggio del mouse */
-}
+        <!-- Firma dell'utente che appare dopo il clic -->
+        <div id="signature"></div>
+    </div>
 
-/* Aggiungi un effetto di transizione morbido per il cambio di stato */
-button:disabled {
-    background-color: #ccc; /* Colore disabilitato per i pulsanti */
-    cursor: not-allowed;
-}
+    <script>
+        // Funzione per gestire la partecipazione
+        function startGame() {
+            var playerName = document.getElementById('player-name-input').value;
+            
+            // Imposta la firma con il nome dell'utente
+            if (playerName.trim() !== '') {
+                var signature = document.getElementById('signature');
+                signature.innerHTML = playerName; // Aggiungi il nome dell'utente come firma
+                
+                // Rendi visibile la firma e avvia l'animazione
+                signature.style.visibility = 'visible';
+                
+                // Disabilita il pulsante "Partecipa" dopo il clic
+                document.getElementById('start-btn').disabled = true;
+            } else {
+                alert('Please enter your name to participate.');
+            }
+        }
+    </script>
+
+</body>
+</html>
