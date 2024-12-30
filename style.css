@@ -21,8 +21,10 @@ body {
         background-position: center center; /* Centra lo sfondo */
         background-attachment: scroll; /* Disattiva l'effetto parallax su mobile */
         background-repeat: no-repeat; /* Evita che l'immagine venga ripetuta */
+        height: 100vh; /* Assicura che l'altezza del body sia di 100% dell'altezza della finestra */
     }
 }
+
 
 /* Contenitore del gioco (domande e risposte) */
 #game-container {
