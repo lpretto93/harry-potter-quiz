@@ -11,6 +11,7 @@
     top: 0;
     left: 0;
     z-index: -1; /* Impostiamo un valore basso per metterlo dietro gli altri contenuti */
+    overflow-y: auto; /* Aggiungi lo scroll verticale per la pagina */
 }
 
 /* Contenitore della lettera con margini laterali */
@@ -98,8 +99,9 @@
 /* Responsività per dispositivi mobili */
 @media (max-width: 768px) {
     #invitation-container {
-        padding: 20px;
-        width: 100%;
+        padding: 20px; /* Aggiungiamo un po' di padding per evitare che il contenuto tocchi i bordi */
+        width: 100%; /* La larghezza è al 100% per adattarsi al dispositivo */
+        height: auto; /* Impostiamo l'altezza automatica per adattarsi al contenuto */
     }
 
     #invitation-content {
