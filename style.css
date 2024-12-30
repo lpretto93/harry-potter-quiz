@@ -13,17 +13,6 @@ body {
     background-repeat: no-repeat; /* Evita che l'immagine venga ripetuta */
 }
 
-/* Sfondo per dispositivi mobili */
-@media (max-width: 768px) {
-    body {
-        background-image: url('background-mobile.jpeg'); /* Sfondo per mobile */
-        background-size: cover; /* Assicura che lo sfondo copra tutta la pagina */
-        background-position: top center; /* Centra l'immagine ma mantieni la parte superiore visibile */
-        background-attachment: scroll; /* Disattiva l'effetto parallax su mobile */
-        height: 100%; /* Assicura che l'altezza sia al 100% per i dispositivi mobili */
-    }
-}
-
 
 
 /* Contenitore del gioco (domande e risposte) */
