@@ -3,38 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classifica Quiz Harry Potter</title>
-    <link href="https://fonts.googleapis.com/css2?family=Almendra+SC&display=swap" rel="stylesheet">
+    <title>Classifica</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <div id="leaderboard-container">
-        <h1>Classifica Finale</h1>
-        <ul id="leaderboard-list"></ul>
-        <button id="start-game-btn">Inizia il Gioco</button>
-    </div>
-
+    <h1>Classifica</h1>
+    <table id="leaderboard-table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Punteggio</th>
+                <th>Tempo (s)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Dati della classifica verranno aggiunti qui -->
+        </tbody>
+    </table>
     <script>
-        // Carica la classifica dalla localStorage
-        const leaderboardList = document.getElementById('leaderboard-list');
-        const startGameButton = document.getElementById('start-game-btn');
-
-        // Recupera la classifica dal localStorage
+        // Recupera i dati dal Local Storage
         const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+        const tableBody = document.querySelector('#leaderboard-table tbody');
 
-        // Mostra i punteggi
-        leaderboard.forEach(entry => {
-            const leaderboardItem = document.createElement('li');
-            leaderboardItem.textContent = `${entry.name} - Punteggio: ${entry.score}`;
-            leaderboardList.appendChild(leaderboardItem);
-        });
-
-        // Aggiungi il comportamento per il pulsante di inizio gioco
-        startGameButton.addEventListener('click', () => {
-            window.location.href = 'index.html'; // Torna alla pagina principale del gioco
+        // Mostra i dati nella tabella
+        leaderboard.forEach((entry) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td>${entry.name}</td><td>${entry.score}</td><td>${entry.time}</td>`;
+            tableBody.appendChild(row);
         });
     </script>
-
 </body>
 </html>
