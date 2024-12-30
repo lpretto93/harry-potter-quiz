@@ -7,7 +7,6 @@ const answerButtons = document.querySelectorAll('.answer-btn');
 const signatureLabel = document.getElementById('signature-label');
 const signatureElement = document.getElementById('signature');
 const continueButton = document.getElementById('continue-btn');
-const thankYouLetter = document.getElementById('thank-you-letter');
 const playerNameSpan = document.getElementById('player-name-span');
 
 // Elementi audio
@@ -60,13 +59,16 @@ startButton.addEventListener('click', async () => {
     const allQuestions = await loadQuestions();
     questions = getRandomQuestions(allQuestions);
 
-    // Mostra la lettera di ringraziamento
-    setTimeout(() => {
-        thankYouLetter.style.display = 'block';
-        playerNameSpan.textContent = playerName;
-        continueButton.style.display = 'block';
-    }, 3000); // Aspetta 3 secondi
+    // Mostra il contenitore del gioco
+    gameContainer.style.display = 'block';
+    showQuestion();
 
+    // Riproduce la musica di sottofondo
+    backgroundMusic.loop = true;
+    backgroundMusic.play();
+
+    // Salva l'orario di inizio del gioco
+    startTime = Date.now();
 });
 
 // Funzione per selezionare casualmente 25 domande
@@ -115,6 +117,13 @@ function showQuestion() {
     });
 }
 
+// Funzione per visualizzare la lettera di ringraziamento
+function showThankYouLetter() {
+    // Mostra la lettera di ringraziamento
+    document.getElementById('thank-you-letter').style.display = 'block';
+    playerNameSpan.textContent = playerName; // Inserisci il nome del giocatore
+}
+
 // Mostra la classifica finale e salva i risultati
 function endGame() {
     const timeTaken = Math.floor((Date.now() - startTime) / 1000);
@@ -123,35 +132,6 @@ function endGame() {
     if (leaderboard.length > 10) leaderboard.pop();
     localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
 
-    // Mostra la classifica finale
-    displayLeaderboard();
-    currentQuestionIndex = 0;
-    score = 0;
-}
-
-// Visualizza la classifica finale
-function displayLeaderboard() {
-    const leaderboardContainer = document.createElement('div');
-    leaderboardContainer.id = 'leaderboard-container';
-    leaderboardContainer.style.textAlign = 'center';
-
-    let leaderboardHTML = '<h1 style="color: goldenrod;">Classifica Finale</h1>';
-    leaderboardHTML += '<table style="margin: 0 auto; border-collapse: collapse; width: 80%;">';
-    leaderboardHTML += '<tr><th>Posizione</th><th>Nome</th><th>Punteggio</th><th>Tempo (s)</th></tr>';
-
-    leaderboard.forEach((player, index) => {
-        leaderboardHTML += `
-            <tr>
-                <td style="padding: 10px; border: 1px solid #ccc; color: goldenrod;">${index + 1}</td>
-                <td style="padding: 10px; border: 1px solid #ccc; color: goldenrod;">${player.name}</td>
-                <td style="padding: 10px; border: 1px solid #ccc; color: goldenrod;">${player.score}</td>
-                <td style="padding: 10px; border: 1px solid #ccc; color: goldenrod;">${player.time}</td>
-            </tr>
-        `;
-    });
-
-    leaderboardHTML += '</table>';
-    leaderboardContainer.innerHTML = leaderboardHTML;
-
-    document.body.appendChild(leaderboardContainer);
+    // Mostra la lettera di ringraziamento dopo il gioco
+    showThankYouLetter();
 }
