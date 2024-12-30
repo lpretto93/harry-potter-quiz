@@ -12,18 +12,12 @@ body {
 }
 
 #invitation-container {
-    position: relative;
-    padding: 20px;
+    position: absolute;  /* Posiziona il contenuto direttamente sopra lo sfondo */
+    top: 50%;  /* Centra verticalmente */
+    left: 50%;  /* Centra orizzontalmente */
+    transform: translate(-50%, -50%);  /* Compensa l'effetto di centramento */
     text-align: center;
-}
-
-#invitation-content {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 80%;
 }
 
 h1 {
