@@ -1,4 +1,4 @@
-// Elementi DOM
+// Selezione degli elementi dal DOM
 const startButton = document.getElementById('start-btn');
 const playerNameInput = document.getElementById('player-name');
 const gameContainer = document.getElementById('game-container');
@@ -6,46 +6,67 @@ const questionTitle = document.getElementById('question-title');
 const answerButtons = document.querySelectorAll('.answer-btn');
 const volumeIcon = document.getElementById('volume-icon');
 
-// Audio
-const backgroundMusic = new Audio('background-music.mp3');
-const correctSound = new Audio('right.mp3');
-const wrongSound = new Audio('wrong.mp3');
+// Elementi audio
+const correctSound = new Audio('right.mp3'); // Suono per risposta corretta
+const wrongSound = new Audio('wrong.mp3'); // Suono per risposta errata
+const backgroundMusic = new Audio('background-music.mp3'); // Musica di sottofondo
 
-// Variabili di gioco
+// Variabili globali
 let isMuted = false;
 let questions = [];
 let currentQuestionIndex = 0;
 let score = 0;
 
-// Funzione per caricare domande
+// Funzione per caricare le domande dal file JSON
 async function loadQuestions() {
     try {
         const response = await fetch('questions.json');
         if (!response.ok) throw new Error('Errore nel caricamento delle domande');
-        return await response.json();
+        const data = await response.json();
+        return data;
     } catch (error) {
         console.error(error);
-        alert('Errore nel caricamento delle domande.');
-        return [];
+        alert('Impossibile caricare le domande. Riprova più tardi.');
     }
+}
+
+// Funzione per selezionare casualmente 25 domande
+function getRandomQuestions(allQuestions) {
+    const selectedQuestions = [];
+    while (selectedQuestions.length < 25 && allQuestions.length > 0) {
+        const randomIndex = Math.floor(Math.random() * allQuestions.length);
+        selectedQuestions.push(allQuestions.splice(randomIndex, 1)[0]);
+    }
+    return selectedQuestions;
 }
 
 // Mostra la domanda corrente
 function showQuestion() {
-    const question = questions[currentQuestionIndex];
-    questionTitle.textContent = question.question;
-    answerButtons.forEach((btn, index) => {
-        btn.textContent = question.answers[index];
-        btn.onclick = () => handleAnswer(index);
-        btn.disabled = false;
+    const questionObj = questions[currentQuestionIndex];
+    questionTitle.textContent = questionObj.question;
+
+    // Assegna le risposte ai pulsanti
+    answerButtons.forEach((button, index) => {
+        button.textContent = questionObj.answers[index];
+        button.disabled = false;
+        button.onclick = () => handleAnswer(index);
     });
+
+    // Imposta il focus sul primo pulsante
+    answerButtons[0].focus();
 }
 
-// Gestisce la risposta
+// Gestisce la risposta selezionata
 function handleAnswer(selectedIndex) {
     const correctIndex = questions[currentQuestionIndex].correct;
-    answerButtons.forEach(btn => (btn.disabled = true));
 
+    // Disabilita i pulsanti e rimuove il focus
+    answerButtons.forEach((btn, index) => {
+        btn.disabled = true;
+        if (index === selectedIndex) btn.blur();
+    });
+
+    // Effetto visivo e sonoro
     if (selectedIndex === correctIndex) {
         playSound(correctSound);
         showFeedback('right.png');
@@ -55,65 +76,91 @@ function handleAnswer(selectedIndex) {
         showFeedback('wrong.png');
     }
 
+    // Passa alla prossima domanda con un ritardo
     currentQuestionIndex++;
     if (currentQuestionIndex < questions.length) {
-        setTimeout(showQuestion, 1000);
+        setTimeout(() => {
+            showQuestion();
+        }, 1000);
     } else {
         setTimeout(showEndGame, 1000);
     }
 }
 
-// Mostra immagine feedback
-function showFeedback(imageSrc) {
-    const feedbackImage = document.createElement('img');
-    feedbackImage.src = imageSrc;
-    feedbackImage.className = 'answer-effect';
-    document.body.appendChild(feedbackImage);
-    feedbackImage.addEventListener('animationend', () => feedbackImage.remove());
+// Funzione per riprodurre il suono, considerando se il volume è mutato
+function playSound(sound) {
+    if (!isMuted) {
+        sound.play();
+    }
 }
 
-// Mostra punteggio finale
+// Mostra il feedback visivo (giusta o sbagliata)
+function showFeedback(imageSrc) {
+    const image = document.createElement('img');
+    image.src = imageSrc;
+    image.classList.add('answer-effect');
+    document.body.appendChild(image);
+
+    // Rimuovi l'immagine dopo l'animazione
+    setTimeout(() => {
+        image.remove();
+    }, 1000);
+}
+
+// Mostra il punteggio finale
 function showEndGame() {
-    alert(`Gioco terminato! Punteggio: ${score}`);
+    alert(`Hai finito il gioco! Il tuo punteggio finale è: ${score}`);
     resetGame();
 }
 
-// Resetta il gioco
+// Resetta il gioco per una nuova partita
 function resetGame() {
     currentQuestionIndex = 0;
     score = 0;
     gameContainer.style.display = 'none';
-    playerNameInput.value = '';
     document.getElementById('player-name-container').style.display = 'block';
+    backgroundMusic.pause();
+    backgroundMusic.currentTime = 0;
 }
 
-// Inizio gioco
+// Gestisce l'inizio del gioco
 startButton.addEventListener('click', async () => {
     const playerName = playerNameInput.value.trim();
-    if (!playerName) return alert('Inserisci il tuo nome!');
+    if (playerName === '') {
+        alert('Per favore, inserisci il tuo nome!');
+        return;
+    }
 
+    // Nasconde la schermata iniziale
     document.getElementById('player-name-container').style.display = 'none';
+
+    // Carica le domande e avvia il gioco
+    const allQuestions = await loadQuestions();
+    questions = getRandomQuestions(allQuestions);
+
+    // Mostra la prima domanda
     gameContainer.style.display = 'block';
-    questions = await loadQuestions();
-    backgroundMusic.loop = true;
-    toggleMute(false); // Attiva audio
     showQuestion();
+
+    // Riproduce la musica di sottofondo
+    backgroundMusic.loop = true;
     backgroundMusic.play();
 });
 
-// Gestione volume
+// Gestisce l'icona del volume (mute/unmute per tutti i suoni)
 volumeIcon.addEventListener('click', () => {
     isMuted = !isMuted;
-    toggleMute(isMuted);
+
+    // Cambia l'icona in base allo stato di mute
+    if (isMuted) {
+        volumeIcon.src = 'mute.png';
+        backgroundMusic.pause();
+    } else {
+        volumeIcon.src = 'volume.png';
+        backgroundMusic.play();
+    }
+
+    // Muta anche gli altri effetti sonori
+    correctSound.muted = isMuted;
+    wrongSound.muted = isMuted;
 });
-
-function toggleMute(mute) {
-    volumeIcon.src = mute ? 'mute.png' : 'volume.png';
-    backgroundMusic.muted = mute;
-    correctSound.muted = mute;
-    wrongSound.muted = mute;
-}
-
-function playSound(sound) {
-    if (!isMuted) sound.play();
-}
