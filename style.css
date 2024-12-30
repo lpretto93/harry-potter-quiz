@@ -5,6 +5,8 @@ body {
   background: url('letter.jpg') no-repeat center center fixed;
   background-size: cover;
   color: #000;
+  padding-left: 20px; /* Aumentato il margine sinistro */
+  padding-right: 20px; /* Aumentato il margine destro */
 }
 
 header {
@@ -20,7 +22,7 @@ header {
 .letter-heading {
   font-family: 'Great Vibes', cursive;
   font-size: 2.5rem;
-  text-align: center;
+  text-align: left; /* Spostato a sinistra */
   margin-bottom: 10px;
 }
 
@@ -28,14 +30,14 @@ header {
   font-family: 'Great Vibes', cursive;
   font-size: 1.5rem;
   line-height: 2;
-  text-align: justify;
+  text-align: left; /* Spostato a sinistra */
   margin-bottom: 20px;
 }
 
 .signature {
   font-family: 'Great Vibes', cursive;
   font-size: 1.8rem;
-  text-align: right;
+  text-align: left; /* Spostato a sinistra */
   margin-top: 20px;
 }
 
@@ -50,7 +52,9 @@ input[type="text"] {
 
 .next-button {
   cursor: pointer;
-  margin-top: 20px;
+  position: absolute; /* Posizione assoluta */
+  bottom: 20px; /* Spostato al fondo */
+  right: 20px; /* Posizionato a destra */
   width: 50px;
   height: auto;
   transition: transform 0.2s ease;
@@ -68,19 +72,19 @@ input[type="text"] {
 
 .houses {
   display: flex;
-  flex-direction: column; /* Casate in colonna */
+  flex-direction: column;
   justify-content: center;
-  align-items: center; /* Centra tutte le casate */
-  gap: 30px; /* Spaziatura più grande tra le casate */
+  align-items: center;
+  gap: 30px;
 }
 
 .house {
   text-align: center;
-  max-width: 350px; /* Limita la larghezza delle casate per migliorare l'aspetto */
+  max-width: 350px;
 }
 
 .house img {
-  width: 120px; /* Immagini più grandi per i dettagli */
+  width: 120px;
   height: auto;
   margin-bottom: 15px;
 }
@@ -91,7 +95,7 @@ input[type="text"] {
   line-height: 1.8;
   text-align: justify;
   margin-top: 15px;
-  max-width: 800px; /* Limita la larghezza del testo per migliorare la leggibilità */
+  max-width: 800px;
 }
 
 /* Ottimizzazioni per dispositivi mobili */
@@ -129,7 +133,7 @@ input[type="text"] {
   }
 
   .house img {
-    width: 100px; /* Immagini più piccole per dispositivi mobili */
+    width: 100px;
   }
 
   .house-description {
