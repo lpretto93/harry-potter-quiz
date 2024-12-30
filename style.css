@@ -1,0 +1,229 @@
+/* Contenitore della lettera di invito */
+#invitation-container {
+    padding: 0; /* Rimuoviamo il padding per fare in modo che lo sfondo copra l'intero schermo */
+    width: 100vw; /* 100% della larghezza della finestra */
+    height: 100vh; /* 100% dell'altezza della finestra */
+    margin: 0; /* Rimuoviamo i margini per far sì che lo sfondo copra tutto */
+    background: url('letter.jpg') no-repeat center center; /* Assicurati che il percorso dell'immagine sia corretto */
+    background-size: cover; /* L'immagine si adatterà per coprire tutto lo schermo */
+    text-align: left;
+    position: fixed; /* Posizioniamo l'elemento in modo fisso per coprire l'intera finestra */
+    top: 0;
+    left: 0;
+    z-index: -1; /* Impostiamo un valore basso per metterlo dietro gli altri contenuti */
+}
+
+/* Contenitore della lettera con margini laterali */
+#invitation-content {
+    max-width: 800px; /* Limitiamo la larghezza della lettera */
+    margin: 0 auto; /* Centriamo il contenuto nella pagina */
+    padding: 0 30px; /* Aggiungiamo margini laterali per evitare che il testo tocchi i bordi */
+}
+
+/* Logo di Hogwarts */
+#hogwarts-logo-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#hogwarts-logo {
+    width: 100px;
+}
+
+/* Stile della lettera di invito */
+#title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+#letter-body {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+#letter-content {
+    font-size: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Stile della textbox per inserire il nome */
+#name-input {
+    border: none;
+    border-bottom: 1px solid #5B3924;
+    font-family: 'Georgia', serif;
+    font-size: 16px;
+    color: #5B3924;
+    background: none;
+    outline: none;
+    width: 100%;
+    max-width: 250px;
+    margin-bottom: 20px;
+    text-align: center;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+/* Firma di Albus Dumbledore */
+#signature {
+    font-family: 'Great Vibes', cursive;
+    font-size: 30px;
+    color: #5B3924;
+    text-align: left; /* Cambiato a left per la firma sotto la scritta */
+    margin-top: 10px; /* Distanza tra la scritta e la firma */
+    display: block;
+    position: absolute; /* Posizioniamo la firma in modo assoluto */
+    left: 36%; /* Posiziona la firma al centro orizzontale */
+    transform: translateX(-50%); /* Muove la firma di metà della sua larghezza per centrarla */
+    bottom: 25px; /* Aggiungiamo una distanza dal fondo della pagina */
+    width: 200px; /* Imposta una larghezza per la firma */
+}
+
+/* Pulsante per avanzare */
+#sign-btn {
+    display: inline-block;
+    position: absolute;
+    right: 10%; /* Sposta il pulsante più a destra */
+    bottom: 20px; /* Distanza dal fondo della pagina */
+}
+
+#sign-btn img {
+    width: 30px; /* Rimpiccioliamo l'immagine */
+    height: auto; /* Manteniamo la proporzione dell'immagine */
+    cursor: pointer;
+}
+
+/* Responsività per dispositivi mobili */
+@media (max-width: 768px) {
+    #invitation-container {
+        padding: 20px;
+        width: 100%;
+    }
+
+    #invitation-content {
+        padding: 0 20px; /* Ridurre il padding sui dispositivi mobili */
+        max-width: 100%; /* Permetti al contenuto di adattarsi su schermi più piccoli */
+    }
+
+    #name-input {
+        max-width: 250px;
+    }
+
+    #signature-container {
+        font-size: 25px;
+    }
+}
+
+/* Lettera di Ammissione (inizialmente nascosta) */
+#admission-letter {
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    background: url('letter.jpg') no-repeat center center; /* Ensure the path is correct */
+    background-size: cover; /* Ensure the background covers the entire viewport */
+    text-align: left;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    overflow-y: auto; /* Aggiungi lo scroll verticale per la pagina */
+}
+
+
+/* Titolo della lettera */
+#admission-letter #title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Corpo della lettera */
+#admission-letter #letter-body {
+    font-size: 2rem;
+	font-weight: bold;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+/* Firma di Albus Dumbledore */
+#admission-letter {
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    background: url('letter.jpg') no-repeat center center; /* Percorso corretto dello sfondo */
+    background-size: cover; /* Assicurati che lo sfondo copra tutta la pagina */
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* Sezione delle Casate */
+#houses-container {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 20px;
+    max-height: 50%; /* Limita l'altezza della sezione per evitare che vada oltre la pagina */
+    margin-bottom: 30px;
+}
+
+/* Ogni Casata */
+.house {
+    width: 250px;
+    text-align: center;
+    cursor: pointer;
+    padding: 15px;
+    box-sizing: border-box;
+    transition: transform 0.2s ease;
+}
+
+/* Effetto hover per le casate */
+.house:hover {
+    transform: scale(1.05);
+}
+
+.house-logo-container {
+    margin-bottom: 10px;
+}
+
+.house-logo {
+    width: 100px;
+    height: auto;
+}
+
+.house-description h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.house-description p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Sezione di risultato della scelta della casata */
+#house-selection-result {
+    margin-top: 20px;
+    font-size: 1.5rem;
+    color: #5B3924;
+    text-align: center;
+}
+
+/* Assegnamento finale della casata */
+#final-assignment {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 1.5rem;
+    color: #5B3924;
+}
+
+#final-assignment span {
+    font-weight: bold;
+}
