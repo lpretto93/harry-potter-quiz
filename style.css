@@ -71,18 +71,18 @@ button:hover {
 }
 
 #volume-icon {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     cursor: pointer;
 }
 
 /* Feedback a schermo intero per la risposta corretta o sbagliata */
 .feedback-icon {
-    width: 100vw;
-    height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
+    width: 100vw;
+    height: 100vh;
     object-fit: contain;
     display: none; /* Le immagini sono nascoste per default */
     z-index: 1000;
