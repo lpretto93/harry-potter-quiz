@@ -19,6 +19,8 @@ body {
         background-image: url('background-mobile.jpeg'); /* Sfondo per mobile */
         background-size: cover; /* Assicura che lo sfondo copra tutta la pagina */
         background-position: center center; /* Centra lo sfondo */
+        background-attachment: scroll; /* Disattiva l'effetto parallax su mobile */
+        height: 100%; /* Assicura che l'altezza sia al 100% per i dispositivi mobili */
     }
 }
 
