@@ -7,16 +7,17 @@ const answerButtons = document.querySelectorAll('.answer-btn');
 const volumeIcon = document.getElementById('volume-icon');
 
 // Elementi audio
-const correctSound = new Audio('right.mp3'); // Suono per risposta corretta
-const wrongSound = new Audio('wrong.mp3'); // Suono per risposta errata
-const backgroundMusic = new Audio('background-music.mp3'); // Musica di sottofondo
+const correctSound = new Audio('right.mp3');
+const wrongSound = new Audio('wrong.mp3');
+const backgroundMusic = new Audio('background-music.mp3');
 
 // Variabili globali
 let isMuted = false;
 let questions = [];
 let currentQuestionIndex = 0;
 let score = 0;
-let gameEnded = false; // Nuova variabile per controllare la fine del gioco
+let gameEnded = false;
+let startTime; // Timestamp di inizio del gioco
 
 // Funzione per caricare le domande dal file JSON
 async function loadQuestions() {
@@ -88,58 +89,60 @@ function handleAnswer(selectedIndex) {
     }
 }
 
-// Funzione per riprodurre il suono, considerando se il volume è mutato
+// Funzione per riprodurre il suono
 function playSound(sound) {
     if (!isMuted) {
         sound.play();
     }
 }
 
-// Mostra il feedback visivo (giusta o sbagliata)
+// Mostra il feedback visivo
 function showFeedback(imageSrc) {
     const image = document.createElement('img');
     image.src = imageSrc;
     image.classList.add('answer-effect');
     document.body.appendChild(image);
 
-    // Rimuovi l'immagine dopo l'animazione
     setTimeout(() => {
         image.remove();
     }, 1000);
 }
 
-// Mostra il punteggio finale
+// Mostra il punteggio finale e salva nella classifica
 function showEndGame() {
-    gameEnded = true; // Imposta lo stato di fine gioco
-    alert(`Hai finito il gioco! Il tuo punteggio finale è: ${score}`);
-    finalizeGame();
+    gameEnded = true;
+    const endTime = new Date().getTime(); // Tempo finale
+    const timeTaken = Math.round((endTime - startTime) / 1000); // Calcola il tempo impiegato
+
+    alert(`Hai finito il gioco! Il tuo punteggio finale è: ${score} in ${timeTaken} secondi.`);
+
+    saveToLeaderboard(playerNameInput.value, score, timeTaken); // Salva nella classifica
+    showLeaderboardLink(); // Mostra il link alla classifica
 }
 
-// Disabilita la possibilità di resettare il gioco
-function finalizeGame() {
-    // Nasconde il contenitore del gioco
-    gameContainer.style.display = 'none';
+// Salva i dati della classifica in Local Storage
+function saveToLeaderboard(name, score, time) {
+    const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+    leaderboard.push({ name, score, time });
+    leaderboard.sort((a, b) => b.score - a.score || a.time - b.time); // Ordina per punteggio e tempo
+    localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+}
 
-    // Nasconde la schermata iniziale permanentemente
-    const playerNameContainer = document.getElementById('player-name-container');
-    if (playerNameContainer) {
-        playerNameContainer.remove();
-    }
-
-    // Interrompe la musica di sottofondo
-    backgroundMusic.pause();
-    backgroundMusic.currentTime = 0;
-
-    // Mostra un messaggio finale
-    const endMessage = document.createElement('h1');
-    endMessage.textContent = `Grazie per aver giocato! Punteggio: ${score}`;
-    endMessage.style.color = 'var(--text-color)';
-    document.body.appendChild(endMessage);
+// Mostra il link alla classifica
+function showLeaderboardLink() {
+    const link = document.createElement('a');
+    link.href = 'leaderboard.html';
+    link.textContent = 'Visualizza la classifica';
+    link.style.display = 'block';
+    link.style.marginTop = '20px';
+    link.style.fontSize = '1.5rem';
+    link.style.color = 'gold';
+    document.body.appendChild(link);
 }
 
 // Gestisce l'inizio del gioco
 startButton.addEventListener('click', async () => {
-    if (gameEnded) return; // Impedisce di riavviare se il gioco è finito
+    if (gameEnded) return;
 
     const playerName = playerNameInput.value.trim();
     if (playerName === '') {
@@ -147,36 +150,21 @@ startButton.addEventListener('click', async () => {
         return;
     }
 
-    // Nasconde la schermata iniziale
     document.getElementById('player-name-container').style.display = 'none';
-
-    // Carica le domande e avvia il gioco
     const allQuestions = await loadQuestions();
     questions = getRandomQuestions(allQuestions);
 
-    // Mostra la prima domanda
     gameContainer.style.display = 'block';
+    startTime = new Date().getTime(); // Timestamp di inizio
     showQuestion();
 
-    // Riproduce la musica di sottofondo
     backgroundMusic.loop = true;
     backgroundMusic.play();
 });
 
-// Gestisce l'icona del volume (mute/unmute per tutti i suoni)
+// Gestisce il mute/unmute
 volumeIcon.addEventListener('click', () => {
     isMuted = !isMuted;
-
-    // Cambia l'icona in base allo stato di mute
-    if (isMuted) {
-        volumeIcon.src = 'mute.png';
-        backgroundMusic.pause();
-    } else {
-        volumeIcon.src = 'volume.png';
-        backgroundMusic.play();
-    }
-
-    // Muta anche gli altri effetti sonori
-    correctSound.muted = isMuted;
-    wrongSound.muted = isMuted;
+    volumeIcon.src = isMuted ? 'mute.png' : 'volume.png';
+    backgroundMusic[isMuted ? 'pause' : 'play']();
 });
