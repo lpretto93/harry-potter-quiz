@@ -1,137 +1,99 @@
-// Selezione degli elementi dal DOM
-const startButton = document.getElementById('start-btn');
-const playerNameInput = document.getElementById('player-name');
-const gameContainer = document.getElementById('game-container');
-const questionTitle = document.getElementById('question-title');
-const answerButtons = document.querySelectorAll('.answer-btn');
-const signatureLabel = document.getElementById('signature-label');
-const signatureElement = document.getElementById('signature');
-const continueButton = document.getElementById('continue-btn');
-const playerNameSpan = document.getElementById('player-name-span');
-
-// Elementi audio
-const correctSound = new Audio('right.mp3');
-const wrongSound = new Audio('wrong.mp3');
-const backgroundMusic = new Audio('background-music.mp3');
-
-// Variabili per gestire lo stato del volume
-let isMuted = false;
-let score = 0;
-let currentQuestionIndex = 0;
-let questions = [];
-let playerName = '';
-let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
-let startTime;
-
-// Funzione per caricare le domande dal file JSON
-async function loadQuestions() {
-    try {
-        const response = await fetch('questions.json');
-        if (!response.ok) {
-            throw new Error('Errore nel caricamento delle domande');
-        }
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error(error);
-        alert('Impossibile caricare le domande. Riprova più tardi.');
+// Array per il quiz
+const questions = [
+    {
+        question: "What is the name of the dark wizard who killed Harry's parents?",
+        answers: ["Voldemort", "Sirius Black", "Draco Malfoy", "Bellatrix Lestrange"],
+        correct: 0
+    },
+    {
+        question: "What is the name of the school for young witches and wizards?",
+        answers: ["Hogwarts", "Beauxbatons", "Durmstrang", "Ilvermorny"],
+        correct: 0
+    },
+    {
+        question: "What type of creature is Dobby?",
+        answers: ["House Elf", "Goblin", "Troll", "Giant"],
+        correct: 0
     }
-}
+];
 
-// Funzione per avviare il gioco
-startButton.addEventListener('click', async () => {
-    playerName = playerNameInput.value.trim(); // Rimuove spazi bianchi
+let currentQuestionIndex = 0;
+let score = 0;
+let userName = "";
 
-    if (playerName === "") {
-        alert("Per favore, inserisci il tuo nome!");
+// Funzione per iniziare il gioco
+function startGame() {
+    userName = document.getElementById('player-name').value;
+    if (userName === "") {
+        alert("Please enter your name.");
         return;
     }
-
-    // Mostra la firma con il nome
-    signatureElement.textContent = playerName;
-    signatureElement.style.animation = "write-signature 3s steps(" + playerName.length + ") forwards";
-
-    // Nasconde la schermata dell'invito
     document.getElementById('invitation-container').style.display = 'none';
-    document.getElementById('signature-label').style.display = 'block'; // Mostra la firma
-
-    // Carica le domande e avvia il gioco
-    const allQuestions = await loadQuestions();
-    questions = getRandomQuestions(allQuestions);
-
-    // Mostra il contenitore del gioco
-    gameContainer.style.display = 'block';
-    showQuestion();
-
-    // Riproduce la musica di sottofondo
-    backgroundMusic.loop = true;
-    backgroundMusic.play();
-
-    // Salva l'orario di inizio del gioco
-    startTime = Date.now();
-});
-
-// Funzione per selezionare casualmente 25 domande
-function getRandomQuestions(allQuestions) {
-    const selectedQuestions = [];
-    while (selectedQuestions.length < 25 && allQuestions.length > 0) {
-        const randomIndex = Math.floor(Math.random() * allQuestions.length);
-        selectedQuestions.push(allQuestions.splice(randomIndex, 1)[0]);
-    }
-    return selectedQuestions;
+    document.getElementById('thank-you-letter').style.display = 'block';
 }
 
-// Funzione per gestire la risposta selezionata
-function handleAnswer(selectedIndex) {
-    const correctAnswerIndex = questions[currentQuestionIndex].correct;
+// Funzione per iniziare il quiz
+function startQuiz() {
+    document.getElementById('thank-you-letter').style.display = 'none';
+    document.getElementById('quiz-container').style.display = 'block';
+    showQuestion();
+}
 
-    answerButtons.forEach(button => {
-        button.disabled = true;
+// Mostra la domanda attuale
+function showQuestion() {
+    const question = questions[currentQuestionIndex];
+    document.getElementById('question').textContent = question.question;
+    
+    const answersContainer = document.getElementById('answers');
+    answersContainer.innerHTML = ''; // Pulisce le risposte
+
+    question.answers.forEach((answer, index) => {
+        const answerElement = document.createElement('div');
+        answerElement.textContent = answer;
+        answerElement.classList.add('answer');
+        answerElement.onclick = () => checkAnswer(index);
+        answersContainer.appendChild(answerElement);
     });
+}
 
-    if (selectedIndex === correctAnswerIndex) {
-        correctSound.play();
+// Controlla se la risposta è corretta
+function checkAnswer(selectedIndex) {
+    const question = questions[currentQuestionIndex];
+    const answers = document.querySelectorAll('.answer');
+
+    if (selectedIndex === question.correct) {
+        answers[selectedIndex].classList.add('correct');
         score++;
     } else {
-        wrongSound.play();
+        answers[selectedIndex].classList.add('incorrect');
     }
 
-    setTimeout(() => {
-        currentQuestionIndex++;
-        if (currentQuestionIndex < questions.length) {
-            showQuestion();
-        } else {
-            endGame();
-        }
-    }, 1000);
+    // Blocca le risposte dopo la selezione
+    answers.forEach(answer => answer.onclick = null);
+
+    document.getElementById('next-btn').style.display = 'block';
 }
 
-// Mostra la domanda corrente
-function showQuestion() {
-    const questionObj = questions[currentQuestionIndex];
-    questionTitle.textContent = questionObj.question;
-
-    answerButtons.forEach((button, index) => {
-        button.textContent = questionObj.answers[index];
-        button.onclick = () => handleAnswer(index);
-    });
+// Passa alla domanda successiva
+function nextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        showQuestion();
+        document.getElementById('next-btn').style.display = 'none';
+    } else {
+        showResult();
+    }
 }
 
-// Funzione per visualizzare la lettera di ringraziamento
-function showThankYouLetter() {
-    // Mostra la lettera di ringraziamento
-    document.getElementById('thank-you-letter').style.display = 'block';
-    playerNameSpan.textContent = playerName; // Inserisci il nome del giocatore
-}
+// Mostra il risultato
+function showResult() {
+    document.getElementById('quiz-container').style.display = 'none';
+    const resultDiv = document.getElementById('result');
 
-// Mostra la classifica finale e salva i risultati
-function endGame() {
-    const timeTaken = Math.floor((Date.now() - startTime) / 1000);
-    leaderboard.push({ name: playerName, score, time: timeTaken });
-    leaderboard.sort((a, b) => b.score - a.score || a.time - b.time);
-    if (leaderboard.length > 10) leaderboard.pop();
-    localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
-
-    // Mostra la lettera di ringraziamento dopo il gioco
-    showThankYouLetter();
+    if (score / questions.length > 0.8) {
+        resultDiv.textContent = `Congratulations, ${userName}! You have been accepted to Hogwarts!`;
+    } else {
+        resultDiv.textContent = `Thank you for taking the test, ${userName}. You scored ${score}/${questions.length}.`;
+    }
+    resultDiv.style.display = 'block';
 }
