@@ -10,6 +10,7 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh; /* Imposta altezza della pagina a 100% per coprire tutto lo schermo */
+    background-repeat: no-repeat; /* Evita che l'immagine venga ripetuta */
 }
 
 /* Sfondo per dispositivi mobili */
@@ -19,9 +20,9 @@ body {
         background-size: cover; /* Assicura che lo sfondo copra tutta la pagina */
         background-position: center center; /* Centra lo sfondo */
         background-attachment: scroll; /* Disattiva l'effetto parallax su mobile */
+        background-repeat: no-repeat; /* Evita che l'immagine venga ripetuta */
     }
 }
-
 
 /* Contenitore del gioco (domande e risposte) */
 #game-container {
