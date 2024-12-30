@@ -8,7 +8,7 @@
         /* Impostazioni generali per il body */
         body {
             font-family: 'Francois One', sans-serif; /* Font in stile Harry Potter */
-            background-image: url('background.jpeg'); /* Sfondo per desktop */
+            background-image: url('letter.png'); /* Sfondo per desktop */
             background-size: cover; /* Assicura che lo sfondo copra tutta la pagina */
             background-position: center center; /* Centra lo sfondo */
             background-attachment: fixed; /* Fissa lo sfondo per un effetto parallax su desktop */
