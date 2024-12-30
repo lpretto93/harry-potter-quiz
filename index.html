@@ -8,39 +8,40 @@
 </head>
 <body>
 
-    <!-- Schermata dell'invito -->
     <div id="invitation-container">
-        <div id="invitation-content">
-            <h1>Welcome to Hogwarts</h1>
-            <p>Dear <span id="name-placeholder">__________</span>,</p>
-            <p>We are pleased to inform you that you have been accepted to Hogwarts School of Witchcraft and Wizardry. You will find all the necessary supplies for your first year in the list enclosed with this letter.</p>
-            <p>Please reply with your name below to confirm your attendance:</p>
+        <h1>Welcome to Hogwarts</h1>
+        <p>Dear <span id="name-placeholder">__________</span>,</p>
+        <p>We are pleased to inform you that you have been accepted to Hogwarts School of Witchcraft and Wizardry. You will find all the necessary supplies for your first year in the list enclosed with this letter.</p>
+        <p>Please reply with your name below to confirm your attendance:</p>
+        <input type="text" id="player-name" placeholder="Enter your name" />
+        <button id="start-btn">Start Game</button>
 
-            <!-- Casella di testo per il nome -->
-            <input type="text" id="player-name" placeholder="Enter your name" />
-
-            <!-- Pulsante per avviare il gioco -->
-            <button id="start-btn">Start Game</button>
-
-            <!-- Scritta Firma -->
-            <div id="signature-label">Firma:</div>
-            
-            <!-- Firma che apparirà quando l'utente clicca su "Start Game" -->
+        <div id="signature-label">
+            <p>Firma:</p>
             <div id="signature"></div>
         </div>
     </div>
 
-    <!-- Contenitore del gioco -->
-    <div id="game-container" style="display: none;">
-        <h2 id="question-title"></h2>
-        <div id="answer-buttons">
-            <button class="answer-btn">Option 1</button>
-            <button class="answer-btn">Option 2</button>
-            <button class="answer-btn">Option 3</button>
-            <button class="answer-btn">Option 4</button>
-        </div>
+    <div id="thank-you-letter">
+        <h2>Thank You for Your Participation!</h2>
+        <p>Dear <span id="player-name-span"></span>,</p>
+        <p>
+            We extend our deepest gratitude for your swift response and your willingness to accept the invitation to Hogwarts School of Witchcraft and Wizardry. Your decision to join our esteemed institution marks the beginning of a long and thrilling journey. As you step through the gates of Hogwarts, you will be greeted by an environment teeming with magical energy, hidden secrets, and endless opportunities for growth. 
+
+            Over the next seven years, you will study under the guidance of some of the most renowned wizards and witches in the world. From potion-making to transfiguration, herbology to defense against the dark arts, you will be exposed to a vast array of magical disciplines that will challenge you and shape you into a skilled wizard or witch.
+
+            But Hogwarts is not just a place of study; it is a place of camaraderie, where you will forge lifelong friendships, face unimaginable challenges, and participate in the most exciting magical activities the world has to offer. Whether it be Quidditch, the Triwizard Tournament, or a simple game of wizard's chess, your time at Hogwarts will be filled with memories that will last a lifetime.
+
+            As part of your entry into Hogwarts, we would like to invite you to participate in an exclusive Admission Test to assess your knowledge of the history of our magical world. This test is not only a way to gauge your readiness for the challenges ahead but also an opportunity to understand the rich legacy you are about to become a part of.
+
+            Please take the time to familiarize yourself with the various aspects of Hogwarts, from its founding to its key historical figures and events. The test will consist of multiple-choice questions, and your knowledge will be evaluated with the utmost care and precision. We believe that your performance on this test will be a testament to your dedication and readiness to embark on your magical education.
+
+            We wish you the best of luck, and we look forward to seeing you in the Great Hall on the first day of term!
+        </p>
     </div>
 
-    <script src="script.js"></script> <!-- Include il tuo script -->
+    <button id="continue-btn">Prosegui con il Test</button>
+
+    <script src="script.js"></script>
 </body>
 </html>
