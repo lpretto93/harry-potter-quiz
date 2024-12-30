@@ -1,5 +1,5 @@
 body {
-    font-family: 'Francois One', sans-serif; 
+    font-family: 'Cursive', sans-serif; /* Usa un font cursivo per il testo scritto a mano */
     background-image: url('letter.jpg');
     background-size: cover;
     background-position: center center;
@@ -29,6 +29,20 @@ body {
 h1 {
     font-size: 36px;
     margin-bottom: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid black;
+    width: 0;
+    animation: typing 4s steps(40) 1s forwards; /* Simula la scrittura a penna */
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
 }
 
 p {
