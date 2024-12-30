@@ -14,6 +14,17 @@
     color: black;
 }
 
+/* Ridurre la dimensione del logo per migliorare la visibilità della lettera */
+#hogwarts-logo-container {
+    text-align: center;
+    margin-bottom: 20px; /* Distanza tra logo e testo */
+}
+
+#hogwarts-logo {
+    width: 80px;  /* Ridimensionato per non coprire troppo il testo */
+    height: auto;
+}
+
 #player-name {
     width: 100%;
     padding: 10px;
@@ -55,16 +66,6 @@
     position: relative;
 }
 
-#hogwarts-logo-container {
-    text-align: center;
-    margin-bottom: 20px; /* Distanza tra logo e testo */
-}
-
-#hogwarts-logo {
-    width: 100px;  /* Imposta la dimensione desiderata */
-    height: auto;
-}
-
 #thank-you-letter h2 {
     text-align: center;
     font-size: 24px;
@@ -94,16 +95,10 @@
 /* Media query per dispositivi mobili */
 @media (max-width: 768px) {
     #hogwarts-logo {
-        width: 80px;  /* Ridimensiona il logo per dispositivi mobili */
+        width: 60px;  /* Ridimensionato per dispositivi mobili */
     }
 
     #thank-you-letter {
         font-size: 16px;
-    }
-}
-
-    #continue-btn {
-        font-size: 16px;
-        padding: 8px 15px;
     }
 }
