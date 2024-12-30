@@ -5,8 +5,12 @@ body {
   background: url('letter.jpg') no-repeat center center fixed;
   background-size: cover;
   color: #000;
-  padding-left: 20px; /* Aumentato il margine sinistro */
-  padding-right: 20px; /* Aumentato il margine destro */
+  padding-left: 30px; /* Aumentato il margine sinistro */
+  padding-right: 30px; /* Aumentato il margine destro */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Questo aiuta a separare gli elementi tra sopra e sotto */
+  height: 100vh;
 }
 
 header {
@@ -32,6 +36,7 @@ header {
   line-height: 2;
   text-align: left; /* Spostato a sinistra */
   margin-bottom: 20px;
+  flex-grow: 1; /* Permette al testo di crescere per occupare spazio disponibile */
 }
 
 .signature {
@@ -39,6 +44,7 @@ header {
   font-size: 1.8rem;
   text-align: left; /* Spostato a sinistra */
   margin-top: 20px;
+  margin-bottom: 20px; /* Spazio extra per mobile */
 }
 
 input[type="text"] {
@@ -52,9 +58,9 @@ input[type="text"] {
 
 .next-button {
   cursor: pointer;
-  position: absolute; /* Posizione assoluta */
-  bottom: 20px; /* Spostato al fondo */
-  right: 20px; /* Posizionato a destra */
+  position: absolute;
+  bottom: 30px; /* Posizionato in basso */
+  right: 30px; /* Posizionato a destra */
   width: 50px;
   height: auto;
   transition: transform 0.2s ease;
@@ -145,6 +151,11 @@ input[type="text"] {
   .next-button {
     width: 40px;
   }
+
+  /* Aggiunta la margine di sicurezza per dispositivi mobili */
+  body {
+    padding-bottom: 80px; /* Aggiungi spazio inferiore per evitare sovrapposizione dei contenuti */
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -181,5 +192,10 @@ input[type="text"] {
 
   .next-button {
     width: 35px;
+  }
+
+  /* Aggiunta la margine di sicurezza per dispositivi mobili */
+  body {
+    padding-bottom: 60px; /* Spazio inferiore per evitare sovrapposizione dei contenuti */
   }
 }
