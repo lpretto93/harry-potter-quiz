@@ -7,9 +7,9 @@ const answerButtons = document.querySelectorAll('.answer-btn');
 const volumeIcon = document.getElementById('volume-icon');
 
 // Elementi audio
-const correctSound = new Audio('right.mp3'); // Carica l'audio per la risposta corretta
-const wrongSound = new Audio('wrong.mp3'); // Carica l'audio per la risposta errata
-const backgroundMusic = new Audio('background-music.mp3'); // Musica di sottofondo
+const correctSound = new Audio('right.mp3');
+const wrongSound = new Audio('wrong.mp3');
+const backgroundMusic = new Audio('background-music.mp3');
 
 // Variabili per gestire lo stato del volume
 let isMuted = false;
@@ -22,7 +22,7 @@ let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
 // Funzione per caricare le domande dal file JSON
 async function loadQuestions() {
     try {
-        const response = await fetch('questions.json'); // Carica il file JSON dallo stesso livello
+        const response = await fetch('questions.json');
         if (!response.ok) {
             throw new Error('Errore nel caricamento delle domande');
         }
@@ -86,8 +86,8 @@ function showQuestion() {
 
     // Resetta le classi e abilita i pulsanti
     answerButtons.forEach(button => {
-        button.classList.remove('selected');  // Rimuove la selezione dalle risposte precedenti
-        button.disabled = false;  // Riabilita i pulsanti
+        button.classList.remove('selected');
+        button.disabled = false;
     });
 
     // Assegna le risposte ai pulsanti
@@ -144,7 +144,7 @@ startButton.addEventListener('click', async () => {
     playerName = playerNameInput.value.trim(); // Rimuove spazi bianchi
 
     if (playerName === "") {
-        alert("Per favore, inserisci il tuo nome!"); // Verifica che il nome sia valido
+        alert("Per favore, inserisci il tuo nome!");
         return;
     }
 
@@ -166,7 +166,7 @@ startButton.addEventListener('click', async () => {
     showQuestion();
 
     // Riproduce la musica di sottofondo
-    backgroundMusic.loop = true;  // Imposta la musica in loop
+    backgroundMusic.loop = true;
     backgroundMusic.play();
 
     // Salva l'orario di inizio del gioco
@@ -175,15 +175,14 @@ startButton.addEventListener('click', async () => {
 
 // Gestisce l'icona del volume (mute/unmute per tutti i suoni)
 volumeIcon.addEventListener('click', () => {
-    isMuted = !isMuted; // Cambia lo stato di mute
+    isMuted = !isMuted;
 
-    // Cambia l'icona in base allo stato di mute
     if (isMuted) {
         volumeIcon.src = 'mute.png';
-        backgroundMusic.pause(); // Mute per la musica di sottofondo
+        backgroundMusic.pause();
     } else {
         volumeIcon.src = 'volume.png';
-        backgroundMusic.play(); // Ripristina la musica di sottofondo
+        backgroundMusic.play();
     }
 
     // Muta anche gli altri effetti sonori
