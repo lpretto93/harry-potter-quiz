@@ -4,7 +4,7 @@
 /* Impostazioni generali */
 body {
     font-family: 'Francois One', sans-serif; /* Font ispirato a Harry Potter */
-    background-image: url('background.jpeg.jpg'); /* Sostituisci con un'immagine di sfondo tematica */
+    background-image: url('background.jpeg'); /* Sostituisci con un'immagine di sfondo tematica */
     background-size: cover;
     background-position: center;
     color: white;
