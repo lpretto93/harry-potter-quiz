@@ -1,15 +1,23 @@
-/* Font ispirato a Harry Potter */
-@import url('https://fonts.googleapis.com/css2?family=Francois+One&display=swap');
-
-/* Impostazioni generali */
+/* Impostazioni generali per il body */
 body {
-    font-family: 'Francois One', sans-serif; /* Font ispirato a Harry Potter */
-    background-image: url('background.jpeg'); /* Sostituisci con un'immagine di sfondo tematica */
-    background-size: cover;
-    background-position: center;
+    font-family: 'Francois One', sans-serif; /* Font in stile Harry Potter */
+    background-image: url('images/harry-potter-background.jpg'); /* Sfondo per desktop */
+    background-size: cover; /* Copre l'intera pagina, mantenendo le proporzioni */
+    background-position: center center; /* Centra lo sfondo */
+    background-attachment: fixed; /* Fissa lo sfondo per un effetto parallax */
     color: white;
     margin: 0;
     padding: 0;
+}
+
+/* Sfondo per dispositivi mobili */
+@media (max-width: 768px) {
+    body {
+        background-image: url('images/background-mobile.jpeg'); /* Sfondo per mobile */
+        background-size: cover; /* Copre l'intera pagina, mantenendo le proporzioni */
+        background-position: center center; /* Centra lo sfondo */
+        background-attachment: scroll; /* Disattiva l'effetto parallax su mobile */
+    }
 }
 
 /* Contenitore del gioco (domande e risposte) */
@@ -18,49 +26,45 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
-    max-width: 600px;
+    width: 80%; /* Puoi regolare la larghezza come preferisci */
+    max-width: 600px; /* Limita la larghezza massima */
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
-    background-color: rgba(0, 0, 0, 0.6); /* Colore scuro per il contenitore */
-    border-radius: 15px;
-    border: 2px solid gold; /* Bordo dorato per il tema Harry Potter */
-    box-shadow: 0px 0px 10px rgba(255, 215, 0, 0.8); /* Ombra dorata per dare un effetto magico */
+    background-color: rgba(0, 0, 0, 0.6); /* Aggiunge un effetto di trasparenza sullo sfondo */
+    border-radius: 10px; /* Angoli arrotondati per un effetto più elegante */
 }
 
 /* Domande */
 #question-title {
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: 24px; /* Imposta una dimensione del font leggibile */
+    margin-bottom: 20px; /* Distanza tra la domanda e le risposte */
     font-weight: bold;
-    text-shadow: 2px 2px 10px rgba(255, 215, 0, 0.7); /* Aggiungi un'ombra dorata al testo */
+    color: #f4c542; /* Colore dorato per il titolo */
 }
 
 /* Risposte */
 .answer-btn {
     display: block;
     width: 100%;
-    margin: 10px 0;
+    margin: 10px 0; /* Aggiungi un po' di spazio tra le risposte */
     padding: 15px;
-    font-size: 18px;
+    font-size: 18px; /* Puoi regolare la dimensione del font */
     cursor: pointer;
-    background-color: #3e3e3e; /* Colore scuro per i pulsanti */
+    background-color: #f0f0f0;
     border: 1px solid #ccc;
     border-radius: 5px;
     transition: background-color 0.3s ease;
-    color: white;
-    text-align: center;
 }
 
+/* Aggiungi hover per le risposte */
 .answer-btn:hover {
-    background-color: #ffcc00; /* Colore dorato per l'hover, in tema con Harry Potter */
-    color: black;
+    background-color: #e0e0e0;
 }
 
 /* Feedback giusto o sbagliato */
 #correct-feedback, #incorrect-feedback {
-    display: none;
+    display: none; /* Nascondi i feedback inizialmente */
     position: absolute;
     top: 50%;
     left: 50%;
@@ -80,8 +84,8 @@ body {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 40px;
-    height: 40px;
+    width: 40px; /* Puoi regolare la dimensione */
+    height: 40px; /* Puoi regolare la dimensione */
     cursor: pointer;
     z-index: 10;
 }
@@ -99,50 +103,30 @@ body {
     font-weight: bold;
     padding: 20px;
     box-sizing: border-box;
-    background-color: rgba(0, 0, 0, 0.6);
-    border-radius: 15px;
-    border: 2px solid gold;
-    box-shadow: 0px 0px 10px rgba(255, 215, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.6); /* Trasparenza simile a quella del contenitore del gioco */
+    border-radius: 10px; /* Angoli arrotondati */
+    color: #f4c542; /* Colore dorato per il testo */
 }
 
-#player-name-container input[type="text"] {
-    font-size: 1.5em;
-    padding: 10px;
-    border: 2px solid gold;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border-radius: 5px;
-    width: 80%;
-    margin-bottom: 20px;
-}
-
-#player-name-container button {
-    font-size: 1.5em;
+/* Stile dei pulsanti per lo start del gioco */
+#start-btn {
     padding: 10px 20px;
-    background-color: gold;
+    background-color: #f4c542; /* Colore dorato */
     border: none;
     border-radius: 5px;
+    font-size: 18px;
     color: black;
     cursor: pointer;
+    margin-top: 20px;
     transition: background-color 0.3s ease;
 }
 
-#player-name-container button:hover {
-    background-color: #ffcc00; /* Colore dorato anche per il pulsante di start */
+#start-btn:hover {
+    background-color: #e0a800; /* Colore più scuro al passaggio del mouse */
 }
 
-/* Animazione del feedback */
-@keyframes feedbackAnimation {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-#correct-feedback.show {
-    display: block;
-    animation: feedbackAnimation 1s forwards;
-}
-
-#incorrect-feedback.show {
-    display: block;
-    animation: feedbackAnimation 1s forwards;
+/* Aggiungi un effetto di transizione morbido per il cambio di stato */
+button:disabled {
+    background-color: #ccc; /* Colore disabilitato per i pulsanti */
+    cursor: not-allowed;
 }
