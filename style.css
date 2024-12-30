@@ -19,7 +19,7 @@ body {
         background-image: url('background-mobile.jpeg'); /* Sfondo per mobile */
         background-size: cover; /* Assicura che lo sfondo copra tutta la pagina */
         background-position: center center; /* Centra lo sfondo */
-        background-attachment: scroll; /* Disattiva l'effetto parallax su mobile */
+        background-attachment: fixed; /* Fissa lo sfondo per un effetto parallax su desktop */
         background-repeat: no-repeat; /* Evita che l'immagine venga ripetuta */
         height: 100vh; /* Assicura che l'altezza del body sia di 100% dell'altezza della finestra */
     }
