@@ -81,6 +81,10 @@ h1 {
     color: black;
 }
 
+#game-container {
+    display: none;
+}
+
 #continue-btn {
     padding: 10px 20px;
     background-color: #f4c542;
