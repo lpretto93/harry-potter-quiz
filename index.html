@@ -8,9 +8,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Pulsante per attivare/disattivare l'audio -->
+  <div class="audio-button" onclick="toggleAudio()">
+    <img id="audio-icon" src="volume.png" alt="Audio On" class="audio-icon">
+  </div>
+
   <header>
     <img src="hogwarts.png" alt="Logo Hogwarts" class="hogwarts-logo">
   </header>
+
   <div class="main-screen">
     <h1 class="letter-heading">Scuola di Magia e Stregoneria di Hogwarts</h1>
     <p class="letter-body">Caro Studente,</p>
@@ -28,6 +34,13 @@
     <p class="signature">Cordiali Saluti,<br>Albus Silente</p>
     <img src="next-page.png" alt="Avanti" class="next-button" onclick="goToHousesIntro()">
   </div>
+
+  <!-- Elemento audio di sottofondo -->
+  <audio id="background-audio" loop>
+    <source src="music-background.mp3" type="audio/mp3">
+    Il tuo browser non supporta la riproduzione audio.
+  </audio>
+
   <script src="script.js"></script>
 </body>
 </html>
