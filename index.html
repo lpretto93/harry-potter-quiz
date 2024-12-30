@@ -8,44 +8,30 @@
 </head>
 <body>
 
-    <!-- Schermata iniziale -->
     <div id="invitation-container">
-        <h1>Welcome to Hogwarts</h1>
-        <p>Dear <span id="name-placeholder">__________</span>,</p>
-        <p>We are pleased to inform you that you have been accepted to Hogwarts School of Witchcraft and Wizardry. You will find all the necessary supplies for your first year in the list enclosed with this letter.</p>
-        <p>Please reply with your name below to confirm your attendance:</p>
-        <input type="text" id="player-name" placeholder="Enter your name" />
-        <button id="start-btn">Start Game</button>
-
-        <div id="signature-label" style="display: none;">
-            <p>Firma:</p>
-            <div id="signature"></div>
+        <div id="hogwarts-logo-container">
+            <img src="hogwarts.png" alt="Hogwarts Logo" id="hogwarts-logo">
+        </div>
+        <div id="invitation-content">
+            <h1>Welcome to Hogwarts</h1>
+            <p>Dear <span id="name-placeholder">__________</span>,</p>
+            <p>We are pleased to inform you that you have been accepted to Hogwarts School of Witchcraft and Wizardry. You will find all the necessary supplies for your first year in the list enclosed with this letter.</p>
+            <p>Please reply with your name below to confirm your attendance:</p>
+            <input type="text" id="player-name" placeholder="Enter your name" />
+            <button id="start-btn">Start Game</button>
         </div>
     </div>
 
     <!-- Lettera di ringraziamento -->
     <div id="thank-you-letter" style="display: none;">
+        <div id="hogwarts-logo-container">
+            <img src="hogwarts.png" alt="Hogwarts Logo" id="hogwarts-logo">
+        </div>
         <h2>Thank You for Your Participation!</h2>
         <p>Dear <span id="player-name-span"></span>,</p>
-        <p>
-            We extend our deepest gratitude for your swift response and your willingness to accept the invitation to Hogwarts School of Witchcraft and Wizardry. Your decision to join our esteemed institution marks the beginning of a long and thrilling journey. As you step through the gates of Hogwarts, you will be greeted by an environment teeming with magical energy, hidden secrets, and endless opportunities for growth. 
-            ... [text continues]
-        </p>
+        <p>We extend our deepest gratitude for your swift response and your willingness to accept the invitation to Hogwarts School of Witchcraft and Wizardry. Your decision to join our esteemed institution marks the beginning of a long and thrilling journey. As you step through the gates of Hogwarts, you will be greeted by an environment teeming with magical energy, hidden secrets, and endless opportunities for growth. Each day, you will encounter new challenges and discover aspects of magic that you never thought possible. Whether it's learning the art of spellcasting in Charms class, exploring the depths of magical creatures in Care of Magical Creatures, or uncovering the mysteries of the Forbidden Forest, your time at Hogwarts will be filled with wonder and excitement. Our esteemed professors, each experts in their respective fields, will guide you in your magical education, preparing you for a future filled with incredible possibilities. From mastering the ancient spells of Transfiguration to participating in thrilling Quidditch matches, Hogwarts will be the place where you will grow, learn, and discover your true potential as a wizard. We are confident that you will not only excel in your magical studies but also contribute greatly to the rich legacy of Hogwarts. We look forward to seeing you grow and flourish as a part of our magical community. We are excited to welcome you to Hogwarts School of Witchcraft and Wizardry, where magic comes to life!</p>
+        <button id="continue-btn">Prosegui con il Test</button>
     </div>
-
-    <!-- Container per le domande del gioco -->
-    <div id="game-container" style="display: none;">
-        <h2 id="question-title"></h2>
-        <div>
-            <button class="answer-btn">Answer 1</button>
-            <button class="answer-btn">Answer 2</button>
-            <button class="answer-btn">Answer 3</button>
-            <button class="answer-btn">Answer 4</button>
-        </div>
-    </div>
-
-    <!-- Tasto per proseguire con il test -->
-    <button id="continue-btn" style="display: none;">Prosegui con il Test</button>
 
     <script src="script.js"></script>
 </body>
