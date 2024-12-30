@@ -169,22 +169,31 @@ function endGame() {
 
 // Funzione per visualizzare la classifica
 function displayLeaderboard() {
-    const leaderboardModal = window.open('', '_blank', 'width=600,height=400');
-    leaderboardModal.document.write('<h1>Classifica</h1>');
-    leaderboardModal.document.write('<table><tr><th>Posizione</th><th>Nome</th><th>Punteggio</th><th>Tempo (s)</th></tr>');
-    
+    // Crea un contenitore per la classifica
+    const leaderboardContainer = document.createElement('div');
+    leaderboardContainer.id = 'leaderboard-container';
+    leaderboardContainer.style.textAlign = 'center';
+
+    // Crea l'HTML della classifica
+    let leaderboardHTML = '<h1>Classifica Finale</h1>';
+    leaderboardHTML += '<table style="margin: 0 auto; border-collapse: collapse; width: 80%;"><tr><th>Posizione</th><th>Nome</th><th>Punteggio</th><th>Tempo (s)</th></tr>';
+
     leaderboard.forEach((player, index) => {
-        leaderboardModal.document.write(`
+        leaderboardHTML += `
             <tr>
-                <td>${index + 1}</td>
-                <td>${player.name}</td>
-                <td>${player.score}</td>
-                <td>${player.time}</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">${index + 1}</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">${player.name}</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">${player.score}</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">${player.time}</td>
             </tr>
-        `);
+        `;
     });
-    
-    leaderboardModal.document.write('</table>');
+
+    leaderboardHTML += '</table>';
+    leaderboardContainer.innerHTML = leaderboardHTML;
+
+    // Aggiungi la classifica alla pagina
+    document.body.appendChild(leaderboardContainer);
 }
 
 // Gestisce l'inizio del gioco
