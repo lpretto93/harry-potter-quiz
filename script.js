@@ -24,7 +24,6 @@ async function loadQuestions() {
             throw new Error('Errore nel caricamento delle domande');
         }
         const data = await response.json();
-        console.log('Domande caricate:', data); // Aggiungi un log per controllare i dati caricati
         return data;
     } catch (error) {
         console.error(error);
@@ -39,14 +38,12 @@ function getRandomQuestions(allQuestions) {
         const randomIndex = Math.floor(Math.random() * allQuestions.length);
         selectedQuestions.push(allQuestions.splice(randomIndex, 1)[0]);
     }
-    console.log('Domande selezionate:', selectedQuestions); // Aggiungi un log per controllare le domande selezionate
     return selectedQuestions;
 }
 
 // Mostra la domanda corrente
 function showQuestion() {
     const questionObj = questions[currentQuestionIndex];
-    console.log('Domanda corrente:', questionObj); // Log della domanda corrente
     questionTitle.textContent = questionObj.question;
 
     // Assegna le risposte ai pulsanti
