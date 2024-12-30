@@ -1,4 +1,4 @@
-// Variabili principali
+// Selezione degli elementi dal DOM
 const startButton = document.getElementById('start-btn');
 const playerNameInput = document.getElementById('player-name');
 const gameContainer = document.getElementById('game-container');
@@ -6,135 +6,187 @@ const questionTitle = document.getElementById('question-title');
 const answerButtons = document.querySelectorAll('.answer-btn');
 const volumeIcon = document.getElementById('volume-icon');
 
-// Audio
-const correctSound = new Audio('right.mp3');
-const wrongSound = new Audio('wrong.mp3');
-const backgroundMusic = new Audio('background-music.mp3');
+// Elementi audio
+const correctSound = new Audio('right.mp3'); // Carica l'audio per la risposta corretta
+const wrongSound = new Audio('wrong.mp3'); // Carica l'audio per la risposta errata
+const backgroundMusic = new Audio('background-music.mp3'); // Musica di sottofondo
 
-// Stato del gioco
-let questions = [];
-let currentQuestionIndex = 0;
-let score = 0;
-let startTime;
+// Variabili per gestire lo stato del volume
 let isMuted = false;
-let gameEnded = false;
+let score = 0;
+let currentQuestionIndex = 0;
+let questions = [];
+let playerName = '';
+let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
 
-// Imposta i volumi iniziali
-correctSound.volume = 1;
-wrongSound.volume = 1;
-backgroundMusic.volume = 0.5; // Musica di sottofondo leggermente più bassa
-
-// Funzione per verificare se il nome è unico
-function isNameUnique(name) {
-    const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
-    return !leaderboard.some(entry => entry.name.toLowerCase() === name.toLowerCase());
-}
-
-// Carica le domande
+// Funzione per caricare le domande dal file JSON
 async function loadQuestions() {
     try {
-        const response = await fetch('questions.json');
-        if (!response.ok) throw new Error('Errore nel caricamento delle domande');
-        return await response.json();
+        const response = await fetch('questions.json'); // Carica il file JSON dallo stesso livello
+        if (!response.ok) {
+            throw new Error('Errore nel caricamento delle domande');
+        }
+        const data = await response.json();
+        return data;
     } catch (error) {
         console.error(error);
         alert('Impossibile caricare le domande. Riprova più tardi.');
     }
 }
 
-// Seleziona 25 domande casuali
+// Funzione per selezionare casualmente 25 domande
 function getRandomQuestions(allQuestions) {
     const selectedQuestions = [];
     while (selectedQuestions.length < 25 && allQuestions.length > 0) {
-        const index = Math.floor(Math.random() * allQuestions.length);
-        selectedQuestions.push(allQuestions.splice(index, 1)[0]);
+        const randomIndex = Math.floor(Math.random() * allQuestions.length);
+        selectedQuestions.push(allQuestions.splice(randomIndex, 1)[0]);
     }
     return selectedQuestions;
 }
 
-// Mostra una domanda
+// Funzione per gestire la risposta selezionata
+function handleAnswer(selectedIndex) {
+    const correctAnswerIndex = questions[currentQuestionIndex].correct;
+
+    // Disabilita i pulsanti dopo che è stata selezionata una risposta
+    answerButtons.forEach(button => {
+        button.disabled = true;
+    });
+
+    // Effetto visivo e sonoro
+    if (selectedIndex === correctAnswerIndex) {
+        playSound(correctSound); // Suono giusto
+        score++; // Incrementa il punteggio
+    } else {
+        playSound(wrongSound); // Suono sbagliato
+    }
+
+    // Passa alla domanda successiva
+    currentQuestionIndex++;
+
+    // Verifica se ci sono altre domande
+    if (currentQuestionIndex < questions.length) {
+        setTimeout(showQuestion, 1000); // Mostra la prossima domanda dopo 1 secondo
+    } else {
+        endGame(); // Fine del gioco
+    }
+}
+
+// Funzione per riprodurre il suono, considerando se il volume è mutato
+function playSound(sound) {
+    if (!isMuted) {
+        sound.play();
+    }
+}
+
+// Mostra la domanda corrente
 function showQuestion() {
-    const question = questions[currentQuestionIndex];
-    questionTitle.textContent = question.question;
+    const questionObj = questions[currentQuestionIndex];
+    questionTitle.textContent = questionObj.question;
+
+    // Resetta le classi e abilita i pulsanti
+    answerButtons.forEach(button => {
+        button.classList.remove('selected');  // Rimuove la selezione dalle risposte precedenti
+        button.disabled = false;  // Riabilita i pulsanti
+    });
+
+    // Assegna le risposte ai pulsanti
     answerButtons.forEach((button, index) => {
-        button.textContent = question.answers[index];
-        button.onclick = () => handleAnswer(index);
+        button.textContent = questionObj.answers[index];
+        button.onclick = () => handleAnswer(index); // Gestisce il click
     });
 }
 
-// Gestisce la risposta
-function handleAnswer(index) {
-    const correctIndex = questions[currentQuestionIndex].correct;
-    if (index === correctIndex) {
-        playSound(correctSound);
-        score++;
-    } else {
-        playSound(wrongSound);
-    }
-    currentQuestionIndex++;
-    if (currentQuestionIndex < questions.length) {
-        showQuestion();
-    } else {
-        endGame();
-    }
-}
-
-// Suona l'audio se non è mutato
-function playSound(sound) {
-    if (!isMuted) {
-        sound.currentTime = 0; // Riavvia il suono
-        sound.play().catch(err => console.error('Errore nella riproduzione audio:', err));
-    }
-}
-
-// Fine del gioco
+// Mostra il punteggio finale e salva la classifica
 function endGame() {
-    gameEnded = true;
-    const endTime = new Date().getTime();
-    const elapsedTime = Math.floor((endTime - startTime) / 1000);
+    const timeTaken = Math.floor((Date.now() - startTime) / 1000); // Calcola il tempo impiegato
 
-    // Salva il risultato
-    const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
-    leaderboard.push({ name: playerNameInput.value, score, time: elapsedTime });
+    // Aggiungi il giocatore alla classifica
+    leaderboard.push({ name: playerName, score, time: timeTaken });
+    leaderboard.sort((a, b) => b.score - a.score || a.time - b.time); // Ordina per punteggio e tempo
+    if (leaderboard.length > 10) leaderboard.pop(); // Mantieni solo i primi 10
+
+    // Salva la classifica
     localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
 
-    // Mostra la classifica
-    window.location.href = 'leaderboard.html';
+    // Mostra la classifica finale
+    displayLeaderboard();
+
+    // Resetta il gioco per una nuova partita
+    currentQuestionIndex = 0;
+    score = 0;
+    gameContainer.style.display = 'none';
+    document.getElementById('player-name-container').style.display = 'block'; // Mostra la schermata iniziale
 }
 
-// Gestisce il mute
-volumeIcon.addEventListener('click', () => {
-    isMuted = !isMuted;
-    volumeIcon.src = isMuted ? 'mute.png' : 'volume.png';
+// Funzione per visualizzare la classifica
+function displayLeaderboard() {
+    const leaderboardModal = window.open('', '_blank', 'width=600,height=400');
+    leaderboardModal.document.write('<h1>Classifica</h1>');
+    leaderboardModal.document.write('<table><tr><th>Posizione</th><th>Nome</th><th>Punteggio</th><th>Tempo (s)</th></tr>');
+    
+    leaderboard.forEach((player, index) => {
+        leaderboardModal.document.write(`
+            <tr>
+                <td>${index + 1}</td>
+                <td>${player.name}</td>
+                <td>${player.score}</td>
+                <td>${player.time}</td>
+            </tr>
+        `);
+    });
+    
+    leaderboardModal.document.write('</table>');
+}
 
-    // Applica lo stato di mute a tutti gli audio
-    backgroundMusic.muted = isMuted;
-    correctSound.muted = isMuted;
-    wrongSound.muted = isMuted;
-});
-
-// Inizio del gioco
+// Gestisce l'inizio del gioco
 startButton.addEventListener('click', async () => {
-    if (gameEnded) return;
+    playerName = playerNameInput.value.trim(); // Rimuove spazi bianchi
 
-    const playerName = playerNameInput.value.trim();
-    if (playerName === '') {
-        alert('Inserisci il tuo nome!');
-        return;
-    }
-    if (!isNameUnique(playerName)) {
-        alert('Il nome è già nella classifica. Non puoi giocare di nuovo.');
+    if (playerName === "") {
+        alert("Per favore, inserisci il tuo nome!"); // Verifica che il nome sia valido
         return;
     }
 
+    // Controlla se il nome utente è già presente nella classifica
+    if (leaderboard.some(player => player.name === playerName)) {
+        alert("Il nome utente è già presente nella classifica. Non puoi giocare di nuovo.");
+        return;
+    }
+
+    // Nasconde la schermata iniziale
     document.getElementById('player-name-container').style.display = 'none';
+
+    // Carica le domande e avvia il gioco
     const allQuestions = await loadQuestions();
     questions = getRandomQuestions(allQuestions);
+
+    // Mostra la prima domanda
     gameContainer.style.display = 'block';
-    startTime = new Date().getTime();
     showQuestion();
 
-    // Avvia la musica di sottofondo
-    backgroundMusic.loop = true;
-    backgroundMusic.play().catch(err => console.error('Errore nella riproduzione della musica:', err));
+    // Riproduce la musica di sottofondo
+    backgroundMusic.loop = true;  // Imposta la musica in loop
+    backgroundMusic.play();
+
+    // Salva l'orario di inizio del gioco
+    startTime = Date.now();
+});
+
+// Gestisce l'icona del volume (mute/unmute per tutti i suoni)
+volumeIcon.addEventListener('click', () => {
+    isMuted = !isMuted; // Cambia lo stato di mute
+
+    // Cambia l'icona in base allo stato di mute
+    if (isMuted) {
+        volumeIcon.src = 'mute.png';
+        backgroundMusic.pause(); // Mute per la musica di sottofondo
+    } else {
+        volumeIcon.src = 'volume.png';
+        backgroundMusic.play(); // Ripristina la musica di sottofondo
+    }
+
+    // Muta anche gli altri effetti sonori
+    correctSound.muted = isMuted;
+    wrongSound.muted = isMuted;
 });
