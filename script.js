@@ -157,6 +157,9 @@ function endGame() {
     // Salva la classifica
     localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
 
+    // Nascondi la schermata iniziale
+    document.getElementById('player-name-container').style.display = 'none';
+
     // Mostra la classifica finale
     displayLeaderboard();
 
@@ -164,7 +167,6 @@ function endGame() {
     currentQuestionIndex = 0;
     score = 0;
     gameContainer.style.display = 'none';
-    document.getElementById('player-name-container').style.display = 'block'; // Mostra la schermata iniziale
 }
 
 // Funzione per visualizzare la classifica
@@ -175,16 +177,16 @@ function displayLeaderboard() {
     leaderboardContainer.style.textAlign = 'center';
 
     // Crea l'HTML della classifica
-    let leaderboardHTML = '<h1>Classifica Finale</h1>';
+    let leaderboardHTML = '<h1 style="color: goldenrod;">Classifica Finale</h1>';
     leaderboardHTML += '<table style="margin: 0 auto; border-collapse: collapse; width: 80%;"><tr><th>Posizione</th><th>Nome</th><th>Punteggio</th><th>Tempo (s)</th></tr>';
 
     leaderboard.forEach((player, index) => {
         leaderboardHTML += `
             <tr>
-                <td style="padding: 10px; border: 1px solid #ccc;">${index + 1}</td>
-                <td style="padding: 10px; border: 1px solid #ccc;">${player.name}</td>
-                <td style="padding: 10px; border: 1px solid #ccc;">${player.score}</td>
-                <td style="padding: 10px; border: 1px solid #ccc;">${player.time}</td>
+                <td style="padding: 10px; border: 1px solid #ccc; color: goldenrod;">${index + 1}</td>
+                <td style="padding: 10px; border: 1px solid #ccc; color: goldenrod;">${player.name}</td>
+                <td style="padding: 10px; border: 1px solid #ccc; color: goldenrod;">${player.score}</td>
+                <td style="padding: 10px; border: 1px solid #ccc; color: goldenrod;">${player.time}</td>
             </tr>
         `;
     });
