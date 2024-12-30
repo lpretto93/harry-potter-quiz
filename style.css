@@ -1,98 +1,101 @@
 /* Impostazioni generali per il body */
+/* Body */
 body {
     font-family: 'Francois One', sans-serif; /* Font in stile Harry Potter */
     background-image: url('letter.jpg'); /* Sfondo per desktop */
     background-size: cover; /* Assicura che lo sfondo copra tutta la pagina */
     background-position: center center; /* Centra lo sfondo */
     background-attachment: fixed; /* Fissa lo sfondo per un effetto parallax su desktop */
-    color: white;
+    color: black; /* Colore di testo nero per il corpo della lettera */
     margin: 0;
     padding: 0;
     height: 100vh; /* Imposta altezza della pagina a 100% per coprire tutto lo schermo */
     background-repeat: no-repeat; /* Evita che l'immagine venga ripetuta */
 }
 
-/* Contenitore della lettera di invito */
+/* Contenitore del gioco (lettera) */
 #invitation-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    max-width: 800px;
+    position: relative;
+    padding: 20px;
     text-align: center;
-    font-size: 24px;
-    font-weight: bold;
+}
+
+/* Contenuto della lettera */
+#invitation-content {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.8); /* Leggera trasparenza per migliorare la leggibilità */
     padding: 30px;
-    box-sizing: border-box;
-    background-image: url('letter.png'); /* Fondo della lettera */
-    background-size: cover;
-    background-position: center;
-    border-radius: 20px;
-    color: #333333; /* Colore dell'inchiostro (grigio scuro) */
-    font-style: italic; /* Testo in corsivo per l'effetto calligrafico */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Casella di testo per il nome dell'utente (posizionata dopo 'Dear') */
-#player-name {
-    padding: 10px;
+/* Testo della lettera */
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+p {
     font-size: 20px;
-    border: 2px solid #333333; /* Colore dell'inchiostro per il bordo */
-    border-radius: 5px;
-    width: 50%;
-    max-width: 300px;
-    background-color: rgba(255, 255, 255, 0.8);
-    color: black;
+    line-height: 1.6;
 }
 
-/* Pulsante Start Game */
+/* Casella di testo per il nome utente */
+#player-name {
+    font-size: 18px;
+    padding: 10px;
+    width: 60%;
+    margin: 20px 0;
+    border: 2px solid #333;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+/* Pulsante Start */
 #start-btn {
     padding: 10px 20px;
-    background-color: #333333; /* Colore scuro per il pulsante */
+    background-color: #f4c542; /* Colore dorato */
     border: none;
     border-radius: 5px;
     font-size: 18px;
-    color: white;
+    color: black;
     cursor: pointer;
     margin-top: 20px;
     transition: background-color 0.3s ease;
 }
 
 #start-btn:hover {
-    background-color: #222222; /* Colore più scuro al passaggio del mouse */
+    background-color: #e0a800; /* Colore più scuro al passaggio del mouse */
 }
 
-/* Scritta Firma */
+/* Firma */
 #signature-label {
-    position: absolute;
-    bottom: 50px;
-    right: 20px;
-    font-family: 'Francois One', sans-serif;
-    font-size: 24px;
-    color: #333333; /* Colore scuro per l'inchiostro */
+    font-size: 18px;
+    margin-top: 30px;
+    font-weight: bold;
+    color: black; /* Colore del testo della firma */
 }
 
-/* Firma dell'utente che appare dopo il clic */
+/* Signature appearance and animation */
 #signature {
-    position: absolute;
-    bottom: 20px;
-    left: 220px; /* Distanza dalla scritta "Firma" */
-    font-family: 'Brush Script MT', cursive;
-    font-size: 40px;
-    color: #333333; /* Grigio scuro per la firma */
-    visibility: hidden; /* Nascosto inizialmente */
+    font-family: 'Cursive', sans-serif; /* Font che simula la scrittura a mano */
+    font-size: 24px;
+    color: black; /* Colore della firma */
+    margin-top: 10px;
     white-space: nowrap;
     overflow: hidden;
-    width: 0; /* Imposta la larghezza iniziale a zero */
-    animation: write-signature 5s forwards; /* Animazione della scrittura */
+    border-right: 3px solid black; /* Simula il cursore */
+    width: 0;
+    animation: write-signature 3s steps(30) forwards; /* Animazione della firma */
 }
 
 /* Animazione della firma */
 @keyframes write-signature {
-    0% {
+    from {
         width: 0;
     }
-    100% {
-        width: 100%; /* La larghezza finale è uguale alla larghezza del testo */
+    to {
+        width: 100%;
     }
 }
