@@ -1,4 +1,5 @@
 /* Impostazioni generali per il body */
+/* Body */
 body {
     font-family: 'Francois One', sans-serif; /* Font in stile Harry Potter */
     background-image: url('background.jpeg'); /* Sfondo per desktop */
@@ -8,6 +9,7 @@ body {
     color: white;
     margin: 0;
     padding: 0;
+    height: 100vh; /* Imposta altezza della pagina a 100% per coprire tutto lo schermo */
 }
 
 /* Sfondo per dispositivi mobili */
@@ -19,6 +21,7 @@ body {
         background-attachment: scroll; /* Disattiva l'effetto parallax su mobile */
     }
 }
+
 
 /* Contenitore del gioco (domande e risposte) */
 #game-container {
