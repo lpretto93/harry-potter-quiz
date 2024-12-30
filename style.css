@@ -1,168 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invito ad Hogwarts</title>
-    <style>
-        /* Impostazioni generali per il body */
-        body {
-            font-family: 'Francois One', sans-serif; /* Font in stile Harry Potter */
-            background-image: url('letter.jpg'); /* Sfondo per desktop */
-            background-size: cover; /* Assicura che lo sfondo copra tutta la pagina */
-            background-position: center center; /* Centra lo sfondo */
-            background-attachment: fixed; /* Fissa lo sfondo per un effetto parallax su desktop */
-            color: white;
-            margin: 0;
-            padding: 0;
-            height: 100vh; /* Imposta altezza della pagina a 100% per coprire tutto lo schermo */
-            background-repeat: no-repeat; /* Evita che l'immagine venga ripetuta */
-        }
+/* Impostazioni generali per il body */
+body {
+    font-family: 'Francois One', sans-serif; /* Font in stile Harry Potter */
+    background-image: url('background.jpeg'); /* Sfondo per desktop */
+    background-size: cover; /* Assicura che lo sfondo copra tutta la pagina */
+    background-position: center center; /* Centra lo sfondo */
+    background-attachment: fixed; /* Fissa lo sfondo per un effetto parallax su desktop */
+    color: white;
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Imposta altezza della pagina a 100% per coprire tutto lo schermo */
+    background-repeat: no-repeat; /* Evita che l'immagine venga ripetuta */
+}
 
-        /* Contenitore della lettera di invito */
-        #invitation-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            max-width: 800px;
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            padding: 30px;
-            box-sizing: border-box;
-            background-image: url('letter.png'); /* Fondo della lettera */
-            background-size: cover;
-            background-position: center;
-            border-radius: 20px;
-            color: #f4c542; /* Colore dorato per il testo */
-            font-style: italic; /* Testo in corsivo per l'effetto calligrafico */
-        }
+/* Contenitore della lettera di invito */
+#invitation-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 800px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 30px;
+    box-sizing: border-box;
+    background-image: url('letter.png'); /* Fondo della lettera */
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    color: #333333; /* Colore dell'inchiostro (grigio scuro) */
+    font-style: italic; /* Testo in corsivo per l'effetto calligrafico */
+}
 
-        /* Casella di testo per il nome dell'utente (posizionata dopo 'Dear') */
-        #player-name-container {
-            margin-top: 20px;
-            text-align: center;
-        }
+/* Casella di testo per il nome dell'utente (posizionata dopo 'Dear') */
+#player-name {
+    padding: 10px;
+    font-size: 20px;
+    border: 2px solid #333333; /* Colore dell'inchiostro per il bordo */
+    border-radius: 5px;
+    width: 50%;
+    max-width: 300px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: black;
+}
 
-        #player-name-input {
-            padding: 10px;
-            font-size: 20px;
-            border: 2px solid #f4c542;
-            border-radius: 5px;
-            width: 50%;
-            max-width: 300px;
-            background-color: rgba(255, 255, 255, 0.8);
-            color: black;
-        }
+/* Pulsante Start Game */
+#start-btn {
+    padding: 10px 20px;
+    background-color: #333333; /* Colore scuro per il pulsante */
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
 
-        /* Pulsante Partecipa */
-        #start-btn {
-            padding: 10px 20px;
-            background-color: #f4c542; /* Colore dorato */
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            color: black;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: background-color 0.3s ease;
-        }
+#start-btn:hover {
+    background-color: #222222; /* Colore più scuro al passaggio del mouse */
+}
 
-        #start-btn:hover {
-            background-color: #e0a800; /* Colore più scuro al passaggio del mouse */
-        }
+/* Scritta Firma */
+#signature-label {
+    position: absolute;
+    bottom: 50px;
+    right: 20px;
+    font-family: 'Francois One', sans-serif;
+    font-size: 24px;
+    color: #333333; /* Colore scuro per l'inchiostro */
+}
 
-        /* Scritta Firma */
-        #signature-label {
-            position: absolute;
-            bottom: 50px;
-            right: 20px;
-            font-family: 'Francois One', sans-serif;
-            font-size: 24px;
-            color: white;
-        }
+/* Firma dell'utente che appare dopo il clic */
+#signature {
+    position: absolute;
+    bottom: 20px;
+    left: 220px; /* Distanza dalla scritta "Firma" */
+    font-family: 'Brush Script MT', cursive;
+    font-size: 40px;
+    color: #333333; /* Grigio scuro per la firma */
+    visibility: hidden; /* Nascosto inizialmente */
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0; /* Imposta la larghezza iniziale a zero */
+    animation: write-signature 5s forwards; /* Animazione della scrittura */
+}
 
-        /* Firma dell'utente che appare da sinistra a destra */
-        #signature {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            font-family: 'Brush Script MT', cursive;
-            font-size: 40px;
-            color: white;
-            visibility: hidden; /* Nascosto inizialmente */
-            white-space: nowrap;
-            overflow: hidden;
-            width: 0; /* Imposta la larghezza iniziale a zero */
-            animation: write-signature 5s forwards; /* Animazione della scrittura */
-        }
-
-        /* Animazione della firma */
-        @keyframes write-signature {
-            0% {
-                width: 0;
-            }
-            100% {
-                width: 100%; /* La larghezza finale è uguale alla larghezza del testo */
-            }
-        }
-
-        /* Aggiungi un effetto di transizione morbido per il cambio di stato */
-        button:disabled {
-            background-color: #ccc; /* Colore disabilitato per i pulsanti */
-            cursor: not-allowed;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Contenitore della lettera di invito -->
-    <div id="invitation-container">
-        <p>Dear <span id="name-placeholder">_____</span>,</p>
-        <p>You are invited to attend the Hogwarts School of Witchcraft and Wizardry.</p>
-        <p>Please enter your name to proceed:</p>
-
-        <!-- Casella di testo per il nome dell'utente -->
-        <div id="player-name-container">
-            <input type="text" id="player-name-input" placeholder="Your Name">
-        </div>
-
-        <!-- Pulsante per partecipare -->
-        <button id="start-btn" onclick="startGame()">Partecipa</button>
-
-        <!-- Scritta Firma -->
-        <div id="signature-label">Firma</div>
-
-        <!-- Firma dell'utente che appare dopo il clic -->
-        <div id="signature"></div>
-    </div>
-
-    <script>
-        // Funzione per gestire la partecipazione
-        function startGame() {
-            var playerName = document.getElementById('player-name-input').value;
-
-            // Se l'utente inserisce un nome
-            if (playerName.trim() !== '') {
-                // Sostituisci il placeholder con il nome dell'utente nella lettera
-                document.getElementById('name-placeholder').innerText = playerName;
-
-                // Imposta la firma con il nome dell'utente
-                var signature = document.getElementById('signature');
-                signature.innerHTML = playerName; // Aggiungi il nome dell'utente come firma
-                
-                // Rendi visibile la firma e avvia l'animazione
-                signature.style.visibility = 'visible';
-                
-                // Disabilita il pulsante "Partecipa" dopo il clic
-                document.getElementById('start-btn').disabled = true;
-            } else {
-                alert('Please enter your name to participate.');
-            }
-        }
-    </script>
-
-</body>
-</html>
+/* Animazione della firma */
+@keyframes write-signature {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%; /* La larghezza finale è uguale alla larghezza del testo */
+    }
+}
