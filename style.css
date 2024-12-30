@@ -3,21 +3,27 @@
     width: 80%;
     margin: 20px auto;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.8);
+    background-image: url('letter.jpg'); /* Aggiungi lo sfondo letter.jpg */
+    background-size: cover; /* Fa sì che l'immagine di sfondo copra tutto il contenitore */
+    background-position: center; /* Centra l'immagine */
+    background-repeat: no-repeat; /* Evita che l'immagine si ripeta */
     border-radius: 10px;
     text-align: center;
     position: relative;
 }
 
+/* Contenuto della lettera */
 #invitation-content {
     padding: 20px;
     color: black;
+    background: rgba(255, 255, 255, 0.8); /* Aggiungi uno sfondo semi-trasparente per la leggibilità */
+    border-radius: 10px;
 }
 
 /* Ridurre la dimensione del logo per migliorare la visibilità della lettera */
 #hogwarts-logo-container {
     text-align: center;
-    margin-bottom: 20px; /* Distanza tra logo e testo */
+    margin-bottom: 20px;
 }
 
 #hogwarts-logo {
