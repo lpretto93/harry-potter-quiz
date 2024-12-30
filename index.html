@@ -3,35 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gioco Harry Potter</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Gioco di Domande</title>
+    <link rel="stylesheet" href="style.css"> <!-- Collega il file CSS -->
 </head>
 <body>
-    <!-- Schermata iniziale -->
     <div id="player-name-container">
-        <h1>Benvenuto nel Gioco di Harry Potter!</h1>
-        <input type="text" id="player-name" placeholder="Inserisci il tuo nome">
-        <button id="start-btn">Inizia il gioco</button>
+        <h1>Benvenuto al Gioco!</h1>
+        <p>Inserisci il tuo nome:</p>
+        <input type="text" id="player-name" placeholder="Nome utente">
+        <button id="start-btn">Inizia il Gioco</button>
     </div>
 
-    <!-- Gioco -->
     <div id="game-container" style="display: none;">
-        <h2 id="question-title"></h2>
+        <h2 id="question-title">Domanda</h2>
         <div id="answers-container">
-            <button class="answer-btn"></button>
-            <button class="answer-btn"></button>
-            <button class="answer-btn"></button>
-            <button class="answer-btn"></button>
+            <button class="answer-btn">Risposta 1</button>
+            <button class="answer-btn">Risposta 2</button>
+            <button class="answer-btn">Risposta 3</button>
+            <button class="answer-btn">Risposta 4</button>
+        </div>
+        <div id="feedback-container">
+            <img id="correct-feedback" src="right.png" alt="Correct" class="feedback-icon">
+            <img id="incorrect-feedback" src="wrong.png" alt="Incorrect" class="feedback-icon">
         </div>
     </div>
 
-    <!-- Icona mute/unmute -->
-    <img id="volume-icon" src="volume.png" alt="Volume" class="volume-icon">
-    <div id="feedback-container">
-    <img id="correct-feedback" src="right.png" alt="Correct" class="feedback-icon">
-    <img id="incorrect-feedback" src="wrong.png" alt="Incorrect" class="feedback-icon">
-</div>
+    <div id="volume-container">
+        <img id="volume-icon" src="volume.png" alt="Volume" />
+    </div>
 
-    <script src="script.js"></script>
+    <script src="script.js"></script> <!-- Collega il file JavaScript -->
 </body>
 </html>
