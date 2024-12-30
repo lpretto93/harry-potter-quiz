@@ -75,6 +75,9 @@ function handleAnswer(selectedIndex) {
     setTimeout(() => {
         currentQuestionIndex++;
 
+        // Nascondi i feedback e riabilita i pulsanti
+        hideFeedback();
+
         // Verifica se ci sono altre domande
         if (currentQuestionIndex < questions.length) {
             showQuestion(); // Mostra la prossima domanda
@@ -100,6 +103,12 @@ function stopPreviousEffects() {
     wrongSound.currentTime = 0;
 
     // Rimuove le immagini precedenti di feedback
+    correctFeedback.style.display = 'none';
+    incorrectFeedback.style.display = 'none';
+}
+
+// Funzione per nascondere i feedback
+function hideFeedback() {
     correctFeedback.style.display = 'none';
     incorrectFeedback.style.display = 'none';
 }
@@ -133,8 +142,7 @@ function showQuestion() {
     });
 
     // Nascondi il feedback e riabilita i pulsanti
-    correctFeedback.style.display = 'none';
-    incorrectFeedback.style.display = 'none';
+    hideFeedback();
 }
 
 // Mostra il punteggio finale e salva la classifica
