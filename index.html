@@ -15,9 +15,9 @@
         </div>
 
         <div id="invitation-content">
-            <h1>Welcome to Hogwarts</h1>
-            <p>Dear <span id="name-placeholder">__________</span>,</p>
-            <p>We are pleased to inform you that you have been accepted to Hogwarts School of Witchcraft and Wizardry. Please confirm your attendance:</p>
+            <h1 id="title">Welcome to Hogwarts</h1>
+            <p id="intro">Dear <span id="name-placeholder">__________</span>,</p>
+            <p id="body">We are pleased to inform you that you have been accepted to Hogwarts School of Witchcraft and Wizardry. Please confirm your attendance:</p>
             
             <input type="text" id="player-name" placeholder="Enter your name" />
             <div id="signature" onclick="sign()">Sign Your Name</div>
@@ -27,9 +27,9 @@
 
     <!-- Pagina di Spiegazione e Test -->
     <div id="thank-you-letter">
-        <h2>Thank you for your participation!</h2>
-        <p>We are excited to welcome you to Hogwarts! Before we proceed, please complete the following short knowledge test to begin your magical journey.</p>
-        <p>This will help us assess your understanding of the wizarding world and place you in the appropriate house.</p>
+        <h2 id="thanks-title">Thank you for your participation!</h2>
+        <p id="thanks-body">We are excited to welcome you to Hogwarts! Before we proceed, please complete the following short knowledge test to begin your magical journey.</p>
+        <p id="test-info">This will help us assess your understanding of the wizarding world and place you in the appropriate house.</p>
         <button id="continue-btn" onclick="startQuiz()">Start the Test</button>
     </div>
 
