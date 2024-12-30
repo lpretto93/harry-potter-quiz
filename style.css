@@ -1,7 +1,7 @@
 :root {
     --primary-color: #ffcc00;
     --background-overlay: rgba(0, 0, 0, 0.8);
-    --text-color: #f5deb3;
+    --text-color: #3E2A47;  /* Colore marrone antico */
 }
 
 body {
@@ -18,14 +18,13 @@ body {
     flex-direction: column;
     box-sizing: border-box;
     text-align: center;
+    overflow: hidden;
 }
 
 #invitation-container {
     max-width: 600px;
     width: 100%;
     padding: 20px;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 10px;
     margin-bottom: 20px;
 }
 
@@ -42,6 +41,19 @@ body {
 h1, h2 {
     font-size: 2rem;
     text-shadow: 0 0 15px rgba(255, 215, 0, 0.9), 0 0 30px rgba(255, 140, 0, 0.7);
+    display: inline-block;
+    white-space: nowrap;
+}
+
+#invitation-content, #thank-you-letter {
+    opacity: 0;
+    visibility: hidden;
+}
+
+#invitation-container {
+    padding: 20px;
+    background: transparent;
+    margin-top: 30px;
 }
 
 #player-name {
@@ -49,11 +61,14 @@ h1, h2 {
     font-size: 1.2rem;
     width: 80%;
     margin: 10px 0;
-    border-radius: 5px;
+    border: none;
+    border-bottom: 2px solid var(--text-color);
+    background: transparent;
+    color: var(--text-color);
 }
 
 #signature {
-    color: #ffcc00;
+    color: var(--primary-color);
     cursor: pointer;
     margin: 10px 0;
     font-weight: bold;
@@ -77,18 +92,15 @@ button:hover {
 
 #thank-you-letter {
     display: none;
-    max-width: 700px;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 10px;
-    margin-top: 20px;
+    opacity: 0;
+    visibility: hidden;
 }
 
 #quiz-container {
     text-align: left;
     margin-top: 20px;
     padding: 20px;
-    background: rgba(0, 0, 0, 0.7);
+    background: transparent;
     border-radius: 10px;
 }
 
