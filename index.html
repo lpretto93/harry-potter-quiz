@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz di Harry Potter</title>
+    <link rel="stylesheet" href="stile.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+        body {
+            font-family: 'Great Vibes', cursive;
+            background-image: url('letter.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #000;
+            text-align: center;
+            padding: 50px;
+        }
+        #lettera, #lettera-content {
+            background: none;
+			transform: translateY(-150%)
+            padding: 0;
+            margin: 0;
+        }
+        input {
+            font-family: 'Arial', sans-serif;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        button {
+            border: none;
+            background: none;
+            padding: 0;
+            cursor: pointer;
+        }
+        button img {
+            width: 30px; /* Aumentato da 20px a 30px */
+            height: 30px; /* Aumentato da 20px a 30px */
+        }
+        .volume-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        .signature {
+            font-size: 48px;
+            font-weight: bold;
+        }
+        .welcome-text, .letter-text {
+            font-size: 24px; /* Aumentato da 16px a 24px */
+        }
+        .input-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+			transform: translateY(-50%)
+            gap: 10px; /* Spazio tra input e pulsante */
+        }
+        .hogwarts-logo {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px; /* Dimensione aumentata dell'immagine */
+            height: auto;
+        }
+        .content-container {
+            margin-top: 150px; /* Aumentato per abbassare le scritte */
+        }
+    </style>
+</head>
+<body>
+    <audio id="musica" src="background-music.mp3" autoplay loop></audio>
+    <div class="volume-controls">
+        <button id="volume" onclick="toggleMute()"><img src="volume.png" alt="Volume"></button>
+    </div>
+    <img src="hogwarts.png" alt="Hogwarts Logo" class="hogwarts-logo">
+    <div id="lettera" class="content-container">
+    <p class="welcome-text">Benvenuto alla Scuola di Magia e Stregoneria di Hogwarts!</p>
+    <p class="welcome-text">Se sei qui, significa che hai ricevuto la nostra lettera speciale. Sei pronto a iniziare la tua avventura magica? Inserisci il tuo nome per richiedere l'ammissione alla scuola:</p>
+    <div class="input-container">
+        <input type="text" id="nome-studente">
+        <!-- Pulsante "Next" spostato sotto la text box -->
+        <button id="next-page" onclick="personalizzaLettera()"><img src="next-page.png" alt="Next"></button>
+    </div>
+</div>
+    <div id="lettera-content" style="display:none;">
+        <p id="saluto" class="letter-text"></p>
+        <p class="letter-text">È con immenso piacere e grande onore che ti scrivo questa lettera per darti il benvenuto alla Scuola di Magia e Stregoneria di Hogwarts. La nostra scuola, fondata oltre mille anni fa dai quattro grandi maghi Godric Grifondoro, Tosca Tassorosso, Priscilla Corvonero e Salazar Serpeverde, è un luogo di apprendimento, crescita e scoperta magica senza pari.</p>
+        <p class="letter-text">Hogwarts è situata in un castello incantato, nascosto tra le colline e le foreste della Scozia. Qui, gli studenti di tutte le età e provenienze vengono a imparare l'arte della magia, a sviluppare le loro abilità magiche e a formare legami duraturi con i loro compagni di classe. La nostra scuola offre un curriculum completo che include materie come Incantesimi, Pozioni, Trasfigurazione, Difesa Contro le Arti Oscure, Erbologia e molte altre.</p>
+        <p class="letter-text">Durante il tuo tempo a Hogwarts, avrai l'opportunità di essere assegnato a una delle quattro casate: Grifondoro, Tassorosso, Corvonero o Serpeverde. Ogni casata ha le sue caratteristiche uniche e i suoi valori distintivi, e sarai accolto calorosamente nella casata che meglio si adatta alla tua personalità e alle tue abilità.</p>
+        <p class="letter-text">La vita a Hogwarts è piena di avventure e sfide. Parteciperai a lezioni stimolanti, parteciperai a duelli magici, esplorerai i segreti del castello e farai amicizie che dureranno tutta la vita. La nostra scuola è anche famosa per il suo Quidditch, uno sport magico emozionante che coinvolge squadre di studenti che volano su manici di scopa e competono per la gloria della loro casata.</p>
+        <p class="letter-text">Non vediamo l'ora di darti il benvenuto a Hogwarts e di vedere tutto ciò che realizzerai durante il tuo tempo qui. Prepara la tua bacchetta, il tuo mantello e il tuo libro degli incantesimi, perché un mondo di magia ti aspetta.</p>
+        <p class="letter-text">Con affetto e stima,</p>
+        <p class="signature">Albus Silente</p>
+		<p class="letter-text">Preside della Scuola di Magia e Stregoneria di Hogwarts</p>
+		
+		<div class="next-container">
+        <button id="next-page" onclick="goToCasate()">
+            <img src="next-page.png" alt="Next">
+        </button>
+    </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var audio = document.getElementById("musica");
+            audio.play();
+
+            // Ensure audio is playing
+            audio.addEventListener('play', function() {
+                if (audio.paused) {
+                    audio.play();
+                }
+            });
+        });
+
+        function toggleMute() {
+            var audio = document.getElementById("musica");
+            var volumeButton = document.getElementById("volume").getElementsByTagName("img")[0];
+            if (audio.muted) {
+                audio.muted = false;
+                volumeButton.src = "volume.png";
+            } else {
+                audio.muted = true;
+                volumeButton.src = "mute.png";
+            }
+        }
+
+        function personalizzaLettera() {
+            var nome = document.getElementById('nome-studente').value;
+            if (nome) {
+                document.getElementById('saluto').innerText = 'Caro ' + nome + ',';
+                document.getElementById('lettera').style.display = 'none';
+                document.getElementById('lettera-content').style.display = 'block';
+            } else {
+                alert("Per favore, inserisci il tuo nome.");
+            }
+        }
+		
+		
+		function goToCasate() {
+			window.location.href = "casate.html";  // Reindirizza alla pagina casate.html
+		}
+
+    </script>
+	
+</body>
+</html>

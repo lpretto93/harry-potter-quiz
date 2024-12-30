@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Seleziona la tua Casata</title>
+    <link rel="stylesheet" href="casate.css">
+	<style>
+	.hogwarts-logo {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px; /* Dimensione aumentata dell'immagine */
+            height: auto;
+        }
+	</style>
+</head>
+<body>
+    <div id="pagina-casate">
+        <img src="letter.jpg" alt="Sfondo" id="sfondo">
+        <audio id="musica" src="music-background.mp3" autoplay loop></audio>
+			
+        <!-- Logo centrale delle casate -->
+        <div class="logo-centrale">
+            <img src="hogwarts.png" alt="Hogwarts Logo" id="hogwarts-logo">
+        </div>
+    <div id="quiz">
+        <h1>Quiz di Harry Potter</h1>
+        <div id="domanda"></div>
+        <div id="risposte"></div>
+        <button id="next-question">Prossima Domanda</button>
+    </div>
+    <script src="quiz.js"></script>
+</body>
+</html>

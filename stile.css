@@ -1,0 +1,48 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    text-align: center;
+    margin-top: 150px; /* Aumento ulteriore per abbassare il contenuto */
+}
+
+#sfondo {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+#lettera {
+    margin-top: 400px; /* Aumentato ulteriormente per spostare il contenuto più in basso */
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.next-container {
+    bottom: 10px;
+    right: 10px;;   /* Posiziona il pulsante a destra */
+}
+
+button {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+button img {
+    width: 30px; /* Aumentato da 20px a 30px */
+    height: 30px; /* Aumentato da 20px a 30px */
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;  /* Ordine verticale */
+    justify-content: center;
+    align-items: center;
+    gap: 10px;  /* Spazio tra input e pulsante */
+}
