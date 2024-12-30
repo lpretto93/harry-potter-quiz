@@ -18,6 +18,7 @@ let currentQuestionIndex = 0;
 let questions = [];
 let playerName = '';
 let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+let startTime; // Per calcolare il tempo impiegato
 
 // Funzione per caricare le domande dal file JSON
 async function loadQuestions() {
@@ -53,6 +54,9 @@ function handleAnswer(selectedIndex) {
         button.disabled = true;
     });
 
+    // Interrompe gli effetti precedenti (audio e immagini) prima di partire con nuovi effetti
+    stopPreviousEffects();
+
     // Effetto visivo e sonoro
     if (selectedIndex === correctAnswerIndex) {
         playSound(correctSound); // Suono giusto
@@ -79,6 +83,21 @@ function playSound(sound) {
     }
 }
 
+// Funzione per fermare gli effetti precedenti (audio e immagini)
+function stopPreviousEffects() {
+    // Ferma i suoni precedenti
+    correctSound.pause();
+    wrongSound.pause();
+    correctSound.currentTime = 0;
+    wrongSound.currentTime = 0;
+
+    // Rimuove le immagini precedenti di feedback
+    const existingEffect = document.querySelector('.answer-effect');
+    if (existingEffect) {
+        existingEffect.remove();
+    }
+}
+
 // Mostra la domanda corrente
 function showQuestion() {
     const questionObj = questions[currentQuestionIndex];
@@ -87,7 +106,7 @@ function showQuestion() {
     // Resetta le classi e abilita i pulsanti
     answerButtons.forEach(button => {
         button.classList.remove('selected');
-        button.disabled = false;
+        button.disabled = false; // Riabilita i pulsanti
     });
 
     // Assegna le risposte ai pulsanti
