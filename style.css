@@ -1,10 +1,10 @@
 /* Impostazioni generali per il body */
 body {
     font-family: 'Francois One', sans-serif; /* Font in stile Harry Potter */
-    background-image: url('images/harry-potter-background.jpg'); /* Sfondo per desktop */
-    background-size: cover; /* Copre l'intera pagina, mantenendo le proporzioni */
+    background-image: url('harry-potter-background.jpg'); /* Sfondo per desktop */
+    background-size: cover; /* Assicura che lo sfondo copra tutta la pagina */
     background-position: center center; /* Centra lo sfondo */
-    background-attachment: fixed; /* Fissa lo sfondo per un effetto parallax */
+    background-attachment: fixed; /* Fissa lo sfondo per un effetto parallax su desktop */
     color: white;
     margin: 0;
     padding: 0;
@@ -13,8 +13,8 @@ body {
 /* Sfondo per dispositivi mobili */
 @media (max-width: 768px) {
     body {
-        background-image: url('images/background-mobile.jpeg'); /* Sfondo per mobile */
-        background-size: cover; /* Copre l'intera pagina, mantenendo le proporzioni */
+        background-image: url('background-mobile.jpeg'); /* Sfondo per mobile */
+        background-size: cover; /* Assicura che lo sfondo copra tutta la pagina */
         background-position: center center; /* Centra lo sfondo */
         background-attachment: scroll; /* Disattiva l'effetto parallax su mobile */
     }
