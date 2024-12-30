@@ -6,6 +6,9 @@ const questionTitle = document.getElementById('question-title');
 const answerButtons = document.querySelectorAll('.answer-btn');
 const signatureLabel = document.getElementById('signature-label');
 const signatureElement = document.getElementById('signature');
+const continueButton = document.getElementById('continue-btn');
+const thankYouLetter = document.getElementById('thank-you-letter');
+const playerNameSpan = document.getElementById('player-name-span');
 
 // Elementi audio
 const correctSound = new Audio('right.mp3');
@@ -57,16 +60,13 @@ startButton.addEventListener('click', async () => {
     const allQuestions = await loadQuestions();
     questions = getRandomQuestions(allQuestions);
 
-    // Mostra il contenitore del gioco
-    gameContainer.style.display = 'block';
-    showQuestion();
+    // Mostra la lettera di ringraziamento
+    setTimeout(() => {
+        thankYouLetter.style.display = 'block';
+        playerNameSpan.textContent = playerName;
+        continueButton.style.display = 'block';
+    }, 3000); // Aspetta 3 secondi
 
-    // Riproduce la musica di sottofondo
-    backgroundMusic.loop = true;
-    backgroundMusic.play();
-
-    // Salva l'orario di inizio del gioco
-    startTime = Date.now();
 });
 
 // Funzione per selezionare casualmente 25 domande
