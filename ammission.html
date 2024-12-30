@@ -1,0 +1,87 @@
+<!-- Seconda Pagina: Lettera di Ammissione con informazioni sulle Casate -->
+<div id="admission-letter" style="display: none;">
+    <!-- Logo di Hogwarts -->
+    <div id="hogwarts-logo-container">
+        <img id="hogwarts-logo" src="hogwarts.png" alt="Hogwarts Logo">
+    </div>
+
+    <div id="invitation-content">
+        <h1 id="title">Hogwarts School of Witchcraft and Wizardry</h1>
+        <p id="letter-body">Dear <span id="user-name"></span>,</p>
+        <p id="letter-content">
+            We are delighted to inform you that your application to Hogwarts has been received. 
+            As part of the process, we require some additional details about your magical abilities, 
+            academic achievements, and any special talents you may have.
+            <br><br>
+            Please complete the attached forms and submit them at your earliest convenience. 
+            We look forward to reviewing your application and welcoming you to the magical world.
+            <br><br>Yours sincerely,
+        </p>
+        <img id="signature" src="dumbledore-signature.png" alt="Albus Dumbledore's Signature">
+
+        <!-- Pulsante per inviare la richiesta di ammissione -->
+        <a href="#" id="submit-btn">
+            <img src="submit.png" alt="Submit Application" style="width: 100px;">
+        </a>
+    </div>
+
+    <!-- Sezione delle Casate -->
+    <div id="houses-container">
+        <h2>Select Your House</h2>
+
+        <!-- Casata Gryffindor -->
+        <div class="house">
+            <img src="gryffindor-logo.png" alt="Gryffindor House" class="house-logo">
+            <h3>Gryffindor</h3>
+            <p>
+                Known for their bravery, courage, and daring, Gryffindors are a proud group of students
+                who value determination and standing up for what is right. The house was founded by Godric
+                Gryffindor and its emblematic animal is the lion.
+            </p>
+            <button class="choose-house-btn" onclick="chooseHouse('Gryffindor')">Choose Gryffindor</button>
+        </div>
+
+        <!-- Casata Hufflepuff -->
+        <div class="house">
+            <img src="hufflepuff-logo.png" alt="Hufflepuff House" class="house-logo">
+            <h3>Hufflepuff</h3>
+            <p>
+                Hufflepuff is known for its values of loyalty, hard work, and fair play. Students of Hufflepuff 
+                are known for their patience and kindness, and the house was founded by Helga Hufflepuff. The emblem 
+                animal is the badger.
+            </p>
+            <button class="choose-house-btn" onclick="chooseHouse('Hufflepuff')">Choose Hufflepuff</button>
+        </div>
+
+        <!-- Casata Ravenclaw -->
+        <div class="house">
+            <img src="ravenclaw-logo.png" alt="Ravenclaw House" class="house-logo">
+            <h3>Ravenclaw</h3>
+            <p>
+                Ravenclaw students are known for their intelligence, wisdom, and individuality. Founded by Rowena 
+                Ravenclaw, this house values creativity, learning, and open-mindedness. Its animal is the eagle.
+            </p>
+            <button class="choose-house-btn" onclick="chooseHouse('Ravenclaw')">Choose Ravenclaw</button>
+        </div>
+
+        <!-- Casata Slytherin -->
+        <div class="house">
+            <img src="slytherin-logo.png" alt="Slytherin House" class="house-logo">
+            <h3>Slytherin</h3>
+            <p>
+                Known for ambition, cunning, and resourcefulness, Slytherins are determined and strategic individuals. 
+                Founded by Salazar Slytherin, its emblem animal is the serpent. Slytherins value leadership and self-preservation.
+            </p>
+            <button class="choose-house-btn" onclick="chooseHouse('Slytherin')">Choose Slytherin</button>
+        </div>
+    </div>
+
+    <!-- Selezione della Casata -->
+    <div id="house-selection-result" style="display: none;">
+        <h2>You have chosen: <span id="chosen-house"></span></h2>
+    </div>
+</div>
+
+<!-- Collegamenti CSS e JavaScript -->
+<link rel="stylesheet" href="style.css">
+<script src="script.js"></script>
