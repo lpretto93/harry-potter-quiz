@@ -1,0 +1,181 @@
+/* Stile generale */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: url('letter.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #000;
+}
+
+header {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.hogwarts-logo {
+  width: 120px;
+  height: auto;
+}
+
+.letter-heading {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.letter-body {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.5rem;
+  line-height: 2;
+  text-align: justify;
+  margin-bottom: 20px;
+}
+
+.signature {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.8rem;
+  text-align: right;
+  margin-top: 20px;
+}
+
+input[type="text"] {
+  width: 80%;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.next-button {
+  cursor: pointer;
+  margin-top: 20px;
+  width: 50px;
+  height: auto;
+  transition: transform 0.2s ease;
+}
+
+.next-button:hover {
+  transform: scale(1.1);
+}
+
+/* Stile per la pagina delle casate */
+.houses-screen {
+  text-align: center;
+  padding: 20px;
+}
+
+.houses {
+  display: flex;
+  flex-direction: column; /* Casate in colonna */
+  justify-content: center;
+  align-items: center; /* Centra tutte le casate */
+  gap: 30px; /* Spaziatura più grande tra le casate */
+}
+
+.house {
+  text-align: center;
+  max-width: 350px; /* Limita la larghezza delle casate per migliorare l'aspetto */
+}
+
+.house img {
+  width: 120px; /* Immagini più grandi per i dettagli */
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.house-description {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.4rem;
+  line-height: 1.8;
+  text-align: justify;
+  margin-top: 15px;
+  max-width: 800px; /* Limita la larghezza del testo per migliorare la leggibilità */
+}
+
+/* Ottimizzazioni per dispositivi mobili */
+@media screen and (max-width: 768px) {
+  .hogwarts-logo {
+    width: 100px;
+  }
+
+  .letter-heading {
+    font-size: 2rem;
+  }
+
+  .letter-body {
+    font-size: 1.2rem;
+    line-height: 1.8;
+  }
+
+  .signature {
+    font-size: 1.5rem;
+  }
+
+  input[type="text"] {
+    width: 90%;
+    font-size: 0.9rem;
+  }
+
+  .houses {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .house {
+    max-width: 90%;
+  }
+
+  .house img {
+    width: 100px; /* Immagini più piccole per dispositivi mobili */
+  }
+
+  .house-description {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    max-width: 95%;
+  }
+
+  .next-button {
+    width: 40px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hogwarts-logo {
+    width: 80px;
+  }
+
+  .letter-heading {
+    font-size: 1.8rem;
+  }
+
+  .letter-body {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .signature {
+    font-size: 1.2rem;
+  }
+
+  .houses {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .house img {
+    width: 70px;
+  }
+
+  .house-description {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .next-button {
+    width: 35px;
+  }
+}
