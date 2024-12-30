@@ -1,23 +1,24 @@
 body {
     font-family: 'Cursive', sans-serif; /* Usa un font cursivo per il testo scritto a mano */
-    background-image: url('letter.jpg');
-    background-size: cover;
-    background-position: center center;
-    background-attachment: fixed;
-    color: black;
     margin: 0;
     padding: 0;
     height: 100vh;
-    background-repeat: no-repeat;
+    overflow: hidden;
+    color: black;
+    background: url('letter.jpg') no-repeat center center fixed;  /* Background fissa */
+    background-size: cover;
+    background-attachment: scroll; /* Lo sfondo scorre con la pagina */
 }
 
 #invitation-container {
-    position: absolute;  /* Posiziona il contenuto direttamente sopra lo sfondo */
-    top: 50%;  /* Centra verticalmente */
-    left: 50%;  /* Centra orizzontalmente */
-    transform: translate(-50%, -50%);  /* Compensa l'effetto di centramento */
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
     width: 80%;
+    z-index: 1; /* Assicura che il contenuto sia sopra lo sfondo */
+    color: black;
 }
 
 h1 {
@@ -120,4 +121,32 @@ p {
 
 .answer-btn:hover {
     background-color: #f4c542;
+}
+
+/* Aggiungi un effetto di scorrimento su mobile */
+@media (max-width: 768px) {
+    body {
+        background-attachment: scroll; /* Lo sfondo ora scorre con la pagina */
+    }
+    
+    #invitation-container {
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    #signature {
+        font-size: 20px;
+    }
+
+    #player-name {
+        width: 80%;
+    }
+
+    #start-btn {
+        width: 80%;
+        font-size: 16px;
+    }
 }
