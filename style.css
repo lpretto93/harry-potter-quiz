@@ -199,3 +199,89 @@ input[type="text"] {
     padding-bottom: 60px; /* Spazio inferiore per evitare sovrapposizione dei contenuti */
   }
 }
+
+/* Pulsante audio in alto a sinistra */
+.audio-button {
+  position: absolute;
+  top: 20px; /* Posizionato 20px dal bordo superiore */
+  left: 20px; /* Posizionato 20px dal bordo sinistro */
+  cursor: pointer;
+  z-index: 100; /* Per assicurarsi che il pulsante sia sopra gli altri contenuti */
+}
+
+.audio-icon {
+  width: 40px; /* Dimensione dell'icona */
+  height: auto;
+}
+
+/* Altri stili (già forniti in precedenza) */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: url('letter.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #000;
+  padding-left: 30px;
+  padding-right: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+}
+
+header {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.hogwarts-logo {
+  width: 120px;
+  height: auto;
+}
+
+.letter-heading {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.5rem;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.letter-body {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.5rem;
+  line-height: 2;
+  text-align: left;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.signature {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.8rem;
+  text-align: left;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  width: 80%;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.next-button {
+  cursor: pointer;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: auto;
+  transition: transform 0.2s ease;
+}
+
+.next-button:hover {
+  transform: scale(1.1);
+}
