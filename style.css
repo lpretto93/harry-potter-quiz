@@ -1,36 +1,31 @@
-/* Impostazioni generali per il body */
-/* Body */
 body {
-    font-family: 'Francois One', sans-serif; /* Font in stile Harry Potter */
-    background-image: url('letter.jpg'); /* Sfondo per desktop */
-    background-size: cover; /* Assicura che lo sfondo copra tutta la pagina */
-    background-position: center center; /* Centra lo sfondo */
-    background-attachment: fixed; /* Fissa lo sfondo per un effetto parallax su desktop */
-    color: black; /* Colore di testo nero per il corpo della lettera */
+    font-family: 'Francois One', sans-serif; 
+    background-image: url('letter.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    color: black;
     margin: 0;
     padding: 0;
-    height: 100vh; /* Imposta altezza della pagina a 100% per coprire tutto lo schermo */
-    background-repeat: no-repeat; /* Evita che l'immagine venga ripetuta */
+    height: 100vh;
+    background-repeat: no-repeat;
 }
 
-/* Contenitore del gioco (lettera) */
 #invitation-container {
     position: relative;
     padding: 20px;
     text-align: center;
 }
 
-/* Contenuto della lettera */
 #invitation-content {
     max-width: 800px;
     margin: 0 auto;
-    background-color: rgba(255, 255, 255, 0.8); /* Leggera trasparenza per migliorare la leggibilità */
+    background-color: rgba(255, 255, 255, 0.8);
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Testo della lettera */
 h1 {
     font-size: 36px;
     margin-bottom: 20px;
@@ -41,7 +36,6 @@ p {
     line-height: 1.6;
 }
 
-/* Casella di testo per il nome utente */
 #player-name {
     font-size: 18px;
     padding: 10px;
@@ -52,10 +46,9 @@ p {
     background-color: #fff;
 }
 
-/* Pulsante Start */
 #start-btn {
     padding: 10px 20px;
-    background-color: #f4c542; /* Colore dorato */
+    background-color: #f4c542;
     border: none;
     border-radius: 5px;
     font-size: 18px;
@@ -66,31 +59,28 @@ p {
 }
 
 #start-btn:hover {
-    background-color: #e0a800; /* Colore più scuro al passaggio del mouse */
+    background-color: #e0a800;
 }
 
-/* Firma */
 #signature-label {
     font-size: 18px;
     margin-top: 30px;
     font-weight: bold;
-    color: black; /* Colore del testo della firma */
+    color: black;
 }
 
-/* Signature appearance and animation */
 #signature {
-    font-family: 'Cursive', sans-serif; /* Font che simula la scrittura a mano */
+    font-family: 'Cursive', sans-serif;
     font-size: 24px;
-    color: black; /* Colore della firma */
+    color: black;
     margin-top: 10px;
     white-space: nowrap;
     overflow: hidden;
-    border-right: 3px solid black; /* Simula il cursore */
+    border-right: 3px solid black;
     width: 0;
-    animation: write-signature 3s steps(30) forwards; /* Animazione della firma */
+    animation: write-signature 3s steps(30) forwards;
 }
 
-/* Animazione della firma */
 @keyframes write-signature {
     from {
         width: 0;
@@ -98,4 +88,28 @@ p {
     to {
         width: 100%;
     }
+}
+
+/* Styling per il gioco */
+#game-container {
+    display: none;
+    text-align: center;
+}
+
+#answer-buttons {
+    margin-top: 20px;
+}
+
+.answer-btn {
+    padding: 10px 20px;
+    font-size: 18px;
+    margin: 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.answer-btn:hover {
+    background-color: #f4c542;
 }
