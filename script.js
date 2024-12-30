@@ -19,6 +19,11 @@ let startTime;
 let isMuted = false;
 let gameEnded = false;
 
+// Imposta i volumi iniziali
+correctSound.volume = 1;
+wrongSound.volume = 1;
+backgroundMusic.volume = 0.5; // Musica di sottofondo leggermente più bassa
+
 // Funzione per verificare se il nome è unico
 function isNameUnique(name) {
     const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
@@ -76,7 +81,10 @@ function handleAnswer(index) {
 
 // Suona l'audio se non è mutato
 function playSound(sound) {
-    if (!isMuted) sound.play();
+    if (!isMuted) {
+        sound.currentTime = 0; // Riavvia il suono
+        sound.play().catch(err => console.error('Errore nella riproduzione audio:', err));
+    }
 }
 
 // Fine del gioco
@@ -98,7 +106,11 @@ function endGame() {
 volumeIcon.addEventListener('click', () => {
     isMuted = !isMuted;
     volumeIcon.src = isMuted ? 'mute.png' : 'volume.png';
+
+    // Applica lo stato di mute a tutti gli audio
     backgroundMusic.muted = isMuted;
+    correctSound.muted = isMuted;
+    wrongSound.muted = isMuted;
 });
 
 // Inizio del gioco
@@ -121,6 +133,8 @@ startButton.addEventListener('click', async () => {
     gameContainer.style.display = 'block';
     startTime = new Date().getTime();
     showQuestion();
+
+    // Avvia la musica di sottofondo
     backgroundMusic.loop = true;
-    backgroundMusic.play();
+    backgroundMusic.play().catch(err => console.error('Errore nella riproduzione della musica:', err));
 });
