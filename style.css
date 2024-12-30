@@ -8,7 +8,7 @@
         /* Impostazioni generali per il body */
         body {
             font-family: 'Francois One', sans-serif; /* Font in stile Harry Potter */
-            background-image: url('letter.png'); /* Sfondo per desktop */
+            background-image: url('letter.jpg'); /* Sfondo per desktop */
             background-size: cover; /* Assicura che lo sfondo copra tutta la pagina */
             background-position: center center; /* Centra lo sfondo */
             background-attachment: fixed; /* Fissa lo sfondo per un effetto parallax su desktop */
@@ -40,9 +40,10 @@
             font-style: italic; /* Testo in corsivo per l'effetto calligrafico */
         }
 
-        /* Casella di testo per il nome dell'utente */
+        /* Casella di testo per il nome dell'utente (posizionata dopo 'Dear') */
         #player-name-container {
             margin-top: 20px;
+            text-align: center;
         }
 
         #player-name-input {
@@ -50,7 +51,7 @@
             font-size: 20px;
             border: 2px solid #f4c542;
             border-radius: 5px;
-            width: 80%;
+            width: 50%;
             max-width: 300px;
             background-color: rgba(255, 255, 255, 0.8);
             color: black;
@@ -73,10 +74,20 @@
             background-color: #e0a800; /* Colore più scuro al passaggio del mouse */
         }
 
-        /* Effetto di scrittura per la firma */
+        /* Scritta Firma */
+        #signature-label {
+            position: absolute;
+            bottom: 50px;
+            right: 20px;
+            font-family: 'Francois One', sans-serif;
+            font-size: 24px;
+            color: white;
+        }
+
+        /* Firma dell'utente che appare da sinistra a destra */
         #signature {
             position: absolute;
-            bottom: 30px;
+            bottom: 20px;
             right: 20px;
             font-family: 'Brush Script MT', cursive;
             font-size: 40px;
@@ -109,7 +120,7 @@
 
     <!-- Contenitore della lettera di invito -->
     <div id="invitation-container">
-        <p>Dear Student,</p>
+        <p>Dear <span id="name-placeholder">_____</span>,</p>
         <p>You are invited to attend the Hogwarts School of Witchcraft and Wizardry.</p>
         <p>Please enter your name to proceed:</p>
 
@@ -121,6 +132,9 @@
         <!-- Pulsante per partecipare -->
         <button id="start-btn" onclick="startGame()">Partecipa</button>
 
+        <!-- Scritta Firma -->
+        <div id="signature-label">Firma</div>
+
         <!-- Firma dell'utente che appare dopo il clic -->
         <div id="signature"></div>
     </div>
@@ -129,9 +143,13 @@
         // Funzione per gestire la partecipazione
         function startGame() {
             var playerName = document.getElementById('player-name-input').value;
-            
-            // Imposta la firma con il nome dell'utente
+
+            // Se l'utente inserisce un nome
             if (playerName.trim() !== '') {
+                // Sostituisci il placeholder con il nome dell'utente nella lettera
+                document.getElementById('name-placeholder').innerText = playerName;
+
+                // Imposta la firma con il nome dell'utente
                 var signature = document.getElementById('signature');
                 signature.innerHTML = playerName; // Aggiungi il nome dell'utente come firma
                 
