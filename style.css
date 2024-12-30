@@ -105,3 +105,20 @@ button:hover {
         height: 35px;
     }
 }
+.feedback-icon {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+}
+
+.correct {
+    background-color: #28a745; /* verde per la risposta corretta */
+}
+
+.incorrect {
+    background-color: #dc3545; /* rosso per la risposta sbagliata */
+}
