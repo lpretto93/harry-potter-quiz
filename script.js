@@ -16,6 +16,7 @@ let isMuted = false;
 let questions = [];
 let currentQuestionIndex = 0;
 let score = 0;
+let gameEnded = false; // Nuova variabile per controllare la fine del gioco
 
 // Funzione per caricare le domande dal file JSON
 async function loadQuestions() {
@@ -109,22 +110,37 @@ function showFeedback(imageSrc) {
 
 // Mostra il punteggio finale
 function showEndGame() {
+    gameEnded = true; // Imposta lo stato di fine gioco
     alert(`Hai finito il gioco! Il tuo punteggio finale è: ${score}`);
-    resetGame();
+    finalizeGame();
 }
 
-// Resetta il gioco per una nuova partita
-function resetGame() {
-    currentQuestionIndex = 0;
-    score = 0;
+// Disabilita la possibilità di resettare il gioco
+function finalizeGame() {
+    // Nasconde il contenitore del gioco
     gameContainer.style.display = 'none';
-    document.getElementById('player-name-container').style.display = 'block';
+
+    // Nasconde la schermata iniziale permanentemente
+    const playerNameContainer = document.getElementById('player-name-container');
+    if (playerNameContainer) {
+        playerNameContainer.remove();
+    }
+
+    // Interrompe la musica di sottofondo
     backgroundMusic.pause();
     backgroundMusic.currentTime = 0;
+
+    // Mostra un messaggio finale
+    const endMessage = document.createElement('h1');
+    endMessage.textContent = `Grazie per aver giocato! Punteggio: ${score}`;
+    endMessage.style.color = 'var(--text-color)';
+    document.body.appendChild(endMessage);
 }
 
 // Gestisce l'inizio del gioco
 startButton.addEventListener('click', async () => {
+    if (gameEnded) return; // Impedisce di riavviare se il gioco è finito
+
     const playerName = playerNameInput.value.trim();
     if (playerName === '') {
         alert('Per favore, inserisci il tuo nome!');
