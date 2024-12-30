@@ -1,0 +1,117 @@
+/* Variabili CSS per colori principali */
+:root {
+    --primary-color: #ffcc00;
+    --background-overlay: rgba(0, 0, 0, 0.8);
+    --text-color: #f5deb3;
+}
+
+/* Stile generale */
+body {
+    font-family: 'Almendra SC', serif;
+    background: url('letter.jpg') no-repeat center center fixed; /* Modificato il percorso dell'immagine di sfondo */
+    background-size: cover;
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+    box-sizing: border-box;
+    text-align: center; /* Aggiunto per migliorare l'aspetto su mobile */
+}
+
+/* Titoli */
+h1, h2, h3 {
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.9), 0 0 30px rgba(255, 140, 0, 0.7);
+    font-size: 2rem;
+}
+
+/* Input e pulsanti */
+input[type="text"], button {
+    border-radius: 10px;
+    border: 2px solid var(--primary-color);
+    background-color: var(--background-overlay);
+    color: var(--text-color);
+    font-family: inherit;
+    padding: 10px;
+    font-size: 1.2rem;
+    width: 80%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+button {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    padding: 12px;
+}
+
+button:hover {
+    background-color: var(--primary-color);
+    transform: scale(1.05);
+}
+
+/* Contenitore del gioco */
+#game-container {
+    width: 80%;
+    max-width: 1000px;
+    display: none;
+    box-sizing: border-box;
+}
+
+/* Modale classifica */
+#leaderboard-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--background-overlay);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+    max-width: 90%;
+    overflow-y: auto;
+    max-height: 80%;
+}
+
+/* Media query per dispositivi mobili */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-top: 20px;
+        background-size: cover; /* Rende lo sfondo responsive */
+    }
+
+    h1, h2, h3 {
+        font-size: 1.5rem; /* Riduce la dimensione del testo per mobile */
+    }
+
+    input[type="text"], button {
+        width: 90%;
+        font-size: 1rem;
+        padding: 8px;
+    }
+
+    #game-container {
+        width: 90%;
+    }
+
+    #leaderboard-modal {
+        max-width: 95%;
+        padding: 15px;
+    }
+
+    .answer-btn {
+        font-size: 1rem; /* Modifica la dimensione del testo su dispositivi piccoli */
+        padding: 15px;
+    }
+
+    .answer-effect {
+        width: 50px; /* Riduce la dimensione dell'effetto immagine su mobile */
+        height: 50px;
+    }
+}
