@@ -20,6 +20,10 @@ let playerName = '';
 let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
 let startTime; // Per calcolare il tempo impiegato
 
+// Selezione dei feedback visivi
+const correctFeedback = document.getElementById('correct-feedback');
+const incorrectFeedback = document.getElementById('incorrect-feedback');
+
 // Funzione per caricare le domande dal file JSON
 async function loadQuestions() {
     try {
@@ -60,20 +64,24 @@ function handleAnswer(selectedIndex) {
     // Effetto visivo e sonoro
     if (selectedIndex === correctAnswerIndex) {
         playSound(correctSound); // Suono giusto
+        showFeedback(true); // Mostra il feedback giusto
         score++; // Incrementa il punteggio
     } else {
         playSound(wrongSound); // Suono sbagliato
+        showFeedback(false); // Mostra il feedback sbagliato
     }
 
-    // Passa alla domanda successiva
-    currentQuestionIndex++;
+    // Aggiungi il ritardo di 1 secondo prima di caricare la prossima domanda
+    setTimeout(() => {
+        currentQuestionIndex++;
 
-    // Verifica se ci sono altre domande
-    if (currentQuestionIndex < questions.length) {
-        setTimeout(showQuestion, 1000); // Mostra la prossima domanda dopo 1 secondo
-    } else {
-        endGame(); // Fine del gioco
-    }
+        // Verifica se ci sono altre domande
+        if (currentQuestionIndex < questions.length) {
+            showQuestion(); // Mostra la prossima domanda
+        } else {
+            endGame(); // Fine del gioco
+        }
+    }, 1000); // Tempo di buffer di 1 secondo
 }
 
 // Funzione per riprodurre il suono, considerando se il volume è mutato
@@ -92,9 +100,18 @@ function stopPreviousEffects() {
     wrongSound.currentTime = 0;
 
     // Rimuove le immagini precedenti di feedback
-    const existingEffect = document.querySelector('.answer-effect');
-    if (existingEffect) {
-        existingEffect.remove();
+    correctFeedback.style.display = 'none';
+    incorrectFeedback.style.display = 'none';
+}
+
+// Mostra il feedback visivo (giusto/sbagliato)
+function showFeedback(isCorrect) {
+    if (isCorrect) {
+        correctFeedback.style.display = 'block';
+        incorrectFeedback.style.display = 'none';
+    } else {
+        correctFeedback.style.display = 'none';
+        incorrectFeedback.style.display = 'block';
     }
 }
 
