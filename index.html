@@ -8,17 +8,52 @@
 </head>
 <body>
 
+    <!-- Contenitore della lettera di invito -->
     <div id="invitation-container">
         <div id="invitation-content">
             <h1>Welcome to Hogwarts</h1>
             <p>Dear <span id="name-placeholder">__________</span>,</p>
             <p>We are pleased to inform you that you have been accepted to Hogwarts School of Witchcraft and Wizardry. You will find all the necessary supplies for your first year in the list enclosed with this letter.</p>
             <p>Please reply with your name below to confirm your attendance:</p>
+            
+            <!-- Casella di testo per il nome dell'utente -->
             <input type="text" id="player-name" placeholder="Enter your name" />
-            <button id="start-btn">Start Game</button>
+            
+            <!-- Pulsante per partecipare -->
+            <button id="start-btn" onclick="startGame()">Start Game</button>
         </div>
+
+        <!-- Scritta Firma -->
+        <div id="signature-label">Firma</div>
+
+        <!-- Firma dell'utente che appare dopo il clic -->
+        <div id="signature"></div>
     </div>
 
-    <script src="script.js"></script> <!-- Include your script here -->
+    <script>
+        // Funzione per gestire la partecipazione
+        function startGame() {
+            var playerName = document.getElementById('player-name').value;
+
+            // Se l'utente inserisce un nome
+            if (playerName.trim() !== '') {
+                // Sostituisci il placeholder con il nome dell'utente nella lettera
+                document.getElementById('name-placeholder').innerText = playerName;
+
+                // Imposta la firma con il nome dell'utente
+                var signature = document.getElementById('signature');
+                signature.innerHTML = playerName; // Aggiungi il nome dell'utente come firma
+                
+                // Rendi visibile la firma e avvia l'animazione
+                signature.style.visibility = 'visible';
+                
+                // Disabilita il pulsante "Start Game" dopo il clic
+                document.getElementById('start-btn').disabled = true;
+            } else {
+                alert('Please enter your name to participate.');
+            }
+        }
+    </script>
+
 </body>
 </html>
