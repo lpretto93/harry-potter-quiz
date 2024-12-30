@@ -14,7 +14,7 @@ body {
 }
 
 /* Sfondo per dispositivi mobili */
-@media () {
+@media (max-width: 768px) {
     body {
         background-image: url('background-mobile.jpeg'); /* Sfondo per mobile */
         background-position: center center; /* Centra lo sfondo */
