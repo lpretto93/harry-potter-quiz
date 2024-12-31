@@ -129,7 +129,6 @@
         <h1>Benvenuto al quiz di Hogwarts!</h1>
         <input type="text" id="username-input" placeholder="Inserisci il tuo nome">
         <button id="username-submit">Inizia</button>
-        <p id="username-error" class="error hidden">Hai già partecipato!</p>
     </div>
 
     <!-- Schermata della Lettera -->
@@ -218,7 +217,6 @@
         // Eventi per la schermata iniziale
         const usernameInput = document.getElementById('username-input');
         const usernameSubmit = document.getElementById('username-submit');
-        const usernameError = document.getElementById('username-error');
 
         usernameSubmit.addEventListener('click', () => {
             const username = usernameInput.value.trim();
@@ -227,13 +225,9 @@
                 return;
             }
 
-            // Controllo se l'utente ha già partecipato (simulazione)
-            if (localStorage.getItem(username)) {
-                usernameError.classList.remove('hidden');
-            } else {
-                currentUser = username;
-                showScreen('letter-screen');
-            }
+            // Rimuovi il controllo se l'utente ha già partecipato
+            currentUser = username;
+            showScreen('letter-screen');
         });
 
         // Eventi per andare alla schermata delle casate
