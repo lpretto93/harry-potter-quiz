@@ -1,123 +1,97 @@
+/* Aggiungi lo sfondo per tutte le schermate */
 body {
-    font-family: Arial, sans-serif;
+    background-image: url('images/letter.jpg'); /* Imposta l'immagine di sfondo */
+    background-size: cover;
+    background-position: center;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    background-color: #f4f4f9;
-    color: #333;
-    text-align: center;
 }
 
 #main-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
 }
 
+/* Stile per il logo di Hogwarts */
+.header-logo {
+    width: 150px; /* Imposta la larghezza dell'immagine */
+    height: auto;
+    margin-bottom: 20px; /* Aggiungi un margine tra il logo e il contenuto */
+}
+
+/* Stile per la schermata attiva */
 .screen {
     display: none;
-    padding: 20px;
 }
 
 .screen.active {
     display: block;
 }
 
-h1 {
-    color: #2c3e50;
-    margin-bottom: 20px;
-}
-
+/* Stile per il contenuto dei pulsanti */
 button {
     padding: 10px 20px;
-    margin-top: 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #3498db;
-    color: #fff;
     font-size: 16px;
     cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin: 10px;
 }
 
 button:hover {
-    background-color: #2980b9;
+    background-color: #45a049;
 }
 
+button.hidden {
+    display: none;
+}
+
+/* Personalizzazione del contenitore delle casate */
+#houses-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.house {
+    text-align: center;
+    width: 200px;
+    cursor: pointer;
+}
+
+.house img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Stile per le risposte del quiz */
+#answers-container {
+    margin-top: 20px;
+}
+
+#answers-container button {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* Stile per il messaggio di errore */
 .error {
     color: red;
-    font-weight: bold;
+    font-size: 14px;
+    margin-top: 10px;
 }
 
 .hidden {
     display: none;
-}
-
-#houses-container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
-
-.house {
-    flex: 1 1 calc(50% - 20px);
-    margin: 10px;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    padding: 10px;
-    background-color: #fff;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.house:hover {
-    transform: scale(1.05);
-    border-color: #3498db;
-}
-
-.house img {
-    max-width: 100px;
-    margin-bottom: 10px;
-}
-
-#quiz-container {
-    text-align: left;
-    margin: 20px auto;
-    max-width: 600px;
-}
-
-#answers-container {
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
-}
-
-#answers-container button {
-    margin: 5px 0;
-    padding: 10px;
-    font-size: 14px;
-    background-color: #ecf0f1;
-    color: #333;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    transition: background-color 0.2s;
-}
-
-#answers-container button:hover {
-    background-color: #bdc3c7;
-}
-
-#result-logo {
-    max-width: 200px;
-    margin: 20px 0;
-}
-
-@media (max-width: 600px) {
-    .house {
-        flex: 1 1 100%;
-    }
-
-    #houses-container {
-        flex-direction: column;
-        align-items: center;
-    }
 }
