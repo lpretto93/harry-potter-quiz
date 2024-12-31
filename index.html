@@ -1,59 +1,70 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz di Hogwarts</title>
+    <title>Hogwarts Sorting Game</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="app">
-        <div id="username-screen">
-            <h1>Inserisci il tuo nome utente</h1>
-            <input type="text" id="username" placeholder="Nome utente">
-            <button id="start-button">Inizia</button>
-        </div>
-        <div id="letter-screen" style="display: none;">
-            <h1>Lettera da Silente</h1>
-            <p>Benvenuto a Hogwarts! ... (introduzione)</p>
-            <button id="next-button"><img src="images/next-page.png" alt="Prossima pagina"></button>
-        </div>
-        <div id="houses-screen" style="display: none;">
-            <h1>Seleziona la tua casata preferita</h1>
-            <div id="houses">
+    <div id="main-container">
+        <!-- Prima schermata: Inserimento nome utente -->
+        <section id="username-screen" class="screen active">
+            <h1>Benvenuto a Hogwarts!</h1>
+            <p>Inserisci il tuo nome per iniziare:</p>
+            <input type="text" id="username-input" placeholder="Inserisci il tuo nome">
+            <button id="username-submit">Continua</button>
+            <p id="username-error" class="error hidden">Hai già partecipato alla selezione!</p>
+        </section>
+
+        <!-- Seconda schermata: Lettera di Silente -->
+        <section id="letter-screen" class="screen">
+            <h1>Lettera da Albus Silente</h1>
+            <p>Benvenuto a Hogwarts! Questa scuola è famosa per la sua storia...</p>
+            <button id="to-houses">Scopri le casate</button>
+        </section>
+
+        <!-- Terza schermata: Scelta della casata -->
+        <section id="houses-screen" class="screen">
+            <h1>Scegli la tua casata preferita</h1>
+            <div id="houses-container">
                 <div class="house" data-house="Gryffindor">
                     <img src="images/houses/gryffindor.png" alt="Gryffindor">
-                    <p>Descrizione di Gryffindor...</p>
+                    <p>Gryffindor: coraggio, audacia...</p>
                 </div>
                 <div class="house" data-house="Hufflepuff">
                     <img src="images/houses/hufflepuff.png" alt="Hufflepuff">
-                    <p>Descrizione di Hufflepuff...</p>
+                    <p>Hufflepuff: lealtà, pazienza...</p>
                 </div>
                 <div class="house" data-house="Ravenclaw">
                     <img src="images/houses/ravenclaw.png" alt="Ravenclaw">
-                    <p>Descrizione di Ravenclaw...</p>
+                    <p>Ravenclaw: intelligenza, saggezza...</p>
                 </div>
                 <div class="house" data-house="Slytherin">
                     <img src="images/houses/slytherin.png" alt="Slytherin">
-                    <p>Descrizione di Slytherin...</p>
+                    <p>Slytherin: ambizione, astuzia...</p>
                 </div>
             </div>
-        </div>
-        <div id="quiz-screen" style="display: none;">
+        </section>
+
+        <!-- Quarta schermata: Quiz -->
+        <section id="quiz-screen" class="screen">
             <h1>Quiz di Hogwarts</h1>
-            <div id="quiz"></div>
-            <button id="submit-quiz">Invia Risposte</button>
-        </div>
-        <div id="result-screen" style="display: none;">
-            <h1>Risultato</h1>
-            <div id="result"></div>
-            <button id="show-leaderboard">Mostra Classifica</button>
-        </div>
-        <div id="leaderboard-screen" style="display: none;">
-            <h1>Classifica</h1>
-            <div id="leaderboard"></div>
-        </div>
+            <div id="quiz-container">
+                <p id="question"></p>
+                <div id="answers-container"></div>
+            </div>
+            <button id="next-question">Domanda successiva</button>
+        </section>
+
+        <!-- Schermata finale: Risultato -->
+        <section id="result-screen" class="screen">
+            <h1 id="result-message"></h1>
+            <img id="result-logo" src="" alt="House logo">
+            <button id="view-ranking">Visualizza classifica</button>
+        </section>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
