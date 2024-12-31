@@ -24,6 +24,7 @@ body {
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 /* Base styling for all screens */
@@ -35,6 +36,7 @@ body {
     color: white;
     padding: 20px;
     border-radius: 10px;
+    position: relative;
 }
 
 .screen.active {
@@ -43,7 +45,19 @@ body {
 
 h1 {
     text-align: center;
+    margin-top: 80px; /* Adjust margin to avoid overlap with the logo */
     margin-bottom: 20px;
+}
+
+/* Logo Styling */
+#hogwarts-logo {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px; /* Adjust size of the logo */
+    height: auto;
+    z-index: 10;
 }
 
 input[type="text"] {
