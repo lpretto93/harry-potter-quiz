@@ -40,14 +40,31 @@ usernameSubmit.addEventListener('click', () => {
         usernameError.classList.remove('hidden');
     } else {
         currentUser = username;
-        showScreen('letter-screen');
+        // Se è BigMaster, mostra il pannello amministrativo
+        if (currentUser === "BigMaster") {
+            showScreen('admin-panel');
+        } else {
+            showScreen('letter-screen');
+        }
     }
+});
+
+// Gestione del pannello amministrativo
+const resetRankingButton = document.getElementById('reset-ranking');
+resetRankingButton.addEventListener('click', () => {
+    // Reset della classifica (rimuove tutto dal localStorage)
+    localStorage.clear();
+    alert("Classifica resettata!");
+});
+
+const backToHomeButton = document.getElementById('back-to-home');
+backToHomeButton.addEventListener('click', () => {
+    showScreen('start-screen');
 });
 
 // Evento per andare alla schermata delle casate
 const toHousesButton = document.getElementById('to-houses');
 toHousesButton.addEventListener('click', () => {
-    console.log('Pulsante "Scopri le casate" cliccato.');
     showScreen('houses-screen');
 });
 
@@ -114,5 +131,4 @@ const viewRankingButton = document.getElementById('view-ranking');
 viewRankingButton.addEventListener('click', () => {
     localStorage.setItem(currentUser, true);
     alert("Classifica non implementata in questa demo.");
-    // Reindirizza o implementa la classifica qui
 });
