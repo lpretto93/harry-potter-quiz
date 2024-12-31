@@ -39,6 +39,12 @@ usernameSubmit.addEventListener('click', () => {
     }
 });
 
+// Evento per andare alla schermata delle casate
+const toHousesButton = document.getElementById('to-houses');
+toHousesButton.addEventListener('click', () => {
+    showScreen('houses-screen');
+});
+
 // Eventi per la scelta delle casate
 const houses = document.querySelectorAll('.house');
 houses.forEach(house => {
