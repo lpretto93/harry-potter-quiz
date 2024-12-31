@@ -1,31 +1,30 @@
-/* Reset e Stili Generali */
+/* Resetting default styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Corpo e Layout Generale */
+/* Styling for screens */
 body {
     font-family: Arial, sans-serif;
-    background: url('images/letter.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: #fff;
+    background-color: #f0f0f0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    overflow: hidden;
 }
 
-/* Container Principale per i Contenuti */
 #main-container {
-    text-align: center;
-    max-width: 100%;
-    width: 90%;
-    max-height: 100%;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Classe per le Schermate */
 .screen {
     display: none;
 }
@@ -34,224 +33,104 @@ body {
     display: block;
 }
 
-/* Testo Header e Titolo */
 h1 {
-    font-size: 2.5rem;
+    text-align: center;
     margin-bottom: 20px;
 }
 
-/* Messaggi di errore */
-.error {
-    color: red;
-    font-size: 1.2rem;
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
 }
 
-.hidden {
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button.hidden {
     display: none;
 }
 
-/* Stili per le Immagini usate come Pulsanti */
-img {
-    max-width: 100%;
-    height: auto;
-    cursor: pointer;
-    display: block;
-    margin: 20px auto;
-}
-
-/* Specifico per le Immagini dei Pulsanti (ad esempio, next-page.png) */
-#next-question, #username-submit, #to-houses, #view-ranking, #reset-ranking, #back-to-home {
-    width: auto;
-    height: 50px;  /* Impostiamo un'altezza fissa per i pulsanti */
-    max-height: 50px;  /* Impedisce che l'immagine superi l'altezza desiderata */
-    margin: 20px auto;
-    background: url('images/next-page.png') no-repeat center center;  /* Imposta l'immagine */
-    background-size: contain;  /* Mantieni le proporzioni dell'immagine */
-    border: none;
-    cursor: pointer;
-}
-
-/* Aggiungi effetti al passaggio del mouse per i pulsanti */
-#next-question:hover, #username-submit:hover, #to-houses:hover, #view-ranking:hover, #reset-ranking:hover, #back-to-home:hover {
-    opacity: 0.8;
-}
-
-/* Titoli e altri testi */
-h1, p {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    padding: 0 15px;
-}
-
-/* Schermata Iniziale */
-#start-screen {
-    display: block;
-}
-
-#username-input {
-    padding: 10px;
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    width: 80%;
-    max-width: 300px;
-    border: 2px solid #fff;
-    border-radius: 5px;
-    background: transparent;
-    color: #fff;
-}
-
-#username-input:focus {
-    outline: none;
-    border-color: #ff9800;
-}
-
-/* Schermata Lettera */
-#letter-screen p {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    padding: 0 15px;
-}
-
-/* Schermata delle Casate */
-#houses-container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-top: 30px;
+.error {
+    color: red;
+    text-align: center;
+    font-size: 14px;
 }
 
 .house {
-    width: 22%;
+    display: inline-block;
     text-align: center;
+    margin: 10px;
     cursor: pointer;
-    transition: transform 0.3s ease;
 }
 
 .house img {
-    width: 100%;
-    height: auto;
-}
-
-.house:hover {
-    transform: scale(1.05);
-}
-
-.house p {
-    margin-top: 10px;
-}
-
-/* Schermata Quiz */
-#quiz-screen {
-    display: block;
-}
-
-#answers-container {
-    margin-top: 30px;
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 10px;
 }
 
 #answers-container button {
-    background-color: #ff9800;
-    color: #fff;
-    font-size: 1.2rem;
-    padding: 15px 30px;
-    margin: 10px;
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #2196F3;
+    color: white;
+    font-size: 16px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 #answers-container button:hover {
-    background-color: #ff5722;
-}
-
-#next-question {
-    display: none;
-    max-width: 200px;
-    margin-top: 20px;
-}
-
-/* Schermata Risultato */
-#result-screen {
-    display: block;
-}
-
-#result-message {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
+    background-color: #0b7dda;
 }
 
 #result-logo {
     width: 100px;
-    height: auto;
-    margin-bottom: 20px;
-}
-
-/* Pannello di Amministrazione */
-#admin-panel {
-    display: none;
-}
-
-#admin-panel h1 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-}
-
-#reset-ranking, #back-to-home {
-    max-width: 150px;
+    height: 100px;
+    object-fit: contain;
     margin: 20px auto;
+    display: block;
 }
 
-/* Ottimizzazioni per Dispositivi Mobili */
-@media (max-width: 768px) {
-    /* Riduci la dimensione del titolo */
-    h1 {
-        font-size: 2rem;
-    }
-
-    /* Riduci la larghezza delle immagini e dei pulsanti */
-    #next-question, #username-submit, #to-houses, #view-ranking, #reset-ranking, #back-to-home {
-        max-width: 120px;
-    }
-
-    /* Imposta le casate verticalmente */
-    #houses-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .house {
-        width: 80%;
-        margin-bottom: 20px;
-    }
-
-    #quiz-screen {
-        padding: 20px;
-    }
+#view-ranking {
+    background-color: #f39c12;
 }
 
-@media (max-width: 480px) {
-    /* Riduci ulteriormente la dimensione dei pulsanti */
-    #next-question, #username-submit, #to-houses, #view-ranking, #reset-ranking, #back-to-home {
-        max-width: 100px;
-    }
+#view-ranking:hover {
+    background-color: #e67e22;
+}
 
-    h1 {
-        font-size: 1.8rem;
-    }
+#admin-panel button {
+    background-color: #f44336;
+}
 
-    #username-input {
-        width: 90%;
-        font-size: 1.1rem;
-    }
+#admin-panel button:hover {
+    background-color: #e53935;
+}
 
-    #houses-container {
-        flex-direction: column;
-        align-items: center;
-    }
+#back-to-home {
+    background-color: #3498db;
+}
 
-    .house {
-        width: 90%;
-    }
+#back-to-home:hover {
+    background-color: #2980b9;
 }
