@@ -193,3 +193,19 @@ button.hidden {
 #back-to-home:hover {
     background-color: #45a049;
 }
+img {
+    max-width: 100%;
+    height: auto;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto;
+}
+
+.hidden {
+    display: none;
+}
+
+#next-question {
+    width: 200px;
+    margin-top: 20px;
+}
