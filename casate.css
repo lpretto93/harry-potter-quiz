@@ -72,3 +72,19 @@ p {
     line-height: 1.6;
     margin-top: 0; /* Rimuovi margine superiore in eccesso */
 }
+
+/* Media query per dispositivi mobili */
+@media (max-width: 600px) {
+    .casata-logo {
+        width: 80px; /* Ridotto per migliorare la visualizzazione su mobile */
+        height: auto;
+    }
+
+    h2 {
+        font-size: 18px; /* Ridotto per migliorare la visualizzazione su mobile */
+    }
+
+    p {
+        font-size: 14px; /* Ridotto per migliorare la visualizzazione su mobile */
+    }
+}
