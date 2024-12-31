@@ -15,7 +15,12 @@ function showScreen(screenId) {
     document.querySelectorAll('.screen').forEach(screen => {
         screen.classList.remove('active');
     });
-    document.getElementById(screenId).classList.add('active');
+    const screenElement = document.getElementById(screenId);
+    if (screenElement) {
+        screenElement.classList.add('active');
+    } else {
+        console.error(`Schermata con ID ${screenId} non trovata.`);
+    }
 }
 
 // Eventi per la schermata iniziale
@@ -42,6 +47,7 @@ usernameSubmit.addEventListener('click', () => {
 // Evento per andare alla schermata delle casate
 const toHousesButton = document.getElementById('to-houses');
 toHousesButton.addEventListener('click', () => {
+    console.log('Pulsante "Scopri le casate" cliccato.');
     showScreen('houses-screen');
 });
 
