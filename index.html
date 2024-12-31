@@ -1,71 +1,139 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gioco Hogwarts</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div id="main-container">
-        <!-- Logo di Hogwarts -->
-        <img id="hogwarts-logo" src="images/hogwarts.png" alt="Logo di Hogwarts">
+// Variabili globali
+let currentUser = "";
+let selectedHouse = "";
+let currentQuestionIndex = 0;
+let score = 0;
 
-        <!-- Schermata iniziale -->
-        <div id="start-screen" class="screen active">
-            <h1>Benvenuto al quiz di Hogwarts!</h1>
-            <input type="text" id="username-input" placeholder="Inserisci il tuo nome">
-            <button id="username-submit">Inizia</button>
-            <p id="username-error" class="error hidden">Hai già partecipato!</p>
-        </div>
+const questions = [
+    { question: "Qual è il simbolo della casa di Grifondoro?", answers: ["Leone", "Serpente", "Tasso", "Aquila"], correct: 0 },
+    { question: "Chi è il fondatore di Serpeverde?", answers: ["Godric", "Salazar", "Helga", "Rowena"], correct: 1 },
+    // Aggiungi altre domande qui
+];
 
-        <!-- Schermata della lettera -->
-        <div id="letter-screen" class="screen">
-            <h1>Lettera da Hogwarts</h1>
-            <p>Caro Studente, benvenuto nella Scuola di Magia e Stregoneria di Hogwarts...</p>
-            <button id="to-houses">Scopri le casate</button>
-        </div>
+// Funzioni per la navigazione
+function showScreen(screenId) {
+    document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.remove('active');
+    });
+    const screenElement = document.getElementById(screenId);
+    if (screenElement) {
+        screenElement.classList.add('active');
+    } else {
+        console.error(`Schermata con ID ${screenId} non trovata.`);
+    }
+}
 
-        <!-- Schermata delle casate -->
-        <div id="houses-screen" class="screen">
-            <h1>Scegli la tua casata preferita</h1>
-            <div id="houses-container">
-                <div class="house" data-house="Gryffindor">
-                    <img src="images/houses/gryffindor.png" alt="Grifondoro">
-                    <p>Descrizione di Grifondoro.</p>
-                </div>
-                <div class="house" data-house="Hufflepuff">
-                    <img src="images/houses/hufflepuff.png" alt="Tassorosso">
-                    <p>Descrizione di Tassorosso.</p>
-                </div>
-                <div class="house" data-house="Ravenclaw">
-                    <img src="images/houses/ravenclaw.png" alt="Corvonero">
-                    <p>Descrizione di Corvonero.</p>
-                </div>
-                <div class="house" data-house="Slytherin">
-                    <img src="images/houses/slytherin.png" alt="Serpeverde">
-                    <p>Descrizione di Serpeverde.</p>
-                </div>
-            </div>
-        </div>
+// Eventi per la schermata iniziale
+const usernameInput = document.getElementById('username-input');
+const usernameSubmit = document.getElementById('username-submit');
+const usernameError = document.getElementById('username-error');
 
-        <!-- Schermata del quiz -->
-        <div id="quiz-screen" class="screen">
-            <h1>Quiz</h1>
-            <p id="question">Domanda</p>
-            <div id="answers-container"></div>
-            <button id="next-question" class="hidden">Prossima domanda</button>
-        </div>
+usernameSubmit.addEventListener('click', () => {
+    const username = usernameInput.value.trim();
+    if (username === "") {
+        alert("Per favore, inserisci un nome valido.");
+        return;
+    }
 
-        <!-- Schermata del risultato -->
-        <div id="result-screen" class="screen">
-            <h1 id="result-message">Risultato</h1>
-            <img id="result-logo" src="" alt="Logo della casata">
-            <button id="view-ranking">Visualizza classifica</button>
-        </div>
-    </div>
+    // Se l'utente è BigMaster, mostra il pannello amministrativo
+    if (username === "BigMaster") {
+        currentUser = username;
+        showScreen('admin-panel');
+    } else {
+        // Controllo se l'utente ha già partecipato
+        if (localStorage.getItem(username)) {
+            usernameError.classList.remove('hidden');
+        } else {
+            currentUser = username;
+            showScreen('letter-screen');
+        }
+    }
+});
 
-    <script src="script.js"></script>
-</body>
-</html>
- 
+// Gestione del pannello amministrativo
+const resetRankingButton = document.getElementById('reset-ranking');
+resetRankingButton.addEventListener('click', () => {
+    // Reset della classifica (rimuove tutto dal localStorage)
+    localStorage.clear();
+    alert("Classifica resettata!");
+});
+
+const backToHomeButton = document.getElementById('back-to-home');
+backToHomeButton.addEventListener('click', () => {
+    showScreen('start-screen');
+});
+
+// Eventi per la schermata delle casate
+const toHousesButton = document.getElementById('to-houses');
+toHousesButton.addEventListener('click', () => {
+    if (currentUser !== "BigMaster") {
+        showScreen('houses-screen');
+    }
+});
+
+// Eventi per la scelta delle casate
+const houses = document.querySelectorAll('.house');
+houses.forEach(house => {
+    house.addEventListener('click', () => {
+        if (currentUser !== "BigMaster") {
+            selectedHouse = house.getAttribute('data-house');
+            showScreen('quiz-screen');
+            loadQuestion();
+        }
+    });
+});
+
+// Funzioni per il quiz
+const questionElement = document.getElementById('question');
+const answersContainer = document.getElementById('answers-container');
+const nextQuestionButton = document.getElementById('next-question');
+
+function loadQuestion() {
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    answersContainer.innerHTML = "";
+
+    currentQuestion.answers.forEach((answer, index) => {
+        const button = document.createElement('button');
+        button.textContent = answer;
+        button.addEventListener('click', () => {
+            if (index === currentQuestion.correct) {
+                score++;
+            }
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        });
+        answersContainer.appendChild(button);
+    });
+}
+
+// Funzione per mostrare il risultato
+function showResult() {
+    const resultMessage = document.getElementById('result-message');
+    const resultLogo = document.getElementById('result-logo');
+
+    if (score / questions.length >= 0.9) {
+        resultMessage.textContent = `Congratulazioni! Sei stato assegnato a ${selectedHouse}!`;
+        resultLogo.src = `images/houses/${selectedHouse.toLowerCase()}.png`;
+    } else if (score / questions.length >= 0.7) {
+        const randomHouse = ['Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin'].filter(house => house !== selectedHouse)[Math.floor(Math.random() * 3)];
+        resultMessage.textContent = `Hai fatto del tuo meglio! Sei stato assegnato a ${randomHouse}.`;
+        resultLogo.src = `images/houses/${randomHouse.toLowerCase()}.png`;
+    } else {
+        resultMessage.textContent = "Mi spiace, non sei stato ammesso a Hogwarts.";
+        resultLogo.src = "images/denied.png";
+    }
+
+    showScreen('result-screen');
+}
+
+// Eventi per visualizzare la classifica
+const viewRankingButton = document.getElementById('view-ranking');
+viewRankingButton.addEventListener('click', () => {
+    localStorage.setItem(currentUser, true);
+    alert("Classifica non implementata in questa demo.");
+});
