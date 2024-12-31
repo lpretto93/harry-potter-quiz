@@ -27,6 +27,7 @@
             color: #8B4513; /* Marrone bruciato */
             text-align: center;
             padding-top: 150px; /* Distanza tra il logo e il contenuto */
+            box-sizing: border-box; /* Per includere padding e bordi nelle dimensioni */
         }
 
         .screen.active {
@@ -42,24 +43,41 @@
         }
 
         h1, p {
-            color: #8B4513; /* Marrone bruciato */
+            color: #FFDAB9; /* Giallo tenue tendente al bianco */
             margin: 0;
             padding: 10px 0;
+        }
+
+        /* Schermata delle Casate */
+        #houses-screen {
+            background-image: url('images/houses.jpg'); /* Usa l'immagine come sfondo */
+            background-size: cover; /* Adatta l'immagine per coprire l'intera schermata */
+            background-position: center; /* Centra l'immagine */
+            color: #FFDAB9; /* Giallo tenue tendente al bianco per il testo */
+            text-align: center;
+            padding-top: 150px; /* Aumenta la distanza tra il logo e il contenuto */
+            box-sizing: border-box; /* Includi padding e bordi nelle dimensioni */
+            position: relative; /* Per posizionare correttamente gli altri elementi */
         }
 
         /* Box delle casate */
         #houses-container {
             display: flex;
+            color: #FFDAB9; /* Giallo tenue tendente al bianco per il testo */
+            text-align: center;
+            flex-direction: column; /* Imposta il layout in colonna */
             justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            margin-top: 50px;
+            align-items: center; /* Allinea le casate al centro */
+            margin-top: 50px; /* Aggiungi un margine per separare le casate dal titolo */
         }
 
+        /* Ogni singola casa */
         .house {
             text-align: center;
+            color: #FFDAB9; /* Giallo tenue tendente al bianco per il testo */
             cursor: pointer;
-            width: 150px;
+            width: 200px; /* Larghezza fissa per ogni casa */
+            margin-bottom: 30px; /* Aumenta lo spazio tra le casate */
         }
 
         .house img {
@@ -70,14 +88,7 @@
         .house p {
             margin-top: 10px;
             font-size: 1em;
-            color: #8B4513; /* Marrone bruciato */
-        }
-
-        /* Casate e layout */
-        .house img {
-            width: 120px;
-            height: auto;
-            margin-bottom: 10px;
+            color: #FFDAB9; /* Giallo tenue tendente al bianco per il testo */
         }
 
         /* Pagine quiz e risultato */
@@ -119,6 +130,46 @@
             height: auto;
         }
 
+        /* Posizione dei pulsanti */
+        .next-button, .start-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: auto;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Ottimizzazione per dispositivi mobili */
+        @media (max-width: 768px) {
+            .logo {
+                width: 120px;
+                top: 10px;
+            }
+
+            .house {
+                width: 180px;
+            }
+
+            #houses-container {
+                gap: 10px; /* Riduce lo spazio tra le casate */
+            }
+
+            .screen {
+                padding-top: 50px;
+            }
+
+            .next-button, .start-button {
+                width: 40px;
+            }
+
+            #answers-container button {
+                font-size: 1.1em;
+                padding: 8px 16px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -128,18 +179,16 @@
         <img src="images/hogwarts.png" alt="Hogwarts Logo" class="logo">
         <h1>Benvenuto al quiz di Hogwarts!</h1>
         <input type="text" id="username-input" placeholder="Inserisci il tuo nome">
-        <button id="username-submit">Inizia</button>
+        <img src="images/next-page.png" alt="Inizia" class="start-button" onclick="startGame()">
     </div>
 
     <!-- Schermata della Lettera -->
-<div id="letter-screen" class="screen">
-    <img src="images/hogwarts.png" alt="Hogwarts Logo" class="logo">
-    <h1>Lettera da Hogwarts</h1>
-    <p>Caro Studente, benvenuto nella Scuola di Magia e Stregoneria di Hogwarts...</p>
-    <button id="to-houses">
-        <img src="images/next-page.png" alt="Avanti">
-    </button>
-</div>
+    <div id="letter-screen" class="screen">
+        <img src="images/hogwarts.png" alt="Hogwarts Logo" class="logo">
+        <h1>Lettera da Hogwarts</h1>
+        <p>Caro Studente, benvenuto nella Scuola di Magia e Stregoneria di Hogwarts...</p>
+        <img src="images/next-page.png" alt="Avanti" class="next-button" onclick="showScreen('houses-screen')">
+    </div>
 
     <!-- Schermata delle Casate -->
     <div id="houses-screen" class="screen">
@@ -171,7 +220,7 @@
         <h1>Quiz di Ammissione</h1>
         <p id="question">Domanda</p>
         <div id="answers-container"></div>
-        <button id="next-question">Prossima domanda</button>
+        <img src="images/next-page.png" alt="Prossima domanda" class="next-button" onclick="loadQuestion()">
     </div>
 
     <!-- Schermata del Risultato -->
@@ -218,7 +267,7 @@
         const usernameInput = document.getElementById('username-input');
         const usernameSubmit = document.getElementById('username-submit');
 
-        usernameSubmit.addEventListener('click', () => {
+        function startGame() {
             const username = usernameInput.value.trim();
             if (username === "") {
                 alert("Per favore, inserisci un nome valido.");
@@ -228,7 +277,7 @@
             // Rimuovi il controllo se l'utente ha già partecipato
             currentUser = username;
             showScreen('letter-screen');
-        });
+        }
 
         // Eventi per andare alla schermata delle casate
         const toHousesButton = document.getElementById('to-houses');
