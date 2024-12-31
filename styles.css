@@ -16,6 +16,7 @@ body {
     overflow: hidden;
 }
 
+/* Main container */
 #main-container {
     width: 100%;
     max-width: 600px;
@@ -25,8 +26,15 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Base styling for all screens */
 .screen {
     display: none;
+    background-image: url('images/letter.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
 }
 
 .screen.active {
@@ -134,4 +142,3 @@ button.hidden {
 #back-to-home:hover {
     background-color: #2980b9;
 }
- 
