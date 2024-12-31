@@ -185,12 +185,18 @@
         let selectedHouse = "";
         let currentQuestionIndex = 0;
         let score = 0;
+        let questions = [];
 
-        const questions = [
-            { question: "Qual è il simbolo della casa di Grifondoro?", answers: ["Leone", "Serpente", "Tasso", "Aquila"], correct: 0 },
-            { question: "Chi è il fondatore di Serpeverde?", answers: ["Godric", "Salazar", "Helga", "Rowena"], correct: 1 },
-            // Aggiungi altre domande qui
-        ];
+        // Carica le domande da questions.json
+        function loadQuestions() {
+            fetch('questions.json')
+                .then(response => response.json())
+                .then(data => {
+                    questions = data;
+                    console.log(questions); // Mostra le domande nel log (per debugging)
+                })
+                .catch(error => console.error("Errore nel caricamento delle domande:", error));
+        }
 
         // Funzione per cambiare schermata
         function showScreen(screenId) {
@@ -248,26 +254,28 @@
         const nextQuestionButton = document.getElementById('next-question');
 
         function loadQuestion() {
-            const currentQuestion = questions[currentQuestionIndex];
-            questionElement.textContent = currentQuestion.question;
-            answersContainer.innerHTML = "";
+            if (currentQuestionIndex < questions.length) {
+                const currentQuestion = questions[currentQuestionIndex];
+                questionElement.textContent = currentQuestion.domanda;
+                answersContainer.innerHTML = "";
 
-            currentQuestion.answers.forEach((answer, index) => {
-                const button = document.createElement('button');
-                button.textContent = answer;
-                button.addEventListener('click', () => {
-                    if (index === currentQuestion.correct) {
-                        score++;
-                    }
-                    currentQuestionIndex++;
-                    if (currentQuestionIndex < questions.length) {
-                        loadQuestion();
-                    } else {
-                        showResult();
-                    }
+                currentQuestion.risposte.forEach((answer, index) => {
+                    const button = document.createElement('button');
+                    button.textContent = answer;
+                    button.addEventListener('click', () => {
+                        if (index === currentQuestion.corretta) {
+                            score++;
+                        }
+                        currentQuestionIndex++;
+                        if (currentQuestionIndex < questions.length) {
+                            loadQuestion();
+                        } else {
+                            showResult();
+                        }
+                    });
+                    answersContainer.appendChild(button);
                 });
-                answersContainer.appendChild(button);
-            });
+            }
         }
 
         // Funzione per mostrare il risultato
@@ -289,6 +297,9 @@
 
             showScreen('result-screen');
         }
+
+        // Carica le domande all'inizio
+        loadQuestions();
     </script>
 </body>
 </html>
