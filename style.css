@@ -9,7 +9,7 @@ body, html {
 
 /* Set the background image and make it cover the entire screen */
 body {
-    background: url('letter.jpg') no-repeat center center fixed;
+    background: url('images/letter.jpg') no-repeat center center fixed;
     background-size: cover;
     display: flex;
     flex-direction: column;
