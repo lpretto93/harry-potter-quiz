@@ -1,16 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hogwarts Letter</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Quiz di Hogwarts</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <img src="images/hogwarts.png" alt="Hogwarts Logo" class="logo">
-    <a href="letter.html">
-        <img src="images/next-page.png" alt="Next Page" class="next-page">
-    </a>
+    <div id="app">
+        <div id="username-screen">
+            <h1>Inserisci il tuo nome utente</h1>
+            <input type="text" id="username" placeholder="Nome utente">
+            <button id="start-button">Inizia</button>
+        </div>
+        <div id="letter-screen" style="display: none;">
+            <h1>Lettera da Silente</h1>
+            <p>Benvenuto a Hogwarts! ... (introduzione)</p>
+            <button id="next-button"><img src="images/next-page.png" alt="Prossima pagina"></button>
+        </div>
+        <div id="houses-screen" style="display: none;">
+            <h1>Seleziona la tua casata preferita</h1>
+            <div id="houses">
+                <div class="house" data-house="Gryffindor">
+                    <img src="images/houses/gryffindor.png" alt="Gryffindor">
+                    <p>Descrizione di Gryffindor...</p>
+                </div>
+                <div class="house" data-house="Hufflepuff">
+                    <img src="images/houses/hufflepuff.png" alt="Hufflepuff">
+                    <p>Descrizione di Hufflepuff...</p>
+                </div>
+                <div class="house" data-house="Ravenclaw">
+                    <img src="images/houses/ravenclaw.png" alt="Ravenclaw">
+                    <p>Descrizione di Ravenclaw...</p>
+                </div>
+                <div class="house" data-house="Slytherin">
+                    <img src="images/houses/slytherin.png" alt="Slytherin">
+                    <p>Descrizione di Slytherin...</p>
+                </div>
+            </div>
+        </div>
+        <div id="quiz-screen" style="display: none;">
+            <h1>Quiz di Hogwarts</h1>
+            <div id="quiz"></div>
+            <button id="submit-quiz">Invia Risposte</button>
+        </div>
+        <div id="result-screen" style="display: none;">
+            <h1>Risultato</h1>
+            <div id="result"></div>
+            <button id="show-leaderboard">Mostra Classifica</button>
+        </div>
+        <div id="leaderboard-screen" style="display: none;">
+            <h1>Classifica</h1>
+            <div id="leaderboard"></div>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
