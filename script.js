@@ -96,36 +96,4 @@ function showResult() {
     const resultMessage = document.getElementById('result-message');
     const resultLogo = document.getElementById('result-logo');
 
-    if (score / questions.length >= 0.9) {
-        resultMessage.textContent = `Congratulazioni! Sei stato assegnato a ${selectedHouse}!`;
-        resultLogo.src = `images/houses/${selectedHouse.toLowerCase()}.png`;
-    } else if (score / questions.length >= 0.7) {
-        const randomHouse = ['Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin'].filter(house => house !== selectedHouse)[Math.floor(Math.random() * 3)];
-        resultMessage.textContent = `Hai fatto del tuo meglio! Sei stato assegnato a ${randomHouse}.`;
-        resultLogo.src = `images/houses/${randomHouse.toLowerCase()}.png`;
-    } else {
-        resultMessage.textContent = "Mi spiace, non sei stato ammesso a Hogwarts.";
-        resultLogo.src = "images/denied.png";
-    }
-
-    showScreen('result-screen');
-}
-
-// Eventi per visualizzare la classifica
-const viewRankingButton = document.getElementById('view-ranking');
-viewRankingButton.addEventListener('click', () => {
-    localStorage.setItem(currentUser, true);
-    alert("Classifica non implementata in questa demo.");
-});
-
-// Gestione del pannello amministrativo per BigMaster
-const resetRankingButton = document.getElementById('reset-ranking');
-resetRankingButton.addEventListener('click', () => {
-    localStorage.clear();
-    alert("Classifica resettata.");
-});
-
-const backToHomeButton = document.getElementById('back-to-home');
-backToHomeButton.addEventListener('click', () => {
-    showScreen('start-screen');
-});
+   
