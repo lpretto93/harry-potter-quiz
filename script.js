@@ -10,9 +10,8 @@ const questions = [
     // Aggiungi altre domande qui
 ];
 
-// Funzione per la navigazione tra le schermate
+// Funzioni per la navigazione
 function showScreen(screenId) {
-    console.log(`Mostrando schermata: ${screenId}`);  // Log di debug per vedere quale schermata viene mostrata
     document.querySelectorAll('.screen').forEach(screen => {
         screen.classList.remove('active');
     });
@@ -57,7 +56,6 @@ const houses = document.querySelectorAll('.house');
 houses.forEach(house => {
     house.addEventListener('click', () => {
         selectedHouse = house.getAttribute('data-house');
-        console.log(`Hai selezionato la casata: ${selectedHouse}`); // Log di debug per vedere la casata selezionata
         showScreen('quiz-screen');
         loadQuestion();
     });
