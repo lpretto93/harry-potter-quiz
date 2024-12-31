@@ -10,68 +10,67 @@
     <div id="main-container">
         <!-- Schermata iniziale -->
         <div id="start-screen" class="screen active">
-            <img src="images/hogwarts.png" alt="Logo Hogwarts" id="hogwarts-logo">
+            <img src="images/hogwarts.png" alt="Hogwarts Logo" class="header-logo">
             <h1>Benvenuto al quiz di Hogwarts!</h1>
             <input type="text" id="username-input" placeholder="Inserisci il tuo nome">
-            <button id="username-submit"></button>
+            <button id="username-submit">Inizia</button>
             <p id="username-error" class="error hidden">Hai già partecipato!</p>
         </div>
 
         <!-- Schermata della lettera -->
         <div id="letter-screen" class="screen">
-            <img src="images/hogwarts.png" alt="Logo Hogwarts" id="hogwarts-logo">
+            <img src="images/hogwarts.png" alt="Hogwarts Logo" class="header-logo">
             <h1>Lettera da Hogwarts</h1>
             <p>Caro Studente, benvenuto nella Scuola di Magia e Stregoneria di Hogwarts...</p>
-            <button id="to-houses"></button>
+            <button id="to-houses">Scopri le casate</button>
         </div>
 
         <!-- Schermata delle casate -->
         <div id="houses-screen" class="screen">
-            <img src="images/hogwarts.png" alt="Logo Hogwarts" id="hogwarts-logo">
+            <img src="images/hogwarts.png" alt="Hogwarts Logo" class="header-logo">
             <h1>Scegli la tua casata preferita</h1>
             <div id="houses-container">
                 <div class="house" data-house="Gryffindor">
                     <img src="images/houses/gryffindor.png" alt="Grifondoro">
-                    <p>Grifondoro è la casa dei coraggiosi e dei leali.</p>
+                    <p>La casata di Grifondoro è la casa che rappresenta il coraggio, la lealtà e la determinazione...</p>
                 </div>
                 <div class="house" data-house="Hufflepuff">
                     <img src="images/houses/hufflepuff.png" alt="Tassorosso">
-                    <p>Tassorosso è la casa dell'impegno e della giustizia.</p>
+                    <p>La casata di Tassorosso è la casa della pazienza, della giustizia e della dedizione...</p>
                 </div>
                 <div class="house" data-house="Ravenclaw">
                     <img src="images/houses/ravenclaw.png" alt="Corvonero">
-                    <p>Corvonero è la casa dell'intelligenza e della saggezza.</p>
+                    <p>La casata di Corvonero è la casa della saggezza, dell'intelletto e della curiosità...</p>
                 </div>
                 <div class="house" data-house="Slytherin">
                     <img src="images/houses/slytherin.png" alt="Serpeverde">
-                    <p>Serpeverde è la casa dell'ambizione e della determinazione.</p>
+                    <p>La casata di Serpeverde è la casa dell'ambizione, della determinazione e dell'astuzia...</p>
                 </div>
             </div>
         </div>
 
         <!-- Schermata del quiz -->
         <div id="quiz-screen" class="screen">
-            <img src="images/hogwarts.png" alt="Logo Hogwarts" id="hogwarts-logo">
+            <img src="images/hogwarts.png" alt="Hogwarts Logo" class="header-logo">
             <h1>Quiz</h1>
             <p id="question">Domanda</p>
             <div id="answers-container"></div>
-            <button id="next-question" class="hidden"></button>
+            <button id="next-question" class="hidden">Prossima domanda</button>
         </div>
 
         <!-- Schermata del risultato -->
         <div id="result-screen" class="screen">
-            <img src="images/hogwarts.png" alt="Logo Hogwarts" id="hogwarts-logo">
+            <img src="images/hogwarts.png" alt="Hogwarts Logo" class="header-logo">
             <h1 id="result-message">Risultato</h1>
             <img id="result-logo" src="" alt="Logo della casata">
-            <button id="view-ranking"></button>
+            <button id="view-ranking">Visualizza classifica</button>
         </div>
 
-        <!-- Pannello di amministrazione per BigMaster -->
+        <!-- Pannello Amministrativo per BigMaster -->
         <div id="admin-panel" class="screen">
-            <img src="images/hogwarts.png" alt="Logo Hogwarts" id="hogwarts-logo">
             <h1>Pannello di Amministrazione</h1>
-            <button id="reset-ranking"></button>
-            <button id="back-to-home"></button>
+            <button id="reset-ranking">Resetta classifica</button>
+            <button id="back-to-home">Torna alla home</button>
         </div>
     </div>
 
