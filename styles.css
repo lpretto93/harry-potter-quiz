@@ -1,11 +1,11 @@
-/* Reset and General Styles */
+/* Reset e Stili Generali */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body and General Layout */
+/* Corpo e Layout Generale */
 body {
     font-family: Arial, sans-serif;
     background: url('images/letter.jpg') no-repeat center center fixed;
@@ -17,7 +17,7 @@ body {
     height: 100vh;
 }
 
-/* Container for main content */
+/* Container Principale per i Contenuti */
 #main-container {
     text-align: center;
     max-width: 100%;
@@ -25,7 +25,7 @@ body {
     max-height: 100%;
 }
 
-/* Screen Class - Default for all screens */
+/* Classe per le Schermate */
 .screen {
     display: none;
 }
@@ -34,13 +34,13 @@ body {
     display: block;
 }
 
-/* Header and Title */
+/* Testo Header e Titolo */
 h1 {
     font-size: 2.5rem;
     margin-bottom: 20px;
 }
 
-/* Error message styling */
+/* Messaggi di errore */
 .error {
     color: red;
     font-size: 1.2rem;
@@ -50,7 +50,7 @@ h1 {
     display: none;
 }
 
-/* Styling for images used as buttons */
+/* Stili per le Immagini usate come Pulsanti */
 img {
     max-width: 100%;
     height: auto;
@@ -59,22 +59,31 @@ img {
     margin: 20px auto;
 }
 
-/* Resize specific images used for navigation */
+/* Specifico per le Immagini dei Pulsanti (ad esempio, next-page.png) */
 #next-question, #username-submit, #to-houses, #view-ranking, #reset-ranking, #back-to-home {
-    max-width: 150px;
-    width: 100%;
+    width: auto;
+    height: 50px;  /* Impostiamo un'altezza fissa per i pulsanti */
+    max-height: 50px;  /* Impedisce che l'immagine superi l'altezza desiderata */
     margin: 20px auto;
-    height: auto;
+    background: url('images/next-page.png') no-repeat center center;  /* Imposta l'immagine */
+    background-size: contain;  /* Mantieni le proporzioni dell'immagine */
+    border: none;
+    cursor: pointer;
 }
 
-/* Title and other text elements */
+/* Aggiungi effetti al passaggio del mouse per i pulsanti */
+#next-question:hover, #username-submit:hover, #to-houses:hover, #view-ranking:hover, #reset-ranking:hover, #back-to-home:hover {
+    opacity: 0.8;
+}
+
+/* Titoli e altri testi */
 h1, p {
     font-size: 1.5rem;
     margin-bottom: 20px;
     padding: 0 15px;
 }
 
-/* Start Screen */
+/* Schermata Iniziale */
 #start-screen {
     display: block;
 }
@@ -96,14 +105,14 @@ h1, p {
     border-color: #ff9800;
 }
 
-/* Letter Screen */
+/* Schermata Lettera */
 #letter-screen p {
     font-size: 1.2rem;
     margin-bottom: 20px;
     padding: 0 15px;
 }
 
-/* House Screen */
+/* Schermata delle Casate */
 #houses-container {
     display: flex;
     justify-content: space-around;
@@ -132,7 +141,7 @@ h1, p {
     margin-top: 10px;
 }
 
-/* Quiz Screen */
+/* Schermata Quiz */
 #quiz-screen {
     display: block;
 }
@@ -163,7 +172,7 @@ h1, p {
     margin-top: 20px;
 }
 
-/* Result Screen */
+/* Schermata Risultato */
 #result-screen {
     display: block;
 }
@@ -179,7 +188,7 @@ h1, p {
     margin-bottom: 20px;
 }
 
-/* Admin Panel */
+/* Pannello di Amministrazione */
 #admin-panel {
     display: none;
 }
@@ -194,19 +203,19 @@ h1, p {
     margin: 20px auto;
 }
 
-/* Mobile Optimizations */
+/* Ottimizzazioni per Dispositivi Mobili */
 @media (max-width: 768px) {
-    /* Adjust title size */
+    /* Riduci la dimensione del titolo */
     h1 {
         font-size: 2rem;
     }
 
-    /* Reduce width for images and buttons */
+    /* Riduci la larghezza delle immagini e dei pulsanti */
     #next-question, #username-submit, #to-houses, #view-ranking, #reset-ranking, #back-to-home {
         max-width: 120px;
     }
 
-    /* Stack the houses vertically */
+    /* Imposta le casate verticalmente */
     #houses-container {
         flex-direction: column;
         align-items: center;
@@ -223,7 +232,7 @@ h1, p {
 }
 
 @media (max-width: 480px) {
-    /* Further reduce button size */
+    /* Riduci ulteriormente la dimensione dei pulsanti */
     #next-question, #username-submit, #to-houses, #view-ranking, #reset-ranking, #back-to-home {
         max-width: 100px;
     }
