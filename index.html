@@ -10,16 +10,21 @@
             font-family: 'Great Vibes', cursive;
             background-image: url('letter.jpg');
             background-size: cover;
+            background-attachment: fixed;
             background-position: center;
             color: #000;
             text-align: center;
-            padding: 50px;
+            padding: 20px;
+            margin: 0;
+            height: 100vh;
+            overflow-y: auto;
         }
         #lettera, #lettera-content {
-            background: none;
-			transform: translateY(-150%)
-            padding: 0;
-            margin: 0;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 600px;
         }
         input {
             font-family: 'Arial', sans-serif;
@@ -49,13 +54,13 @@
             font-weight: bold;
         }
         .welcome-text, .letter-text {
-            font-size: 24px; /* Aumentato da 16px a 24px */
+            font-size: 18px; /* Ridotto da 24px a 18px per migliorare la leggibilità su mobile */
         }
         .input-container {
             display: flex;
             justify-content: center;
             align-items: center;
-			transform: translateY(-50%)
+            flex-direction: column;
             gap: 10px; /* Spazio tra input e pulsante */
         }
         .hogwarts-logo {
@@ -63,11 +68,11 @@
             top: 10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 150px; /* Dimensione aumentata dell'immagine */
+            width: 100px; /* Ridotto da 150px a 100px per migliorare la visualizzazione su mobile */
             height: auto;
         }
         .content-container {
-            margin-top: 150px; /* Aumentato per abbassare le scritte */
+            margin-top: 100px; /* Ridotto per migliorare la visualizzazione su mobile */
         }
     </style>
 </head>
@@ -78,14 +83,14 @@
     </div>
     <img src="hogwarts.png" alt="Hogwarts Logo" class="hogwarts-logo">
     <div id="lettera" class="content-container">
-    <p class="welcome-text">Benvenuto alla Scuola di Magia e Stregoneria di Hogwarts!</p>
-    <p class="welcome-text">Se sei qui, significa che hai ricevuto la nostra lettera speciale. Sei pronto a iniziare la tua avventura magica? Inserisci il tuo nome per richiedere l'ammissione alla scuola:</p>
-    <div class="input-container">
-        <input type="text" id="nome-studente">
-        <!-- Pulsante "Next" spostato sotto la text box -->
-        <button id="next-page" onclick="personalizzaLettera()"><img src="next-page.png" alt="Next"></button>
+        <p class="welcome-text">Benvenuto alla Scuola di Magia e Stregoneria di Hogwarts!</p>
+        <p class="welcome-text">Se sei qui, significa che hai ricevuto la nostra lettera speciale. Sei pronto a iniziare la tua avventura magica? Inserisci il tuo nome per richiedere l'ammissione alla scuola:</p>
+        <div class="input-container">
+            <input type="text" id="nome-studente">
+            <!-- Pulsante "Next" spostato sotto la text box -->
+            <button id="next-page" onclick="personalizzaLettera()"><img src="next-page.png" alt="Next"></button>
+        </div>
     </div>
-</div>
     <div id="lettera-content" style="display:none;">
         <p id="saluto" class="letter-text"></p>
         <p class="letter-text">È con immenso piacere e grande onore che ti scrivo questa lettera per darti il benvenuto alla Scuola di Magia e Stregoneria di Hogwarts. La nostra scuola, fondata oltre mille anni fa dai quattro grandi maghi Godric Grifondoro, Tosca Tassorosso, Priscilla Corvonero e Salazar Serpeverde, è un luogo di apprendimento, crescita e scoperta magica senza pari.</p>
@@ -95,13 +100,12 @@
         <p class="letter-text">Non vediamo l'ora di darti il benvenuto a Hogwarts e di vedere tutto ciò che realizzerai durante il tuo tempo qui. Prepara la tua bacchetta, il tuo mantello e il tuo libro degli incantesimi, perché un mondo di magia ti aspetta.</p>
         <p class="letter-text">Con affetto e stima,</p>
         <p class="signature">Albus Silente</p>
-		<p class="letter-text">Preside della Scuola di Magia e Stregoneria di Hogwarts</p>
-		
-		<div class="next-container">
-        <button id="next-page" onclick="goToCasate()">
-            <img src="next-page.png" alt="Next">
-        </button>
-    </div>
+        <p class="letter-text">Preside della Scuola di Magia e Stregoneria di Hogwarts</p>
+        <div class="next-container">
+            <button id="next-page" onclick="goToCasate()">
+                <img src="next-page.png" alt="Next">
+            </button>
+        </div>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -138,13 +142,10 @@
                 alert("Per favore, inserisci il tuo nome.");
             }
         }
-		
-		
-		function goToCasate() {
-			window.location.href = "casate.html";  // Reindirizza alla pagina casate.html
-		}
 
+        function goToCasate() {
+            window.location.href = "casate.html";  // Reindirizza alla pagina casate.html
+        }
     </script>
-	
 </body>
 </html>
