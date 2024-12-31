@@ -3,7 +3,6 @@ let currentUser = "";
 let selectedHouse = "";
 let currentQuestionIndex = 0;
 let score = 0;
-const adminUser = "BigMaster"; // Nome dell'utente amministratore
 
 const questions = [
     { question: "Qual è il simbolo della casa di Grifondoro?", answers: ["Leone", "Serpente", "Tasso", "Aquila"], correct: 0 },
@@ -11,7 +10,7 @@ const questions = [
     // Aggiungi altre domande qui
 ];
 
-// Funzione per mostrare le schermate
+// Funzioni per la navigazione
 function showScreen(screenId) {
     document.querySelectorAll('.screen').forEach(screen => {
         screen.classList.remove('active');
@@ -36,30 +35,51 @@ usernameSubmit.addEventListener('click', () => {
         return;
     }
 
-    // Controllo se l'utente è BigMaster o ha già partecipato
-    if (username === adminUser) {
-        showScreen('admin-panel');
-    } else if (localStorage.getItem(username)) {
-        usernameError.classList.remove('hidden');
-    } else {
+    // Se l'utente è BigMaster, mostra il pannello amministrativo
+    if (username === "BigMaster") {
         currentUser = username;
-        showScreen('letter-screen');
+        showScreen('admin-panel');
+    } else {
+        // Controllo se l'utente ha già partecipato
+        if (localStorage.getItem(username)) {
+            usernameError.classList.remove('hidden');
+        } else {
+            currentUser = username;
+            showScreen('letter-screen');
+        }
     }
 });
 
-// Evento per andare alla schermata delle casate
+// Gestione del pannello amministrativo
+const resetRankingButton = document.getElementById('reset-ranking');
+resetRankingButton.addEventListener('click', () => {
+    // Reset della classifica (rimuove tutto dal localStorage)
+    localStorage.clear();
+    alert("Classifica resettata!");
+});
+
+const backToHomeButton = document.getElementById('back-to-home');
+backToHomeButton.addEventListener('click', () => {
+    showScreen('start-screen');
+});
+
+// Eventi per la schermata delle casate
 const toHousesButton = document.getElementById('to-houses');
 toHousesButton.addEventListener('click', () => {
-    showScreen('houses-screen');
+    if (currentUser !== "BigMaster") {
+        showScreen('houses-screen');
+    }
 });
 
 // Eventi per la scelta delle casate
 const houses = document.querySelectorAll('.house');
 houses.forEach(house => {
     house.addEventListener('click', () => {
-        selectedHouse = house.getAttribute('data-house');
-        showScreen('quiz-screen');
-        loadQuestion();
+        if (currentUser !== "BigMaster") {
+            selectedHouse = house.getAttribute('data-house');
+            showScreen('quiz-screen');
+            loadQuestion();
+        }
     });
 });
 
@@ -116,16 +136,4 @@ const viewRankingButton = document.getElementById('view-ranking');
 viewRankingButton.addEventListener('click', () => {
     localStorage.setItem(currentUser, true);
     alert("Classifica non implementata in questa demo.");
-});
-
-// Gestione del pannello amministrativo per BigMaster
-const resetRankingButton = document.getElementById('reset-ranking');
-resetRankingButton.addEventListener('click', () => {
-    localStorage.clear();
-    alert("Classifica resettata.");
-});
-
-const backToHomeButton = document.getElementById('back-to-home');
-backToHomeButton.addEventListener('click', () => {
-    showScreen('start-screen');
 });
