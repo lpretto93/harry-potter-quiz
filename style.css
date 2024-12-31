@@ -12,6 +12,7 @@ body {
     background: url('letter.jpg') no-repeat center center fixed;
     background-size: cover;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -22,4 +23,12 @@ body {
     width: 80%;
     max-width: 300px;
     margin-top: 20px;
+}
+
+/* Style for the next page button */
+.next-page {
+    width: 50px;
+    height: auto;
+    position: absolute;
+    bottom: 20px;
 }
