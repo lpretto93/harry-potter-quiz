@@ -1,79 +1,106 @@
-document.getElementById('start-button').addEventListener('click', function() {
-    const username = document.getElementById('username').value;
-    if (username) {
-        // Controlla se l'utente è già presente nella classifica
-        if (localStorage.getItem(username)) {
-            alert('Hai già partecipato alla selezione!');
-            // Mostra denied.png
-            document.body.innerHTML = '<img src="images/denied.png" alt="Denied">';
-        } else {
-            localStorage.setItem(username, 'partecipato');
-            document.getElementById('username-screen').style.display = 'none';
-            document.getElementById('letter-screen').style.display = 'block';
-        }
+// Variabili globali
+let currentUser = "";
+let selectedHouse = "";
+let currentQuestionIndex = 0;
+let score = 0;
+
+const questions = [
+    { question: "Qual è il simbolo della casa di Grifondoro?", answers: ["Leone", "Serpente", "Tasso", "Aquila"], correct: 0 },
+    { question: "Chi è il fondatore di Serpeverde?", answers: ["Godric", "Salazar", "Helga", "Rowena"], correct: 1 },
+    // Aggiungi altre domande qui
+];
+
+// Funzioni per la navigazione
+function showScreen(screenId) {
+    document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.remove('active');
+    });
+    document.getElementById(screenId).classList.add('active');
+}
+
+// Eventi per la schermata iniziale
+const usernameInput = document.getElementById('username-input');
+const usernameSubmit = document.getElementById('username-submit');
+const usernameError = document.getElementById('username-error');
+
+usernameSubmit.addEventListener('click', () => {
+    const username = usernameInput.value.trim();
+    if (username === "") {
+        alert("Per favore, inserisci un nome valido.");
+        return;
+    }
+
+    // Controllo se l'utente ha già partecipato (simulazione)
+    if (localStorage.getItem(username)) {
+        usernameError.classList.remove('hidden');
     } else {
-        alert('Per favore, inserisci un nome utente.');
+        currentUser = username;
+        showScreen('letter-screen');
     }
 });
 
-document.getElementById('next-button').addEventListener('click', function() {
-    document.getElementById('letter-screen').style.display = 'none';
-    document.getElementById('houses-screen').style.display = 'block';
-});
-
-document.querySelectorAll('.house').forEach(function(house) {
-    house.addEventListener('click', function() {
-        const selectedHouse = this.getAttribute('data-house');
-        localStorage.setItem('selectedHouse', selectedHouse);
-        document.getElementById('houses-screen').style.display = 'none';
-        document.getElementById('quiz-screen').style.display = 'block';
-        // Genera il quiz
-        generateQuiz();
+// Eventi per la scelta delle casate
+const houses = document.querySelectorAll('.house');
+houses.forEach(house => {
+    house.addEventListener('click', () => {
+        selectedHouse = house.getAttribute('data-house');
+        showScreen('quiz-screen');
+        loadQuestion();
     });
 });
 
-function generateQuiz() {
-    const quizContainer = document.getElementById('quiz');
-    for (let i = 1; i <= 50; i++) {
-        const question = document.createElement('div');
-        question.innerHTML = `<p>Domanda ${i}</p><input type="text" id="answer${i}">`;
-        quizContainer.appendChild(question);
-    }
+// Funzioni per il quiz
+const questionElement = document.getElementById('question');
+const answersContainer = document.getElementById('answers-container');
+const nextQuestionButton = document.getElementById('next-question');
+
+function loadQuestion() {
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    answersContainer.innerHTML = "";
+
+    currentQuestion.answers.forEach((answer, index) => {
+        const button = document.createElement('button');
+        button.textContent = answer;
+        button.addEventListener('click', () => {
+            if (index === currentQuestion.correct) {
+                score++;
+            }
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        });
+        answersContainer.appendChild(button);
+    });
 }
 
-document.getElementById('submit-quiz').addEventListener('click', function() {
-    let correctAnswers = 0;
-    for (let i = 1; i <= 50; i++) {
-        const answer = document.getElementById(`answer${i}`).value;
-        if (answer.toLowerCase() === 'corretto') { // Sostituisci con la logica di verifica delle risposte
-            correctAnswers++;
-        }
-    }
-    const percentage = (correctAnswers / 50) * 100;
-    const selectedHouse = localStorage.getItem('selectedHouse');
-    let assignedHouse = selectedHouse;
-    if (percentage < 70) {
-        document.body.innerHTML = '<img src="images/denied.png" alt="Denied">';
-        return;
-    } else if (percentage < 90) {
-        const houses = ['Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin'];
-        houses.splice(houses.indexOf(selectedHouse), 1);
-        assignedHouse = houses[Math.floor(Math.random() * houses.length)];
-    }
-    document.getElementById('quiz-screen').style.display = 'none';
-    document.getElementById('result-screen').style.display = 'block';
-    document.getElementById('result').innerHTML = `<img src="images/houses/${assignedHouse.toLowerCase()}.png" alt="${assignedHouse}"><p>Congratulazioni! Sei stato assegnato a ${assignedHouse}!</p>`;
-});
+// Funzione per mostrare il risultato
+function showResult() {
+    const resultMessage = document.getElementById('result-message');
+    const resultLogo = document.getElementById('result-logo');
 
-document.getElementById('show-leaderboard').addEventListener('click', function() {
-    document.getElementById('result-screen').style.display = 'none';
-    document.getElementById('leaderboard-screen').style.display = 'block';
-    // Mostra la classifica
-    const leaderboard = document.getElementById('leaderboard');
-    leaderboard.innerHTML = '';
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        const value = localStorage.getItem(key);
-        leaderboard.innerHTML += `<p>${key}: ${value}</p>`;
+    if (score / questions.length >= 0.9) {
+        resultMessage.textContent = `Congratulazioni! Sei stato assegnato a ${selectedHouse}!`;
+        resultLogo.src = `images/houses/${selectedHouse.toLowerCase()}.png`;
+    } else if (score / questions.length >= 0.7) {
+        const randomHouse = ['Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin'].filter(house => house !== selectedHouse)[Math.floor(Math.random() * 3)];
+        resultMessage.textContent = `Hai fatto del tuo meglio! Sei stato assegnato a ${randomHouse}.`;
+        resultLogo.src = `images/houses/${randomHouse.toLowerCase()}.png`;
+    } else {
+        resultMessage.textContent = "Mi spiace, non sei stato ammesso a Hogwarts.";
+        resultLogo.src = "images/denied.png";
     }
+
+    showScreen('result-screen');
+}
+
+// Eventi per visualizzare la classifica
+const viewRankingButton = document.getElementById('view-ranking');
+viewRankingButton.addEventListener('click', () => {
+    localStorage.setItem(currentUser, true);
+    alert("Classifica non implementata in questa demo.");
+    // Reindirizza o implementa la classifica qui
 });
