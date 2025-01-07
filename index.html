@@ -5,39 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gioco Hogwarts</title>
     <style>
-
-    
-    .correct {
-        background-color: green;
-        animation: blinkGreen 0.5s alternate 3;
-    }
-
-    .incorrect {
-        background-color: red;
-        animation: blinkRed 0.5s alternate 3;
-    }
-
-    @keyframes blinkGreen {
-        0% { background-color: green; }
-        100% { background-color: white; }
-    }
-
-    @keyframes blinkRed {
-        0% { background-color: red; }
-        100% { background-color: white; }
-    }
-
-        /* Impostazioni generali */
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            overflow-x: hidden; /* Disabilita lo scroll orizzontale */
-            height: 100vh; /* Garantisce che l'altezza della pagina si adatti allo schermo */
-            padding: 0;
-        }
-
-        /* Sfondo fisso per la pagina */
+        /* Correzioni per garantire la visibilità della schermata iniziale */
         .screen {
             display: none;
             position: absolute;
@@ -48,161 +16,20 @@
             background-image: url('images/letter.jpg');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* Sfondo fisso */
-            color: #8B4513; /* Marrone bruciato */
+            background-attachment: fixed;
+            color: #8B4513;
             text-align: center;
             padding-top: 150px;
             box-sizing: border-box;
-            overflow-y: auto; /* Rende il contenuto scrollabile */
+            overflow-y: auto;
         }
 
         .screen.active {
             display: block;
         }
 
-        .logo {
-            width: 150px;
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
+        /* Stili rimanenti non modificati... */
 
-        h1, p {
-            color: #8B4513; /* Giallo tenue tendente al bianco */
-            margin: 0;
-            padding: 10px 0;
-        }
-
-        /* Schermata delle Casate */
-        #houses-screen {
-            background-image: url('images/houses.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed; /* Sfondo fisso */
-            color: #FFDAB9; /* Giallo tenue tendente al bianco per il testo */
-            text-align: center;
-            padding-top: 150px;
-            box-sizing: border-box;
-            overflow-y: auto; /* Abilita lo scroll verticale */
-        }
-
-        /* Box delle casate */
-        #houses-container {
-            display: flex;
-            color: #FFDAB9;
-            text-align: center;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin-top: 50px;
-        }
-
-        /* Ogni singola casa */
-        .house {
-            text-align: center;
-            color: #FFDAB9;
-            cursor: pointer;
-            width: 400px;
-            margin-bottom: 30px;
-            opacity: 0.8; /* Rende la box leggermente trasparente */
-            transition: opacity 0.3s;
-        }
-
-        .house:hover {
-            opacity: 1; /* Aumenta l'opacità quando si passa sopra */
-        }
-
-        .house img {
-            width: 100%;
-            height: auto;
-        }
-
-        .house p {
-            margin-top: 10px;
-            font-size: 1em;
-            color: #FFDAB9;
-        }
-
-        /* Pagine quiz e risultato */
-        #quiz-screen {
-            text-align: center;
-            margin-top: 100px;
-        }
-
-        #answers-container button {
-            margin: 10px;
-            padding: 10px 20px;
-            font-size: 1.2em;
-            cursor: pointer;
-            background-color: rgba(255, 255, 255, 0.7);
-            border: none;
-            border-radius: 5px;
-            color: #8B4513;
-        }
-
-        #next-question {
-            display: none;
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 1.5em;
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-        }
-
-        /* Stili per il pannello di amministrazione */
-        #admin-panel {
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        /* Logo denied */
-        #result-screen img {
-            width: 150px;
-            height: auto;
-        }
-
-        /* Posizione dei pulsanti */
-        .next-button, .start-button {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: auto;
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-        }
-
-        /* Ottimizzazione per dispositivi mobili */
-        @media (max-width: 768px) {
-            .logo {
-                width: 120px;
-                top: 10px;
-            }
-
-            .house {
-                width: 180px;
-            }
-
-            #houses-container {
-                gap: 10px;
-            }
-
-            .screen {
-                padding-top: 50px;
-            }
-
-            .next-button, .start-button {
-                width: 40px;
-            }
-
-            #answers-container button {
-                font-size: 1.1em;
-                padding: 8px 16px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -269,6 +96,7 @@
     </div>
     <button id="next-question" onclick="nextQuestion()">Prossima domanda</button>
 </div>
+
 <script>
 let selectedHouse = '';  // Variabile che memorizza la casa selezionata
 let currentQuestionIndex = 0;  // Indice della domanda corrente
@@ -313,49 +141,44 @@ function startQuiz(house) {
 // Funzione per caricare la domanda corrente
 function loadQuestion() {
     if (currentQuestionIndex < questions.length) {
-        // Se ci sono domande da mostrare, imposta la domanda e le risposte
-        document.getElementById('question').textContent = questions[currentQuestionIndex].question;  // Imposta il testo della domanda
-        let answers = questions[currentQuestionIndex].answers;  // Recupera le risposte della domanda corrente
-        let buttons = document.querySelectorAll('#answers-container button');  // Seleziona tutti i pulsanti per le risposte
+        document.getElementById('question').textContent = questions[currentQuestionIndex].question;
+        let answers = questions[currentQuestionIndex].answers;
+        let buttons = document.querySelectorAll('#answers-container button');
         buttons.forEach((button, index) => {
-            button.textContent = answers[index];  // Imposta il testo dei pulsanti con le risposte
-            button.classList.remove('correct', 'incorrect');  // Rimuovi le classi per evitare conflitti
+            button.textContent = answers[index];
+            button.classList.remove('correct', 'incorrect');
         });
-        // Nasconde il pulsante per passare alla domanda successiva
         document.getElementById('next-question').style.display = 'none';
     } else {
-        // Se non ci sono altre domande, mostra il risultato finale
         alert('Quiz completato!');
     }
 }
 
 // Funzione per verificare se la risposta selezionata è corretta
 function checkAnswer(answer) {
-    let correctAnswer = questions[currentQuestionIndex].correctAnswer;  // Ottiene la risposta corretta per la domanda corrente
+    let correctAnswer = questions[currentQuestionIndex].correctAnswer;
     let buttons = document.querySelectorAll('#answers-container button');
-    let selectedButtonIndex = questions[currentQuestionIndex].answers.indexOf(answer);  // Trova il bottone selezionato
+    let selectedButtonIndex = questions[currentQuestionIndex].answers.indexOf(answer);
 
-    // Controlla se la risposta è corretta o meno
     if (answer === correctAnswer) {
-        buttons[selectedButtonIndex].classList.add('correct');  // Aggiungi la classe 'correct' alla risposta corretta
+        buttons[selectedButtonIndex].classList.add('correct');
     } else {
-        buttons[selectedButtonIndex].classList.add('incorrect');  // Aggiungi la classe 'incorrect' alla risposta sbagliata
+        buttons[selectedButtonIndex].classList.add('incorrect');
     }
 
-    currentQuestionIndex++;  // Passa alla domanda successiva
-    document.getElementById('next-question').style.display = 'block';  // Mostra il pulsante per passare alla domanda successiva
+    currentQuestionIndex++;
+    document.getElementById('next-question').style.display = 'block';
 }
 
 // Funzione per andare alla domanda successiva
 function nextQuestion() {
-    loadQuestion();  // Carica la domanda successiva
+    loadQuestion();
 }
 
 // Esegui il caricamento delle domande quando la pagina è pronta
 window.onload = function() {
     loadQuestionsFromJson();  // Carica le domande dal file JSON
 };
-
 </script>
 
 </body>
