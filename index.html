@@ -249,69 +249,89 @@
 </div>
 
 <script>
-    let selectedHouse = '';
-    let currentQuestionIndex = 0;
-    let questions = [
-        {
-            question: 'Qual è la tua qualità principale?',
-            answers: ['Coraggio', 'Lealtà', 'Saggezza', 'Ambizione'],
-            correctAnswer: 'A'
-        },
-        {
-            question: 'Come reagisci di fronte alla difficoltà?',
-            answers: ['Mi faccio coraggio', 'Lavoro duramente', 'Rifletto attentamente', 'Trovo una strada per il successo'],
-            correctAnswer: 'B'
-        },
-        // Aggiungi altre domande qui
-    ];
+    let selectedHouse = '';  // Variabile che memorizza la casa selezionata
+    let currentQuestionIndex = 0;  // Indice della domanda corrente
+    let questions = [];  // Array che conterrà le domande caricate dal file JSON
 
+    // Funzione per caricare il file questions.json
+    function loadQuestionsFromJson() {
+        fetch('questions.json')
+            .then(response => response.json())
+            .then(data => {
+                questions = data;  // Assegna i dati letti dal file JSON all'array 'questions'
+                startGame();  // Avvia il gioco dopo che le domande sono state caricate
+            })
+            .catch(error => {
+                console.error('Errore nel caricare le domande:', error);  // Gestione degli errori nel caricamento del file JSON
+            });
+    }
+
+    // Funzione per avviare il gioco
     function startGame() {
+        // Nasconde la schermata iniziale e mostra la schermata delle lettere delle case
         document.getElementById('start-screen').classList.remove('active');
         document.getElementById('letter-screen').classList.add('active');
     }
 
+    // Funzione per passare alla schermata delle case
     function goToHousesScreen() {
+        // Nasconde la schermata delle lettere e mostra quella delle case
         document.getElementById('letter-screen').classList.remove('active');
         document.getElementById('houses-screen').classList.add('active');
     }
 
+    // Funzione per avviare il quiz con la casa selezionata
     function startQuiz(house) {
-        selectedHouse = house;
+        selectedHouse = house;  // Memorizza la casa selezionata
+        // Nasconde la schermata delle case e mostra la schermata del quiz
         document.getElementById('houses-screen').classList.remove('active');
         document.getElementById('quiz-screen').classList.add('active');
-        loadQuestion();
+        loadQuestion();  // Carica la prima domanda
     }
 
+    // Funzione per caricare la domanda corrente
     function loadQuestion() {
         if (currentQuestionIndex < questions.length) {
-            document.getElementById('question').textContent = questions[currentQuestionIndex].question;
-            let answers = questions[currentQuestionIndex].answers;
-            let buttons = document.querySelectorAll('#answers-container button');
+            // Se ci sono domande da mostrare, imposta la domanda e le risposte
+            document.getElementById('question').textContent = questions[currentQuestionIndex].question;  // Imposta il testo della domanda
+            let answers = questions[currentQuestionIndex].answers;  // Recupera le risposte della domanda corrente
+            let buttons = document.querySelectorAll('#answers-container button');  // Seleziona tutti i pulsanti per le risposte
             buttons.forEach((button, index) => {
-                button.textContent = answers[index];
+                button.textContent = answers[index];  // Imposta il testo dei pulsanti con le risposte
             });
+            // Nasconde il pulsante per passare alla domanda successiva
             document.getElementById('next-question').style.display = 'none';
         } else {
-            // Risultato finale
+            // Se non ci sono altre domande, mostra il risultato finale
             alert('Quiz completato!');
         }
     }
 
+    // Funzione per verificare se la risposta selezionata è corretta
     function checkAnswer(answer) {
-        let correctAnswer = questions[currentQuestionIndex].correctAnswer;
+        let correctAnswer = questions[currentQuestionIndex].correctAnswer;  // Ottiene la risposta corretta per la domanda corrente
         if (answer === correctAnswer) {
+            // Se la risposta è corretta, mostra un messaggio
             alert('Risposta corretta!');
         } else {
+            // Se la risposta è sbagliata, mostra un altro messaggio
             alert('Risposta sbagliata!');
         }
-        currentQuestionIndex++;
-        document.getElementById('next-question').style.display = 'block';
+        currentQuestionIndex++;  // Passa alla domanda successiva
+        document.getElementById('next-question').style.display = 'block';  // Mostra il pulsante per passare alla domanda successiva
     }
 
+    // Funzione per andare alla domanda successiva
     function nextQuestion() {
-        loadQuestion();
+        loadQuestion();  // Carica la domanda successiva
     }
+
+    // Esegui il caricamento delle domande quando la pagina è pronta
+    window.onload = function() {
+        loadQuestionsFromJson();  // Carica le domande dal file JSON
+    };
 </script>
+
 
 </body>
 </html>
