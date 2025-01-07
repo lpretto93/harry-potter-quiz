@@ -212,26 +212,59 @@
     <img src="images/hogwarts.png" alt="Hogwarts Logo" class="logo">
     <h1>Scegli la tua casata preferita</h1>
     <div id="houses-container">
-        <div class="house" data-house="Gryffindor">
+        <div class="house" data-house="Gryffindor" onclick="startQuiz('Grifondoro')">
             <img src="images/houses/Gryffindor.png" alt="Grifondoro">
             <p>Grifondoro, la casa fondata dal leggendario Godric Grifondoro, è senza dubbio la più iconica e audace tra le quattro...</p>
         </div>
-        <div class="house" data-house="Hufflepuff">
+        <div class="house" data-house="Hufflepuff" onclick="startQuiz('Tassorosso')">
             <img src="images/houses/Hufflepuff.png" alt="Tassorosso">
             <p>Tassorosso, fondata dalla saggia Helga Tassorosso, è la casa che più di tutte incarna i valori della lealtà...</p>
         </div>
-        <div class="house" data-house="Ravenclaw">
+        <div class="house" data-house="Ravenclaw" onclick="startQuiz('Corvonero')">
             <img src="images/houses/Ravenclaw.png" alt="Corvonero">
             <p>Corvonero, la casa fondata dalla brillante Rowena Corvonero, è la scelta ideale per chi è appassionato di conoscenza...</p>
         </div>
-        <div class="house" data-house="Slytherin">
+        <div class="house" data-house="Slytherin" onclick="startQuiz('Serpeverde')">
             <img src="images/houses/Slytherin.png" alt="Serpeverde">
             <p>Serpeverde, fondata dal potente Salazar Serpeverde, è la casa che attrae gli studenti più ambiziosi e determinati...</p>
         </div>
     </div>
 </div>
 
+<!-- Schermata del Quiz -->
+<div id="quiz-screen" class="screen">
+    <img src="images/hogwarts.png" alt="Hogwarts Logo" class="logo">
+    <h1>Pronto per il quiz?</h1>
+    <p>Scegli la risposta giusta e scopri la tua vera casata!</p>
+    <div id="question-container">
+        <p id="question"></p>
+        <div id="answers-container">
+            <button onclick="checkAnswer('A')">Risposta A</button>
+            <button onclick="checkAnswer('B')">Risposta B</button>
+            <button onclick="checkAnswer('C')">Risposta C</button>
+            <button onclick="checkAnswer('D')">Risposta D</button>
+        </div>
+    </div>
+    <button id="next-question" onclick="nextQuestion()">Prossima domanda</button>
+</div>
+
 <script>
+    let selectedHouse = '';
+    let currentQuestionIndex = 0;
+    let questions = [
+        {
+            question: 'Qual è la tua qualità principale?',
+            answers: ['Coraggio', 'Lealtà', 'Saggezza', 'Ambizione'],
+            correctAnswer: 'A'
+        },
+        {
+            question: 'Come reagisci di fronte alla difficoltà?',
+            answers: ['Mi faccio coraggio', 'Lavoro duramente', 'Rifletto attentamente', 'Trovo una strada per il successo'],
+            correctAnswer: 'B'
+        },
+        // Aggiungi altre domande qui
+    ];
+
     function startGame() {
         document.getElementById('start-screen').classList.remove('active');
         document.getElementById('letter-screen').classList.add('active');
@@ -240,6 +273,43 @@
     function goToHousesScreen() {
         document.getElementById('letter-screen').classList.remove('active');
         document.getElementById('houses-screen').classList.add('active');
+    }
+
+    function startQuiz(house) {
+        selectedHouse = house;
+        document.getElementById('houses-screen').classList.remove('active');
+        document.getElementById('quiz-screen').classList.add('active');
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        if (currentQuestionIndex < questions.length) {
+            document.getElementById('question').textContent = questions[currentQuestionIndex].question;
+            let answers = questions[currentQuestionIndex].answers;
+            let buttons = document.querySelectorAll('#answers-container button');
+            buttons.forEach((button, index) => {
+                button.textContent = answers[index];
+            });
+            document.getElementById('next-question').style.display = 'none';
+        } else {
+            // Risultato finale
+            alert('Quiz completato!');
+        }
+    }
+
+    function checkAnswer(answer) {
+        let correctAnswer = questions[currentQuestionIndex].correctAnswer;
+        if (answer === correctAnswer) {
+            alert('Risposta corretta!');
+        } else {
+            alert('Risposta sbagliata!');
+        }
+        currentQuestionIndex++;
+        document.getElementById('next-question').style.display = 'block';
+    }
+
+    function nextQuestion() {
+        loadQuestion();
     }
 </script>
 
