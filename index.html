@@ -210,21 +210,9 @@
     <img src="images/hogwarts.png" alt="Hogwarts Logo" class="logo">
     <h1>Benvenuto alla Scuola di Magia e Stregoneria di Hogwarts!</h1>
     <p>Caro futuro mago o strega,</p>
-    <p>Una lettera speciale è arrivata per te! Hogwarts ti sta invitando ad iniziare un viaggio straordinario nel mondo della magia. Qui, tra antiche mura e misteriose creature, imparerai incantesimi, pozioni e segreti millenari. Ma prima di intraprendere questa incredibile avventura, c'è una cosa importante da fare...</p>
     <p>Per favore, dicci il tuo nome, così potremo prepararti per la tua magica avventura!</p>
     <input type="text" id="username-input" placeholder="Inserisci il tuo nome magico">
     <img src="images/next-page.png" alt="Inizia" class="start-button" onclick="startGame()">
-</div>
-
-<!-- Schermata della Lettera -->
-<div id="letter-screen" class="screen">
-    <img src="images/hogwarts.png" alt="Hogwarts Logo" class="logo">
-    <p>Carissimo [Nome del Mago],</p>
-    <p>Abbiamo il piacere di informarti che sei stato ufficialmente accettato alla Scuola di Magia e Stregoneria di Hogwarts! Prepara la tua bacchetta e mettiti comodo, perché ti stai per immergere in un mondo straordinario, dove ogni angolo nasconde misteri, avventure e possibilità infinite.</p>
-    <p>Inizia il tuo viaggio nelle magiche aule della scuola, dove potrai studiare incantesimi, pozioni e tutto ciò che riguarda il mondo della magia. Avrai l'opportunità di incontrare i nostri esperti professori, come il saggio Professor Flitwick, la gentile Professor McGonagall, e tanti altri insegnanti che ti guideranno nel tuo cammino.</p>
-    <p>Ma non è tutto! Hogwarts è divisa in quattro prestigiose casate, ciascuna con le sue caratteristiche uniche e i suoi valori. Da un lato, c'è la valorosa Grifondoro, con il coraggio e l'onore dei suoi membri; dall'altro, Tassorosso, che celebra il duro lavoro e la lealtà; Corvonero, una casa per i più saggi e ingegnosi; e infine, Serpeverde, la casa dell'ambizione e della determinazione.</p>
-    <p>In seguito, dovrai scegliere in quale casata vuoi entrare. Ogni casata ha una lunga tradizione e, come tutti i nostri studenti, avrai la possibilità di lasciare un'impronta indelebile nella storia della scuola.</p>
-    <img src="images/next-page.png" alt="Inizia" class="start-button" onclick="goToHousesScreen()">
 </div>
 
 <!-- Schermata delle Casate -->
@@ -234,19 +222,19 @@
     <div id="houses-container">
         <div class="house" data-house="Gryffindor" onclick="startQuiz('Grifondoro')">
             <img src="images/houses/Gryffindor.png" alt="Grifondoro">
-            <p>Grifondoro, la casa fondata dal leggendario Godric Grifondoro, è senza dubbio la più iconica e audace tra le quattro...</p>
+            <p>Grifondoro...</p>
         </div>
         <div class="house" data-house="Hufflepuff" onclick="startQuiz('Tassorosso')">
             <img src="images/houses/Hufflepuff.png" alt="Tassorosso">
-            <p>Tassorosso, fondata dalla saggia Helga Tassorosso, è la casa che più di tutte incarna i valori della lealtà...</p>
+            <p>Tassorosso...</p>
         </div>
         <div class="house" data-house="Ravenclaw" onclick="startQuiz('Corvonero')">
             <img src="images/houses/Ravenclaw.png" alt="Corvonero">
-            <p>Corvonero, la casa fondata dalla brillante Rowena Corvonero, è la scelta ideale per chi è appassionato di conoscenza...</p>
+            <p>Corvonero...</p>
         </div>
         <div class="house" data-house="Slytherin" onclick="startQuiz('Serpeverde')">
             <img src="images/houses/Slytherin.png" alt="Serpeverde">
-            <p>Serpeverde, fondata dal potente Salazar Serpeverde, è la casa che attrae gli studenti più ambiziosi e determinati...</p>
+            <p>Serpeverde...</p>
         </div>
     </div>
 </div>
@@ -267,96 +255,81 @@
     </div>
     <button id="next-question" onclick="nextQuestion()">Prossima domanda</button>
 </div>
-<!-- Schermata della classifica finale -->
-<div id="final-ranking-screen" class="screen">
-    <img src="images/hogwarts.png" alt="Hogwarts Logo" class="logo">
-    <h1>Classifica Finale</h1>
-    <div id="ranking-container">
-        <!-- Qui verranno visualizzati i punteggi -->
-    </div>
-    <button onclick="restartGame()">Ricomincia il quiz</button>
-</div>
-<script>
-let selectedHouse = '';  // Variabile che memorizza la casa selezionata
-let currentQuestionIndex = 0;  // Indice della domanda corrente
-let questions = [];  // Array che conterrà le domande caricate dal file JSON
 
-// Funzione per caricare le domande dal file questions.json
+<script>
+let selectedHouse = '';  
+let currentQuestionIndex = 0;  
+let questions = [];  
+
+// Carica le domande da un file JSON
 function loadQuestions() {
-    fetch('questions.json')  // Percorso del file JSON
+    fetch('questions.json')  
         .then(response => {
             if (!response.ok) {
                 throw new Error('Impossibile caricare il file JSON');
             }
-            return response.json();  // Converte il contenuto del file in formato JSON
+            return response.json();
         })
         .then(data => {
-            console.log('Domande caricate:', data);  // Aggiungi un log per verificare il contenuto del file JSON
-            questions = data.questions;  // Imposta le domande nel nostro array
-            loadQuestion();  // Carica la prima domanda dopo che le domande sono state caricate
+            questions = data.questions;
+            loadQuestion();
         })
         .catch(error => {
             console.error('Errore nel caricare le domande:', error);
         });
 }
 
-// Funzione per avviare il gioco solo quando l'utente ha inserito il nome
+// Avvia il gioco
 function startGame() {
     const username = document.getElementById('username-input').value;
     if (username.trim() === '') {
         alert("Per favore, inserisci il tuo nome magico!");
-        return;  // Non proseguire se il nome non è stato inserito
+        return;
     }
-    
-    // Nasconde la schermata iniziale e mostra la schermata delle lettere delle case
     document.getElementById('start-screen').classList.remove('active');
-    document.getElementById('letter-screen').classList.add('active');
+    document.getElementById('houses-screen').classList.add('active');
 }
 
-// Funzione per passare alla schermata delle case
+// Passa alla schermata delle case
 function goToHousesScreen() {
     document.getElementById('letter-screen').classList.remove('active');
     document.getElementById('houses-screen').classList.add('active');
 }
 
-// Funzione per avviare il quiz con la casa selezionata
+// Avvia il quiz con la casa selezionata
 function startQuiz(house) {
-    selectedHouse = house;  // Memorizza la casa selezionata
-    currentQuestionIndex = 0;  // Resetta l'indice delle domande
+    selectedHouse = house;
+    currentQuestionIndex = 0;
     document.getElementById('houses-screen').classList.remove('active');
     document.getElementById('quiz-screen').classList.add('active');
-    loadQuestion();  // Carica la prima domanda
+    loadQuestion();
 }
 
-// Funzione per caricare la domanda corrente
+// Carica la domanda corrente
 function loadQuestion() {
     if (currentQuestionIndex < questions.length) {
-        document.getElementById('question').textContent = questions[currentQuestionIndex].question;  // Imposta la domanda
+        document.getElementById('question').textContent = questions[currentQuestionIndex].question;
         let answers = questions[currentQuestionIndex].answers;
         let buttons = document.querySelectorAll('#answers-container button');
         buttons.forEach((button, index) => {
             button.textContent = answers[index];
             button.classList.remove('correct', 'incorrect');
-            button.disabled = false; // Rende i pulsanti nuovamente abili per la nuova domanda
+            button.disabled = false;
         });
-        document.getElementById('next-question').style.display = 'none';  // Nascondi il pulsante "Prossima domanda" all'inizio
+        document.getElementById('next-question').style.display = 'none';
     } else {
         alert('Hai completato il quiz!');
-        // Puoi anche implementare un meccanismo di transizione al risultato finale
-        showFinalRanking();  // Funzione per visualizzare la classifica finale (se implementata)
     }
 }
 
-// Funzione per verificare la risposta
+// Verifica la risposta
 function checkAnswer(selectedAnswer) {
-    let correctAnswer = questions[currentQuestionIndex].correctAnswer;  // Ottieni la risposta corretta dalla domanda
-
+    let correctAnswer = questions[currentQuestionIndex].correctAnswer;
     let buttons = document.querySelectorAll('#answers-container button');
-    buttons.forEach((button) => {
-        button.disabled = true;  // Disabilita tutti i pulsanti delle risposte
+    buttons.forEach(button => {
+        button.disabled = true;
     });
 
-    // Aggiungi la classe corretta o sbagliata
     if (selectedAnswer === correctAnswer) {
         document.querySelector(`#answers-container button:nth-child(${questions[currentQuestionIndex].answers.indexOf(selectedAnswer) + 1})`).classList.add('correct');
     } else {
@@ -364,22 +337,15 @@ function checkAnswer(selectedAnswer) {
         document.querySelector(`#answers-container button:nth-child(${questions[currentQuestionIndex].answers.indexOf(selectedAnswer) + 1})`).classList.add('incorrect');
     }
 
-    document.getElementById('next-question').style.display = 'block';  // Mostra il pulsante "Prossima domanda"
+    document.getElementById('next-question').style.display = 'block';
 }
 
-// Funzione per passare alla domanda successiva
+// Passa alla domanda successiva
 function nextQuestion() {
-    currentQuestionIndex++;  // Incrementa l'indice della domanda
-    loadQuestion();  // Carica la prossima domanda
+    currentQuestionIndex++;
+    loadQuestion();
 }
 
-// Funzione per visualizzare la classifica finale (opzionale, da implementare)
-function showFinalRanking() {
-    // Implementa il codice per mostrare la classifica finale (ad esempio, basato sui punteggi)
-    document.getElementById('final-ranking-screen').classList.add('active');
-}
-
-// Carica le domande quando il file JSON è disponibile
 loadQuestions();
 
 </script>
