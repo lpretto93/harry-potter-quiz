@@ -10,13 +10,12 @@
             margin: 0;
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            overflow-x: hidden;
-            overflow-y: auto; /* Rende la pagina scrollabile */
+            overflow-x: hidden; /* Disabilita lo scroll orizzontale */
             height: 100vh; /* Garantisce che l'altezza della pagina si adatti allo schermo */
             padding: 0;
         }
 
-        /* Sfondo e logo comune */
+        /* Sfondo fisso per la pagina */
         .screen {
             display: none;
             position: absolute;
@@ -27,11 +26,12 @@
             background-image: url('images/letter.jpg');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed; /* Sfondo fisso */
             color: #8B4513; /* Marrone bruciato */
             text-align: center;
             padding-top: 150px;
             box-sizing: border-box;
-            overflow-y: auto; /* Abilita lo scroll verticale in caso di contenuto lungo */
+            overflow-y: auto; /* Rende il contenuto scrollabile */
         }
 
         .screen.active {
@@ -54,13 +54,15 @@
 
         /* Schermata delle Casate */
         #houses-screen {
-            background-image: url('images/houses.jpg'); 
+            background-image: url('images/houses.jpg');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed; /* Sfondo fisso */
             color: #FFDAB9; /* Giallo tenue tendente al bianco per il testo */
             text-align: center;
             padding-top: 150px;
             box-sizing: border-box;
+            overflow-y: auto; /* Abilita lo scroll verticale */
         }
 
         /* Box delle casate */
@@ -184,7 +186,6 @@
 <body>
 
 <!-- Schermata Iniziale (nome utente) -->
-<!-- Schermata Iniziale (nome utente) -->
 <div id="start-screen" class="screen active">
     <img src="images/hogwarts.png" alt="Hogwarts Logo" class="logo">
     <h1>Benvenuto alla Scuola di Magia e Stregoneria di Hogwarts!</h1>
@@ -195,8 +196,6 @@
     <img src="images/next-page.png" alt="Inizia" class="start-button" onclick="startGame()">
 </div>
 
-
-<!-- Schermata della Lettera -->
 <!-- Schermata della Lettera -->
 <div id="letter-screen" class="screen">
     <img src="images/hogwarts.png" alt="Hogwarts Logo" class="logo">
@@ -215,156 +214,34 @@
     <div id="houses-container">
         <div class="house" data-house="Gryffindor">
             <img src="images/houses/Gryffindor.png" alt="Grifondoro">
-            <p>Grifondoro, la casa fondata dal leggendario Godric Grifondoro, è senza dubbio la più iconica e audace tra le quattro. Gli studenti che vengono smistati in questa casa sono noti per il loro coraggio, il loro spirito di sacrificio e la loro incrollabile determinazione a fare ciò che è giusto, anche quando la strada sembra difficile o pericolosa. Non si tirano mai indietro di fronte alle difficoltà, e spesso si trovano a lottare contro le ingiustizie, come i famosi membri della casa, tra cui il celebre Harry Potter.
-
-Gli studenti di Grifondoro sono spinti dall'onore e dalla voglia di difendere i più deboli, senza mai arrendersi. La loro casa è un faro di speranza, dove il valore dell'amicizia e la lealtà sono sempre al centro, e ogni membro si sforza di eccellere non solo nelle arti magiche, ma anche nel dimostrare una forza interiore che può sfidare qualsiasi avversità. La Sala Comune di Grifondoro si trova in una torre che si affaccia sulla scuola, un posto che, come la casa stessa, trasmette un senso di altezza morale e di coraggio incondizionato.</p>
+            <p>Grifondoro, la casa fondata dal leggendario Godric Grifondoro, è senza dubbio la più iconica e audace tra le quattro...</p>
         </div>
         <div class="house" data-house="Hufflepuff">
             <img src="images/houses/Hufflepuff.png" alt="Tassorosso">
-            <p>Tassorosso, fondata dalla saggia Helga Tassorosso, è la casa che più di tutte incarna i valori della lealtà, del lavoro duro e dell'umiltà. Gli studenti di Tassorosso sono noti per il loro spirito di collaborazione, il loro impegno e la loro costante dedizione al bene comune. Non cercano la gloria, né il riconoscimento, ma sono felici di lavorare dietro le quinte per aiutare gli altri e contribuire alla comunità. Sono i pilastri della scuola, i compagni che rendono ogni avventura possibile e che, spesso, sono i veri artefici del cambiamento.
-
-Le loro doti sono la pazienza e la perseveranza. Non c'è nulla che non possano realizzare se ci mettono il cuore, perché per loro il successo non si misura in vittorie apparenti, ma nella capacità di affrontare ogni sfida con onestà e tenacia. La Sala Comune di Tassorosso, situata vicino alle cucine della scuola, è accogliente e calorosa, un rifugio dove gli studenti possono rilassarsi, godersi la compagnia dei compagni e trovare conforto in una comunità che è sempre pronta a supportarsi a vicenda.</p>
+            <p>Tassorosso, fondata dalla saggia Helga Tassorosso, è la casa che più di tutte incarna i valori della lealtà...</p>
         </div>
         <div class="house" data-house="Ravenclaw">
             <img src="images/houses/Ravenclaw.png" alt="Corvonero">
-            <p>Corvonero, la casa fondata da Rowena Corvonero, è il rifugio degli studenti che cercano la verità attraverso l'intelligenza, l'ingegno e la curiosità. Gli studenti di questa casa sono tra i più brillanti e studiosi di Hogwarts, sempre alla ricerca di nuove risposte, di enigmi da risolvere e di scoperte che possano ampliare i confini della conoscenza magica. La loro mente è un campo fertile dove germogliano le idee più originali e le intuizioni più affilate, e sono spesso quelli che spingono la magia in direzioni mai esplorate prima.
-
-Corvonero è la casa che celebra il pensiero indipendente e la saggezza. I suoi membri non sono spinti dal desiderio di potere o di fama, ma da una passione genuina per l'apprendimento. La Sala Comune di Corvonero, che si trova in cima a una torre della scuola, è un luogo tranquillo e sereno, adornato da scaffali pieni di libri e dai più recenti trattati di magia. Qui, gli studenti di Corvonero possono immergersi nei loro studi, lontano dal trambusto della vita quotidiana, mentre continuano a perfezionare le loro abilità e a coltivare la loro sete insaziabile di conoscenza.</p>
+            <p>Corvonero, la casa fondata dalla brillante Rowena Corvonero, è la scelta ideale per chi è appassionato di conoscenza...</p>
         </div>
         <div class="house" data-house="Slytherin">
             <img src="images/houses/Slytherin.png" alt="Serpeverde">
-            <p>Serpeverde, fondata da Salazar Serpeverde, è la casa che più di tutte incarna l'ambizione, la determinazione e la capacità di sfruttare ogni opportunità per raggiungere il successo. Gli studenti di Serpeverde sono famosi per la loro astuzia e la loro capacità di muoversi nel mondo con discrezione, ma anche con un preciso scopo in mente: il raggiungimento dei propri obiettivi, qualunque essi siano. Non hanno paura di mettersi alla prova, di spingersi oltre i propri limiti e di fare ciò che è necessario per ottenere ciò che vogliono.
-
-Serpeverde è la casa della mente strategica, di coloro che comprendono che a volte la magia non è solo potere, ma anche capacità di leggere la situazione, di anticipare le mosse e di usare le risorse a disposizione per manipolare il destino. La Sala Comune di Serpeverde, situata nelle profondità del castello, è un luogo misterioso e intrigante, con pareti di pietra e luci soffuse che creano un'atmosfera di segretezza e riflessione. Qui, gli studenti si concentrano sul loro futuro, con una mente focalizzata sulla grandezza, sul successo e sull'eccellenza, pronti a lasciare un segno nel mondo magico.
-
-</p>
+            <p>Serpeverde, fondata dal potente Salazar Serpeverde, è la casa che attrae gli studenti più ambiziosi e determinati...</p>
         </div>
     </div>
 </div>
 
-<!-- Schermata del Quiz -->
-<div id="quiz-screen" class="screen">
-    <img src="images/hogwarts.png" alt="Hogwarts Logo" class="logo">
-    <h1>Quiz di Ammissione</h1>
-    <p id="question">Domanda</p>
-    <div id="answers-container"></div>
-    <img src="images/next-page.png" alt="Prossima domanda" class="next-button" onclick="loadNextQuestion()">
-</div>
-
-<!-- Schermata del Risultato -->
-<div id="result-screen" class="screen">
-    <img src="images/hogwarts.png" alt="Hogwarts Logo" class="logo">
-    <h1 id="result-message">Risultato</h1>
-    <img id="result-logo" src="" alt="Logo della casata">
-    <button id="view-ranking">Visualizza classifica</button>
-</div>
-
-
-
-
-
 <script>
-    // Variabili globali
-    let currentUser = "";
-    let selectedHouse = "";
-    let currentQuestionIndex = 0;
-    let score = 0;
-    let questions = [];
-
-    // Carica le domande da questions.json
-    function loadQuestions() {
-        fetch('questions.json')
-            .then(response => response.json())
-            .then(data => {
-                questions = data;
-                console.log(questions); // Mostra le domande nel log (per debugging)
-            })
-            .catch(error => console.error("Errore nel caricamento delle domande:", error));
-    }
-
-    // Funzione per cambiare schermata
-    function showScreen(screenId) {
-        document.querySelectorAll('.screen').forEach(screen => {
-            screen.classList.remove('active');
-        });
-        const screenElement = document.getElementById(screenId);
-        if (screenElement) {
-            screenElement.classList.add('active');
-        } else {
-            console.error(`Schermata con ID ${screenId} non trovata.`);
-        }
-    }
-
-    // Funzione di inizio gioco per la schermata iniziale
     function startGame() {
-        const username = document.getElementById('username-input').value.trim();
-        if (username === "") {
-            alert("Per favore, inserisci un nome valido.");
-            return;
-        }
-
-        // Imposta il nome utente
-        currentUser = username;
-        showScreen('letter-screen');
+        document.getElementById('start-screen').classList.remove('active');
+        document.getElementById('letter-screen').classList.add('active');
     }
 
-    // Funzione per passare alla schermata delle casate
     function goToHousesScreen() {
-        showScreen('houses-screen');
-    }
-
-    // Carica le domande quando si sceglie una casata
-    const houses = document.querySelectorAll('.house');
-    houses.forEach(house => {
-        house.addEventListener('click', () => {
-            selectedHouse = house.getAttribute('data-house');
-            showScreen('quiz-screen');
-            loadQuestions(); // Carica le domande
-            loadNextQuestion(); // Carica la prima domanda
-        });
-    });
-
-    // Funzioni per il quiz
-    const questionElement = document.getElementById('question');
-    const answersContainer = document.getElementById('answers-container');
-    const nextQuestionButton = document.getElementById('next-question');
-
-    function loadNextQuestion() {
-        if (currentQuestionIndex < questions.length) {
-            const currentQuestion = questions[currentQuestionIndex];
-            questionElement.textContent = currentQuestion.domanda;
-            answersContainer.innerHTML = "";
-
-            currentQuestion.risposte.forEach((answer, index) => {
-                const button = document.createElement('button');
-                button.textContent = answer;
-                button.addEventListener('click', () => {
-                    if (index === currentQuestion.corretta) {
-                        score++;
-                    }
-                    currentQuestionIndex++;
-                    if (currentQuestionIndex < questions.length) {
-                        loadNextQuestion();
-                    } else {
-                        showResult();
-                    }
-                });
-                answersContainer.appendChild(button);
-            });
-        } else {
-            showResult();
-        }
-    }
-
-    // Mostra il risultato
-    function showResult() {
-        showScreen('result-screen');
-        const resultMessage = document.getElementById('result-message');
-        const resultLogo = document.getElementById('result-logo');
-        
-        resultMessage.textContent = `La tua casata è: ${selectedHouse}`;
-        resultLogo.src = `images/houses/${selectedHouse}.png`;
+        document.getElementById('letter-screen').classList.remove('active');
+        document.getElementById('houses-screen').classList.add('active');
     }
 </script>
+
 </body>
 </html>
