@@ -5,73 +5,181 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gioco Hogwarts</title>
     <style>
-        /* Stili generali */
+        /* Impostazioni generali */
         body {
+            margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #2c3e50;
-            color: white;
-            text-align: center;
+            background-color: #f4f4f4;
+            overflow-x: hidden; /* Disabilita lo scroll orizzontale */
+            height: 100vh; /* Garantisce che l'altezza della pagina si adatti allo schermo */
+            padding: 0;
         }
 
+        /* Sfondo fisso per la pagina */
         .screen {
             display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('images/letter.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Sfondo fisso */
+            color: #8B4513; /* Marrone bruciato */
+            text-align: center;
+            padding-top: 150px;
+            box-sizing: border-box;
+            overflow-y: auto; /* Rende il contenuto scrollabile */
         }
 
-        .active {
+        .screen.active {
             display: block;
         }
 
         .logo {
-            width: 200px;
-            margin: 30px auto;
+            width: 150px;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
-        .start-button {
-            width: 100px;
-            margin-top: 30px;
-            cursor: pointer;
+        h1, p {
+            color: #8B4513; /* Giallo tenue tendente al bianco */
+            margin: 0;
+            padding: 10px 0;
         }
 
+        /* Schermata delle Casate */
+        #houses-screen {
+            background-image: url('images/houses.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Sfondo fisso */
+            color: #FFDAB9; /* Giallo tenue tendente al bianco per il testo */
+            text-align: center;
+            padding-top: 150px;
+            box-sizing: border-box;
+            overflow-y: auto; /* Abilita lo scroll verticale */
+        }
+
+        /* Box delle casate */
         #houses-container {
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .house {
-            display: flex;
+            color: #FFDAB9;
+            text-align: center;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
-            cursor: pointer;
+            margin-top: 50px;
         }
 
-        #question-container {
-            margin-top: 30px;
+        /* Ogni singola casa */
+        .house {
+            text-align: center;
+            color: #FFDAB9;
+            cursor: pointer;
+            width: 400px;
+            margin-bottom: 30px;
+            opacity: 0.8; /* Rende la box leggermente trasparente */
+            transition: opacity 0.3s;
+        }
+
+        .house:hover {
+            opacity: 1; /* Aumenta l'opacità quando si passa sopra */
+        }
+
+        .house img {
+            width: 100%;
+            height: auto;
+        }
+
+        .house p {
+            margin-top: 10px;
+            font-size: 1em;
+            color: #FFDAB9;
+        }
+
+        /* Pagine quiz e risultato */
+        #quiz-screen {
+            text-align: center;
+            margin-top: 100px;
         }
 
         #answers-container button {
             margin: 10px;
             padding: 10px 20px;
-            font-size: 18px;
+            font-size: 1.2em;
             cursor: pointer;
-            background-color: #3498db;
+            background-color: rgba(255, 255, 255, 0.7);
             border: none;
-            color: white;
+            border-radius: 5px;
+            color: #8B4513;
         }
 
         #next-question {
-            margin-top: 20px;
             display: none;
+            margin-top: 20px;
             padding: 10px 20px;
-            background-color: #2ecc71;
+            font-size: 1.5em;
+            background-color: #4CAF50;
             color: white;
+            cursor: pointer;
+        }
+
+        /* Stili per il pannello di amministrazione */
+        #admin-panel {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        /* Logo denied */
+        #result-screen img {
+            width: 150px;
+            height: auto;
+        }
+
+        /* Posizione dei pulsanti */
+        .next-button, .start-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: auto;
+            background-color: transparent;
             border: none;
             cursor: pointer;
         }
 
-        #next-question:hover {
-            background-color: #27ae60;
+        /* Ottimizzazione per dispositivi mobili */
+        @media (max-width: 768px) {
+            .logo {
+                width: 120px;
+                top: 10px;
+            }
+
+            .house {
+                width: 180px;
+            }
+
+            #houses-container {
+                gap: 10px;
+            }
+
+            .screen {
+                padding-top: 50px;
+            }
+
+            .next-button, .start-button {
+                width: 40px;
+            }
+
+            #answers-container button {
+                font-size: 1.1em;
+                padding: 8px 16px;
+            }
         }
     </style>
 </head>
@@ -91,7 +199,11 @@
 <!-- Schermata della Lettera -->
 <div id="letter-screen" class="screen">
     <img src="images/hogwarts.png" alt="Hogwarts Logo" class="logo">
-    <p id="letter-text"></p>
+    <p>Carissimo [Nome del Mago],</p>
+    <p>Abbiamo il piacere di informarti che sei stato ufficialmente accettato alla Scuola di Magia e Stregoneria di Hogwarts! Prepara la tua bacchetta e mettiti comodo, perché ti stai per immergere in un mondo straordinario, dove ogni angolo nasconde misteri, avventure e possibilità infinite.</p>
+    <p>Inizia il tuo viaggio nelle magiche aule della scuola, dove potrai studiare incantesimi, pozioni e tutto ciò che riguarda il mondo della magia. Avrai l'opportunità di incontrare i nostri esperti professori, come il saggio Professor Flitwick, la gentile Professor McGonagall, e tanti altri insegnanti che ti guideranno nel tuo cammino.</p>
+    <p>Ma non è tutto! Hogwarts è divisa in quattro prestigiose casate, ciascuna con le sue caratteristiche uniche e i suoi valori. Da un lato, c'è la valorosa Grifondoro, con il coraggio e l'onore dei suoi membri; dall'altro, Tassorosso, che celebra il duro lavoro e la lealtà; Corvonero, una casa per i più saggi e ingegnosi; e infine, Serpeverde, la casa dell'ambizione e della determinazione.</p>
+    <p>In seguito, dovrai scegliere in quale casata vuoi entrare. Ogni casata ha una lunga tradizione e, come tutti i nostri studenti, avrai la possibilità di lasciare un'impronta indelebile nella storia della scuola.</p>
     <img src="images/next-page.png" alt="Inizia" class="start-button" onclick="goToHousesScreen()">
 </div>
 
@@ -100,7 +212,22 @@
     <img src="images/hogwarts.png" alt="Hogwarts Logo" class="logo">
     <h1>Scegli la tua casata preferita</h1>
     <div id="houses-container">
-        <!-- Casate dinamiche -->
+        <div class="house" data-house="Gryffindor" onclick="startQuiz('Grifondoro')">
+            <img src="images/houses/Gryffindor.png" alt="Grifondoro">
+            <p>Grifondoro, la casa fondata dal leggendario Godric Grifondoro, è senza dubbio la più iconica e audace tra le quattro...</p>
+        </div>
+        <div class="house" data-house="Hufflepuff" onclick="startQuiz('Tassorosso')">
+            <img src="images/houses/Hufflepuff.png" alt="Tassorosso">
+            <p>Tassorosso, fondata dalla saggia Helga Tassorosso, è la casa che più di tutte incarna i valori della lealtà...</p>
+        </div>
+        <div class="house" data-house="Ravenclaw" onclick="startQuiz('Corvonero')">
+            <img src="images/houses/Ravenclaw.png" alt="Corvonero">
+            <p>Corvonero, la casa fondata dalla brillante Rowena Corvonero, è la scelta ideale per chi è appassionato di conoscenza...</p>
+        </div>
+        <div class="house" data-house="Slytherin" onclick="startQuiz('Serpeverde')">
+            <img src="images/houses/Slytherin.png" alt="Serpeverde">
+            <p>Serpeverde, fondata dal potente Salazar Serpeverde, è la casa che attrae gli studenti più ambiziosi e determinati...</p>
+        </div>
     </div>
 </div>
 
@@ -124,64 +251,37 @@
 <script>
     let selectedHouse = '';
     let currentQuestionIndex = 0;
-    let questions = [];
-    let playerName = '';
+    let questions = [
+        {
+            question: 'Qual è la tua qualità principale?',
+            answers: ['Coraggio', 'Lealtà', 'Saggezza', 'Ambizione'],
+            correctAnswer: 'A'
+        },
+        {
+            question: 'Come reagisci di fronte alla difficoltà?',
+            answers: ['Mi faccio coraggio', 'Lavoro duramente', 'Rifletto attentamente', 'Trovo una strada per il successo'],
+            correctAnswer: 'B'
+        },
+        // Aggiungi altre domande qui
+    ];
 
-    // Funzione per iniziare il gioco e ottenere il nome del giocatore
     function startGame() {
-        playerName = document.getElementById('username-input').value;
-        if (playerName.trim() !== '') {
-            // Mostra la schermata della lettera e sostituisci il nome
-            document.getElementById('start-screen').classList.remove('active');
-            document.getElementById('letter-screen').classList.add('active');
-            document.getElementById('letter-text').innerHTML = `Carissimo ${playerName},<br><br>
-                Abbiamo il piacere di informarti che sei stato ufficialmente accettato alla Scuola di Magia e Stregoneria di Hogwarts!<br><br>
-                Prepara la tua bacchetta e mettiti comodo, perché ti stai per immergere in un mondo straordinario, dove ogni angolo nasconde misteri, avventure e possibilità infinite.`;
-        } else {
-            alert("Per favore inserisci il tuo nome.");
-        }
+        document.getElementById('start-screen').classList.remove('active');
+        document.getElementById('letter-screen').classList.add('active');
     }
 
-    // Funzione per andare alla schermata delle casate
     function goToHousesScreen() {
         document.getElementById('letter-screen').classList.remove('active');
         document.getElementById('houses-screen').classList.add('active');
-        loadHouses();
     }
 
-    // Funzione per caricare dinamicamente le casate
-    function loadHouses() {
-        const houses = ['Grifondoro', 'Tassorosso', 'Corvonero', 'Serpeverde'];
-        const container = document.getElementById('houses-container');
-        houses.forEach(house => {
-            let houseElement = document.createElement('div');
-            houseElement.classList.add('house');
-            houseElement.setAttribute('data-house', house);
-            houseElement.innerHTML = `
-                <img src="images/houses/${house}.png" alt="${house}">
-                <p>${house}</p>`;
-            houseElement.onclick = () => startQuiz(house);
-            container.appendChild(houseElement);
-        });
-    }
-
-    // Funzione per avviare il quiz con la casata selezionata
     function startQuiz(house) {
         selectedHouse = house;
         document.getElementById('houses-screen').classList.remove('active');
         document.getElementById('quiz-screen').classList.add('active');
-        loadQuestions();
-    }
-
-    // Funzione per caricare le domande dal file JSON
-    async function loadQuestions() {
-        const response = await fetch('questions.json');
-        const data = await response.json();
-        questions = data.questions; // Supponiamo che il JSON abbia una struttura { questions: [...] }
         loadQuestion();
     }
 
-    // Funzione per caricare una domanda
     function loadQuestion() {
         if (currentQuestionIndex < questions.length) {
             document.getElementById('question').textContent = questions[currentQuestionIndex].question;
@@ -197,7 +297,6 @@
         }
     }
 
-    // Funzione per verificare la risposta
     function checkAnswer(answer) {
         let correctAnswer = questions[currentQuestionIndex].correctAnswer;
         if (answer === correctAnswer) {
@@ -209,7 +308,6 @@
         document.getElementById('next-question').style.display = 'block';
     }
 
-    // Funzione per passare alla prossima domanda
     function nextQuestion() {
         loadQuestion();
     }
