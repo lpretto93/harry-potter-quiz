@@ -238,7 +238,7 @@
     <h1>Quiz di Ammissione</h1>
     <p id="question">Domanda</p>
     <div id="answers-container"></div>
-    <img src="images/next-page.png" alt="Prossima domanda" class="next-button" onclick="loadQuestion()">
+    <img src="images/next-page.png" alt="Prossima domanda" class="next-button" onclick="loadNextQuestion()">
 </div>
 
 <!-- Schermata del Risultato -->
@@ -299,13 +299,14 @@
         showScreen('houses-screen');
     }
 
-    // Eventi per la scelta delle casate
+    // Carica le domande quando si sceglie una casata
     const houses = document.querySelectorAll('.house');
     houses.forEach(house => {
         house.addEventListener('click', () => {
             selectedHouse = house.getAttribute('data-house');
             showScreen('quiz-screen');
-            loadQuestion(); // Carica la prima domanda
+            loadQuestions(); // Carica le domande
+            loadNextQuestion(); // Carica la prima domanda
         });
     });
 
@@ -314,7 +315,7 @@
     const answersContainer = document.getElementById('answers-container');
     const nextQuestionButton = document.getElementById('next-question');
 
-    function loadQuestion() {
+    function loadNextQuestion() {
         if (currentQuestionIndex < questions.length) {
             const currentQuestion = questions[currentQuestionIndex];
             questionElement.textContent = currentQuestion.domanda;
@@ -329,7 +330,7 @@
                     }
                     currentQuestionIndex++;
                     if (currentQuestionIndex < questions.length) {
-                        loadQuestion();
+                        loadNextQuestion();
                     } else {
                         showResult();
                     }
