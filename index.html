@@ -9,175 +9,184 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            overflow-x: hidden;
             background-color: #f4f4f4;
+            overflow-x: hidden;
+            overflow-y: auto; /* Rende la pagina scrollabile */
+            height: 100vh; /* Garantisce che l'altezza della pagina si adatti allo schermo */
+            padding: 0;
         }
 
-    /* Sfondo e logo comune */
-    .screen {
-        display: none;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url('images/letter.jpg');
-        background-size: cover;
-        background-position: center;
-        color: #8B4513; /* Marrone bruciato */
-        text-align: center;
-        padding-top: 150px; /* Distanza tra il logo e il contenuto */
-        box-sizing: border-box; /* Per includere padding e bordi nelle dimensioni */
-    }
-
-    .screen.active {
-        display: block;
-    }
-
-    .logo {
-        width: 150px;
-        position: absolute;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    h1, p {
-        color: #8B4513; /* Giallo tenue tendente al bianco */
-        margin: 0;
-        padding: 10px 0;
-    }
-
-    /* Schermata delle Casate */
-    #houses-screen {
-        background-image: url('images/houses.jpg'); /* Usa l'immagine come sfondo */
-        background-size: cover; /* Adatta l'immagine per coprire l'intera schermata */
-        background-position: center; /* Centra l'immagine */
-        color: #FFDAB9; /* Giallo tenue tendente al bianco per il testo */
-        text-align: center;
-        padding-top: 150px; /* Aumenta la distanza tra il logo e il contenuto */
-        box-sizing: border-box; /* Includi padding e bordi nelle dimensioni */
-        position: relative; /* Per posizionare correttamente gli altri elementi */
-    }
-
-    /* Box delle casate */
-    #houses-container {
-        display: flex;
-        color: #FFDAB9; /* Giallo tenue tendente al bianco per il testo */
-        text-align: center;
-        flex-direction: column; /* Imposta il layout in colonna */
-        justify-content: center;
-        align-items: center; /* Allinea le casate al centro */
-        margin-top: 50px; /* Aggiungi un margine per separare le casate dal titolo */
-    }
-
-    /* Ogni singola casa */
-    .house {
-        text-align: center;
-        color: #FFDAB9; /* Giallo tenue tendente al bianco per il testo */
-        cursor: pointer;
-        width: 200px; /* Larghezza fissa per ogni casa */
-        margin-bottom: 30px; /* Aumenta lo spazio tra le casate */
-    }
-
-    .house img {
-        width: 100%;
-        height: auto;
-    }
-
-    .house p {
-        margin-top: 10px;
-        font-size: 1em;
-        color: #FFDAB9; /* Giallo tenue tendente al bianco per il testo */
-    }
-
-    /* Pagine quiz e risultato */
-    #quiz-screen {
-        text-align: center;
-        margin-top: 100px;
-    }
-
-    #answers-container button {
-        margin: 10px;
-        padding: 10px 20px;
-        font-size: 1.2em;
-        cursor: pointer;
-        background-color: rgba(255, 255, 255, 0.7);
-        border: none;
-        border-radius: 5px;
-        color: #8B4513; /* Marrone bruciato */
-    }
-
-    #next-question {
-        display: none;
-        margin-top: 20px;
-        padding: 10px 20px;
-        font-size: 1.5em;
-        background-color: #4CAF50;
-        color: white;
-        cursor: pointer;
-    }
-
-    /* Stili per il pannello di amministrazione */
-    #admin-panel {
-        text-align: center;
-        margin-top: 50px;
-    }
-
-    /* Logo denied */
-    #result-screen img {
-        width: 150px;
-        height: auto;
-    }
-
-    /* Posizione dei pulsanti */
-    .next-button, .start-button {
-        position: absolute;
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: auto;
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-    }
-
-    /* Ottimizzazione per dispositivi mobili */
-    @media (max-width: 768px) {
-        .logo {
-            width: 120px;
-            top: 10px;
-        }
-
-        .house {
-            width: 180px;
-        }
-
-        #houses-container {
-            gap: 10px; /* Riduce lo spazio tra le casate */
-        }
-
+        /* Sfondo e logo comune */
         .screen {
-            padding-top: 50px;
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('images/letter.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #8B4513; /* Marrone bruciato */
+            text-align: center;
+            padding-top: 150px;
+            box-sizing: border-box;
+            overflow-y: auto; /* Abilita lo scroll verticale in caso di contenuto lungo */
         }
 
-        .next-button, .start-button {
-            width: 40px;
+        .screen.active {
+            display: block;
+        }
+
+        .logo {
+            width: 150px;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        h1, p {
+            color: #8B4513; /* Giallo tenue tendente al bianco */
+            margin: 0;
+            padding: 10px 0;
+        }
+
+        /* Schermata delle Casate */
+        #houses-screen {
+            background-image: url('images/houses.jpg'); 
+            background-size: cover;
+            background-position: center;
+            color: #FFDAB9; /* Giallo tenue tendente al bianco per il testo */
+            text-align: center;
+            padding-top: 150px;
+            box-sizing: border-box;
+        }
+
+        /* Box delle casate */
+        #houses-container {
+            display: flex;
+            color: #FFDAB9;
+            text-align: center;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        /* Ogni singola casa */
+        .house {
+            text-align: center;
+            color: #FFDAB9;
+            cursor: pointer;
+            width: 200px;
+            margin-bottom: 30px;
+            opacity: 0.8; /* Rende la box leggermente trasparente */
+            transition: opacity 0.3s;
+        }
+
+        .house:hover {
+            opacity: 1; /* Aumenta l'opacità quando si passa sopra */
+        }
+
+        .house img {
+            width: 100%;
+            height: auto;
+        }
+
+        .house p {
+            margin-top: 10px;
+            font-size: 1em;
+            color: #FFDAB9;
+        }
+
+        /* Pagine quiz e risultato */
+        #quiz-screen {
+            text-align: center;
+            margin-top: 100px;
         }
 
         #answers-container button {
-            font-size: 1.1em;
-            padding: 8px 16px;
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            border-radius: 5px;
+            color: #8B4513;
         }
-    }
-</style>
+
+        #next-question {
+            display: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1.5em;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Stili per il pannello di amministrazione */
+        #admin-panel {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        /* Logo denied */
+        #result-screen img {
+            width: 150px;
+            height: auto;
+        }
+
+        /* Posizione dei pulsanti */
+        .next-button, .start-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: auto;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Ottimizzazione per dispositivi mobili */
+        @media (max-width: 768px) {
+            .logo {
+                width: 120px;
+                top: 10px;
+            }
+
+            .house {
+                width: 180px;
+            }
+
+            #houses-container {
+                gap: 10px;
+            }
+
+            .screen {
+                padding-top: 50px;
+            }
+
+            .next-button, .start-button {
+                width: 40px;
+            }
+
+            #answers-container button {
+                font-size: 1.1em;
+                padding: 8px 16px;
+            }
+        }
+    </style>
 </head>
 <body>
 
 <!-- Schermata Iniziale (nome utente) -->
 <div id="start-screen" class="screen active">
     <img src="images/hogwarts.png" alt="Hogwarts Logo" class="logo">
-   <h1>Benvenuto alla Scuola di Magia e Stregoneria di Hogwarts!</h1> <p> Carissimo futuro mago o strega, </p> <p> Sei stato invitato a intraprendere un viaggio straordinario alla Scuola di Magia e Stregoneria di Hogwarts, un luogo dove la magia prende vita in ogni angolo. Preparati a entrare in un mondo dove pozioni misteriose, incantesimi potenti e creature fantastiche sono solo l'inizio. Qui, ogni giorno sarà un'avventura, dove la curiosità e il coraggio ti guideranno attraverso scoperte straordinarie. </p> <p> A Hogwarts, le lezioni sono il cuore pulsante della vita scolastica. Sarai introdotto a materie affascinanti come la Trasfigurazione, la Difesa contro le Arti Oscure, l'Incantesimo di Pozioni, la Divinazione e tanto altro ancora. Ogni professore è un esperto nel suo campo e sarà pronto a condividere con te la sua conoscenza, ma anche a sfidarti a superare i tuoi limiti. Tra i nostri stimati insegnanti troverai il saggio Professor Piton, l'affascinante Professor McGranitt e tanti altri che ti guideranno lungo il tuo percorso magico. </p> <p> Ma non è tutto: a Hogwarts, la tua casa sarà il centro di ogni tua esperienza. La nostra scuola è divisa in quattro Casate, ciascuna con un proprio carattere e tradizione. Sarai presto accolto in una di esse dal Cappello Parlante, che analizzerà la tua personalità per determinare dove risiede il tuo spirito. Le Casate di Grifondoro, Corvonero, Tassorosso e Serpeverde, ognuna con i suoi valori e punti di forza, ti aiuteranno a formare legami e a crescere come mago o strega. </p> <p> Nel corso dei tuoi studi, avrai l'opportunità di conoscere la tua Casata, di partecipare a sfide e competizioni, e di creare legami che dureranno una vita intera. Nella prossima pagina, ti presenteremo ogni Casata in dettaglio, in modo che tu possa iniziare a riflettere su dove ti senti più a tuo agio. </p> <p> Sei pronto? Un'avventura magica ti attende, e Hogwarts sarà il luogo dove scoprirai il tuo vero potenziale. Preparati a entrare in un mondo straordinario, dove ogni lezione, ogni incantesimo e ogni sfida ti porteranno più vicino a diventare il mago o la strega che sei destinato a essere. </p>
+   <h1>Benvenuto alla Scuola di Magia e Stregoneria di Hogwarts!</h1> <p> Carissimo futuro mago o strega, </p> <p> Sei stato invitato a intraprendere un viaggio straordinario alla Scuola di Magia e Stregoneria di Hogwarts...</p>
     <input type="text" id="username-input" placeholder="Inserisci il tuo nome">
     <img src="images/next-page.png" alt="Inizia" class="start-button" onclick="startGame()">
 </div>
@@ -185,8 +194,7 @@
 <!-- Schermata della Lettera -->
 <div id="letter-screen" class="screen">
     <img src="images/hogwarts.png" alt="Hogwarts Logo" class="logo">
-    Compila il modulo sottostante con il tuo nome magico e preparati a mettere alla prova la tua mente e il tuo spirito. Ogni risposta che darai, ogni passo che farai, ti avvicinerà al momento in cui il Cappello Parlante ti dirà a quale Casata appartieni. </p> <p> Ricorda, l’esame non è solo un momento di valutazione, ma un'opportunità per scoprire te stesso e per dimostrare che la tua curiosità, la tua dedizione e il tuo cuore puro sono pronti a far parte della grande famiglia di Hogwarts. </p> <p> Sei pronto? Preparati a entrare nel mondo della magia, dove ogni passo che compirai ti avvicinerà a un’avventura unica e irripetibile. </p>
-
+    <p>Compila il modulo sottostante con il tuo nome magico...</p>
     <img src="images/next-page.png" alt="Inizia" class="start-button" onclick="goToHousesScreen()">
 </div>
 
@@ -230,6 +238,10 @@
     <img id="result-logo" src="" alt="Logo della casata">
     <button id="view-ranking">Visualizza classifica</button>
 </div>
+
+
+
+
 
 <script>
     // Variabili globali
@@ -334,6 +346,5 @@
         resultLogo.src = `images/houses/${selectedHouse}.png`;
     }
 </script>
-
 </body>
 </html>
