@@ -267,7 +267,6 @@
     </div>
     <button id="next-question" onclick="nextQuestion()">Prossima domanda</button>
 </div>
-
 <script>
 let selectedHouse = '';  // Variabile che memorizza la casa selezionata
 let currentQuestionIndex = 0;  // Indice della domanda corrente
@@ -308,6 +307,7 @@ function goToHousesScreen() {
 // Funzione per avviare il quiz con la casa selezionata
 function startQuiz(house) {
     selectedHouse = house;  // Memorizza la casa selezionata
+    currentQuestionIndex = 0;  // Resetta l'indice delle domande
     document.getElementById('houses-screen').classList.remove('active');
     document.getElementById('quiz-screen').classList.add('active');
     loadQuestion();  // Carica la prima domanda
@@ -322,10 +322,12 @@ function loadQuestion() {
         buttons.forEach((button, index) => {
             button.textContent = answers[index];
             button.classList.remove('correct', 'incorrect');
+            button.disabled = false; // Rende i pulsanti nuovamente abili per la nuova domanda
         });
         document.getElementById('next-question').style.display = 'none';  // Nascondi il pulsante "Prossima domanda" all'inizio
     } else {
         alert('Hai completato il quiz!');
+        // Puoi anche implementare un meccanismo di transizione al risultato finale
     }
 }
 
