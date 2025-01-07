@@ -315,7 +315,7 @@ function startQuiz(house) {
 
 // Funzione per caricare la domanda corrente
 function loadQuestion() {
-    if (currentQuestionIndex < questions.length) {
+    if (currentQuestionIndex < 50) {
         document.getElementById('question').textContent = questions[currentQuestionIndex].question;  // Imposta la domanda
         let answers = questions[currentQuestionIndex].answers;
         let buttons = document.querySelectorAll('#answers-container button');
