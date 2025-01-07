@@ -5,171 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gioco Hogwarts</title>
     <style>
-        /* Impostazioni generali */
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            overflow-x: hidden;
-            background-color: #f4f4f4;
-        }
-
-        /* Sfondo e logo comune */
-        .screen {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('images/letter.jpg');
-            background-size: cover;
-            background-position: center;
-            color: #8B4513; /* Marrone bruciato */
-            text-align: center;
-            padding-top: 150px; /* Distanza tra il logo e il contenuto */
-            box-sizing: border-box; /* Per includere padding e bordi nelle dimensioni */
-        }
-
-        .screen.active {
-            display: block;
-        }
-
-        .logo {
-            width: 150px;
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        h1, p {
-            color: #8B4513; /* Giallo tenue tendente al bianco */
-            margin: 0;
-            padding: 10px 0;
-        }
-
-        /* Schermata delle Casate */
-        #houses-screen {
-            background-image: url('images/houses.jpg'); /* Usa l'immagine come sfondo */
-            background-size: cover; /* Adatta l'immagine per coprire l'intera schermata */
-            background-position: center; /* Centra l'immagine */
-            color: #FFDAB9; /* Giallo tenue tendente al bianco per il testo */
-            text-align: center;
-            padding-top: 150px; /* Aumenta la distanza tra il logo e il contenuto */
-            box-sizing: border-box; /* Includi padding e bordi nelle dimensioni */
-            position: relative; /* Per posizionare correttamente gli altri elementi */
-        }
-
-        /* Box delle casate */
-        #houses-container {
-            display: flex;
-            color: #FFDAB9; /* Giallo tenue tendente al bianco per il testo */
-            text-align: center;
-            flex-direction: column; /* Imposta il layout in colonna */
-            justify-content: center;
-            align-items: center; /* Allinea le casate al centro */
-            margin-top: 50px; /* Aggiungi un margine per separare le casate dal titolo */
-        }
-
-        /* Ogni singola casa */
-        .house {
-            text-align: center;
-            color: #FFDAB9; /* Giallo tenue tendente al bianco per il testo */
-            cursor: pointer;
-            width: 200px; /* Larghezza fissa per ogni casa */
-            margin-bottom: 30px; /* Aumenta lo spazio tra le casate */
-        }
-
-        .house img {
-            width: 100%;
-            height: auto;
-        }
-
-        .house p {
-            margin-top: 10px;
-            font-size: 1em;
-            color: #FFDAB9; /* Giallo tenue tendente al bianco per il testo */
-        }
-
-        /* Pagine quiz e risultato */
-        #quiz-screen {
-            text-align: center;
-            margin-top: 100px;
-        }
-
-        #answers-container button {
-            margin: 10px;
-            padding: 10px 20px;
-            font-size: 1.2em;
-            cursor: pointer;
-            background-color: rgba(255, 255, 255, 0.7);
-            border: none;
-            border-radius: 5px;
-            color: #8B4513; /* Marrone bruciato */
-        }
-
-        #next-question {
-            display: none;
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 1.5em;
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-        }
-
-        /* Stili per il pannello di amministrazione */
-        #admin-panel {
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        /* Logo denied */
-        #result-screen img {
-            width: 150px;
-            height: auto;
-        }
-
-        /* Posizione dei pulsanti */
-        .next-button, .start-button {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: auto;
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-        }
-
-        /* Ottimizzazione per dispositivi mobili */
-        @media (max-width: 768px) {
-            .logo {
-                width: 120px;
-                top: 10px;
-            }
-
-            .house {
-                width: 180px;
-            }
-
-            #houses-container {
-                gap: 10px; /* Riduce lo spazio tra le casate */
-            }
-
-            .screen {
-                padding-top: 50px;
-            }
-
-            .next-button, .start-button {
-                width: 40px;
-            }
-
-            #answers-container button {
-                font-size: 1.1em;
-                padding: 8px 16px;
-            }
-        }
+        /* ... (keep your existing CSS here) ... */
     </style>
 </head>
 <body>
@@ -220,7 +56,7 @@
         <h1>Quiz di Ammissione</h1>
         <p id="question">Domanda</p>
         <div id="answers-container"></div>
-        <img src="images/next-page.png" alt="Prossima domanda" class="next-button" onclick="loadQuestion()">
+        <img src="images/next-page.png" alt="Prossima domanda" class="next-button">
     </div>
 
     <!-- Schermata del Risultato -->
@@ -238,6 +74,7 @@
         let currentQuestionIndex = 0;
         let score = 0;
         let questions = [];
+        let questionsLoaded = false;
 
         // Carica le domande da questions.json
         function loadQuestions() {
@@ -245,6 +82,7 @@
                 .then(response => response.json())
                 .then(data => {
                     questions = data;
+                    questionsLoaded = true;
                     console.log(questions); // Mostra le domande nel log (per debugging)
                 })
                 .catch(error => console.error("Errore nel caricamento delle domande:", error));
@@ -264,48 +102,40 @@
         }
 
         // Eventi per la schermata iniziale
-        const usernameInput = document.getElementById('username-input');
-        const usernameSubmit = document.getElementById('username-submit');
-
         function startGame() {
-            const username = usernameInput.value.trim();
+            const username = document.getElementById('username-input').value.trim();
             if (username === "") {
                 alert("Per favore, inserisci un nome valido.");
                 return;
             }
-
-            // Rimuovi il controllo se l'utente ha già partecipato
             currentUser = username;
             showScreen('letter-screen');
         }
 
-        // Eventi per andare alla schermata delle casate
-        const toHousesButton = document.getElementById('to-houses');
-        toHousesButton.addEventListener('click', () => {
-            showScreen('houses-screen');
-        });
-
         // Eventi per la scelta delle casate
-        const houses = document.querySelectorAll('.house');
-        houses.forEach(house => {
+        document.querySelectorAll('.house').forEach(house => {
             house.addEventListener('click', () => {
                 selectedHouse = house.getAttribute('data-house');
                 showScreen('quiz-screen');
-                loadQuestion();
+                if (questionsLoaded) {
+                    loadQuestion();
+                } else {
+                    console.error('Questions not loaded yet. Please wait.');
+                    // Optionally, retry loading the question after a short delay
+                    setTimeout(loadQuestion, 1000);
+                }
             });
         });
 
         // Funzioni per il quiz
         const questionElement = document.getElementById('question');
         const answersContainer = document.getElementById('answers-container');
-        const nextQuestionButton = document.getElementById('next-question');
 
         function loadQuestion() {
             if (currentQuestionIndex < questions.length) {
                 const currentQuestion = questions[currentQuestionIndex];
                 questionElement.textContent = currentQuestion.domanda;
                 answersContainer.innerHTML = "";
-
                 currentQuestion.risposte.forEach((answer, index) => {
                     const button = document.createElement('button');
                     button.textContent = answer;
@@ -314,14 +144,12 @@
                             score++;
                         }
                         currentQuestionIndex++;
-                        if (currentQuestionIndex < questions.length) {
-                            loadQuestion();
-                        } else {
-                            showResult();
-                        }
+                        loadQuestion();
                     });
                     answersContainer.appendChild(button);
                 });
+            } else {
+                showResult();
             }
         }
 
