@@ -174,7 +174,7 @@
 </head>
 <body>
 
-<!-- Schermata Iniziale -->
+<!-- Schermata Iniziale (nome utente) -->
 <div id="start-screen" class="screen active">
     <img src="images/hogwarts.png" alt="Hogwarts Logo" class="logo">
     <h1>Benvenuto al quiz di Hogwarts!</h1>
@@ -205,8 +205,7 @@
         Sei pronto? Ti aspetta un’avventura indimenticabile, dove misteri e magie ti accompagneranno. Prendi fiato e preparati a entrare nel magico mondo di Hogwarts.
     </p>
 
-    <input type="text" id="username-input" placeholder="Inserisci il tuo nome">
-    <img src="images/next-page.png" alt="Inizia" class="start-button" onclick="startGame()">
+    <img src="images/next-page.png" alt="Inizia" class="start-button" onclick="goToHousesScreen()">
 </div>
 
 <!-- Schermata delle Casate -->
@@ -282,20 +281,22 @@
         }
     }
 
-    // Eventi per la schermata iniziale
-    const usernameInput = document.getElementById('username-input');
-    const usernameSubmit = document.getElementById('username-submit');
-
+    // Funzione di inizio gioco per la schermata iniziale
     function startGame() {
-        const username = usernameInput.value.trim();
+        const username = document.getElementById('username-input').value.trim();
         if (username === "") {
             alert("Per favore, inserisci un nome valido.");
             return;
         }
 
-        // Rimuovi il controllo se l'utente ha già partecipato
+        // Imposta il nome utente
         currentUser = username;
         showScreen('letter-screen');
+    }
+
+    // Funzione per passare alla schermata delle casate
+    function goToHousesScreen() {
+        showScreen('houses-screen');
     }
 
     // Eventi per la scelta delle casate
@@ -353,4 +354,3 @@
 
 </body>
 </html>
- 
