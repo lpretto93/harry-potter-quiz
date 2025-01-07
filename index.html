@@ -1,4 +1,3 @@
-See new posts
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -184,32 +183,27 @@ See new posts
 </div>
 
 <!-- Schermata della Lettera -->
-<div id="start-screen" class="screen active">
+<div id="letter-screen" class="screen">
     <img src="images/hogwarts.png" alt="Hogwarts Logo" class="logo">
     <h1>Benvenuto alla Scuola di Magia e Stregoneria di Hogwarts!</h1>
-   <p>
-    Carissimo futuro mago o strega,
-</p>
-
-<p>
-    Sei stato invitato a partecipare a un viaggio straordinario alla Scuola di Magia e Stregoneria di Hogwarts. Qui scoprirai un mondo nascosto, dove pozioni misteriose, incantesimi potenti e creature fantastiche riempiranno i tuoi giorni di meraviglia e stupore.
-</p>
-
-<p>
-    Il nostro dipartimento di ammissioni ha ricevuto la tua richiesta di entrare a far parte della nostra illustre comunità. Un’onorevole tradizione di eccellenza ti attende, ma prima di varcare i cancelli del Castello, abbiamo bisogno di conoscere meglio il tuo cuore e la tua mente.
-</p>
-
-<p>
-    Compila il modulo sottostante con il tuo nome magico e preparati ad affrontare una serie di sfide che determineranno il tuo posto tra le antiche mura di Hogwarts. Non temere, la magia è ovunque attorno a te, e sarà pronta a rivelarsi al momento giusto. La tua ammissione dipenderà dalla tua curiosità, dalla tua volontà di imparare, e dalla forza con cui saprai affrontare gli ostacoli che incontrerai.
-</p>
-
-<p>
-    Ricorda, il Cappello Parlante ti attende per determinare a quale Casata appartieni. Non dimenticare che, se il tuo cuore è puro e la tua mente curiosa, Hogwarts sarà il luogo perfetto per te.
-</p>
-
-<p>
-    Sei pronto? Ti aspetta un’avventura indimenticabile, dove misteri e magie ti accompagneranno. Prendi fiato e preparati a entrare nel magico mondo di Hogwarts.
-</p>
+    <p>
+        Carissimo futuro mago o strega,
+    </p>
+    <p>
+        Sei stato invitato a partecipare a un viaggio straordinario alla Scuola di Magia e Stregoneria di Hogwarts. Qui scoprirai un mondo nascosto, dove pozioni misteriose, incantesimi potenti e creature fantastiche riempiranno i tuoi giorni di meraviglia e stupore.
+    </p>
+    <p>
+        Il nostro dipartimento di ammissioni ha ricevuto la tua richiesta di entrare a far parte della nostra illustre comunità. Un’onorevole tradizione di eccellenza ti attende, ma prima di varcare i cancelli del Castello, abbiamo bisogno di conoscere meglio il tuo cuore e la tua mente.
+    </p>
+    <p>
+        Compila il modulo sottostante con il tuo nome magico e preparati ad affrontare una serie di sfide che determineranno il tuo posto tra le antiche mura di Hogwarts. Non temere, la magia è ovunque attorno a te, e sarà pronta a rivelarsi al momento giusto. La tua ammissione dipenderà dalla tua curiosità, dalla tua volontà di imparare, e dalla forza con cui saprai affrontare gli ostacoli che incontrerai.
+    </p>
+    <p>
+        Ricorda, il Cappello Parlante ti attende per determinare a quale Casata appartieni. Non dimenticare che, se il tuo cuore è puro e la tua mente curiosa, Hogwarts sarà il luogo perfetto per te.
+    </p>
+    <p>
+        Sei pronto? Ti aspetta un’avventura indimenticabile, dove misteri e magie ti accompagneranno. Prendi fiato e preparati a entrare nel magico mondo di Hogwarts.
+    </p>
 
     <input type="text" id="username-input" placeholder="Inserisci il tuo nome">
     <img src="images/next-page.png" alt="Inizia" class="start-button" onclick="startGame()">
@@ -304,19 +298,13 @@ See new posts
         showScreen('letter-screen');
     }
 
-    // Eventi per andare alla schermata delle casate
-    const toHousesButton = document.getElementById('to-houses');
-    toHousesButton.addEventListener('click', () => {
-        showScreen('houses-screen');
-    });
-
     // Eventi per la scelta delle casate
     const houses = document.querySelectorAll('.house');
     houses.forEach(house => {
         house.addEventListener('click', () => {
             selectedHouse = house.getAttribute('data-house');
             showScreen('quiz-screen');
-            loadQuestion();
+            loadQuestion(); // Carica la prima domanda
         });
     });
 
@@ -347,31 +335,21 @@ See new posts
                 });
                 answersContainer.appendChild(button);
             });
+        } else {
+            showResult();
         }
     }
 
-    // Funzione per mostrare il risultato
+    // Mostra il risultato
     function showResult() {
+        showScreen('result-screen');
         const resultMessage = document.getElementById('result-message');
         const resultLogo = document.getElementById('result-logo');
-
-        if (score / questions.length >= 0.9) {
-            resultMessage.textContent = `Congratulazioni! Sei stato assegnato a ${selectedHouse}!`;
-            resultLogo.src = `images/houses/${selectedHouse.toLowerCase()}.png`;
-        } else if (score / questions.length >= 0.7) {
-            const randomHouse = ['Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin'].filter(house => house !== selectedHouse)[Math.floor(Math.random() * 3)];
-            resultMessage.textContent = `Hai fatto del tuo meglio! Sei stato assegnato a ${randomHouse}.`;
-            resultLogo.src = `images/houses/${randomHouse.toLowerCase()}.png`;
-        } else {
-            resultMessage.textContent = "Mi spiace, non sei stato ammesso a Hogwarts.";
-            resultLogo.src = "images/denied.png";
-        }
-
-        showScreen('result-screen');
+        
+        resultMessage.textContent = `La tua casata è: ${selectedHouse}`;
+        resultLogo.src = `images/houses/${selectedHouse}.png`;
     }
-
-    // Carica le domande all'inizio
-    loadQuestions();
 </script>
+
 </body>
 </html>
