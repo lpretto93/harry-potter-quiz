@@ -1,89 +1,91 @@
 
-let questions = [];  // Array per le domande
-let currentQuestionIndex = 0;  // Indice della domanda corrente
-let score = 0;  // Punteggio dell'utente
+let currentUser = '';
+let currentQuestionIndex = 0;
+let questions = [];
+let selectedHouse = '';
 
-// Funzione per caricare le domande da JSON
+// Carica le domande
 function loadQuestions() {
-    fetch('questions.json')  // Carica il file JSON
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Impossibile caricare il file JSON');
-            }
-            return response.json();
-        })
+    fetch('questions.json')
+        .then(response => response.json())
         .then(data => {
-            questions = data.questions;  // Memorizza le domande
-            loadQuestion();  // Carica la prima domanda
+            questions = data.questions;
+            loadQuestion();
         })
-        .catch(error => {
-            console.error('Errore nel caricare le domande:', error);
-        });
+        .catch(error => console.error('Error loading questions:', error));
 }
 
-// Funzione per caricare la domanda corrente
+// Avvia il gioco
+function startGame() {
+    const username = document.getElementById('username-input').value;
+    if (username.trim() === '') {
+        alert('Per favore inserisci un nome valido!');
+        return;
+    }
+    currentUser = username;
+    document.getElementById('start-screen').classList.remove('active');
+    document.getElementById('letter-screen').classList.add('active');
+}
+
+// Vai alla schermata delle casate
+function goToHousesScreen() {
+    document.getElementById('letter-screen').classList.remove('active');
+    document.getElementById('houses-screen').classList.add('active');
+}
+
+// Avvia il quiz
+function startQuiz(house) {
+    selectedHouse = house;
+    currentQuestionIndex = 0;
+    document.getElementById('houses-screen').classList.remove('active');
+    document.getElementById('quiz-screen').classList.add('active');
+    loadQuestions();
+}
+
+// Carica una domanda
 function loadQuestion() {
     if (currentQuestionIndex < questions.length) {
-        const currentQuestion = questions[currentQuestionIndex];
-        document.getElementById('question').textContent = currentQuestion.question;
-        let answers = currentQuestion.answers;
-        let buttons = document.querySelectorAll('#answers-container button');
-        buttons.forEach((button, index) => {
-            button.textContent = answers[index];
-            button.classList.remove('correct', 'incorrect');
-            button.disabled = false;
+        const question = questions[currentQuestionIndex];
+        document.getElementById('question').textContent = question.question;
+        const answersContainer = document.getElementById('answers-container');
+        answersContainer.innerHTML = '';
+        
+        question.answers.forEach((answer, index) => {
+            const button = document.createElement('button');
+            button.textContent = answer;
+            button.onclick = () => checkAnswer(index);
+            answersContainer.appendChild(button);
         });
-        document.getElementById('next-question').style.display = 'none';  // Nascondi il pulsante per la domanda successiva fino a che l'utente non risponde
+
+        document.getElementById('next-question').style.display = 'none';
     } else {
-        showResult();  // Mostra il risultato finale quando tutte le domande sono completate
+        showResult();
     }
 }
 
-// Funzione per verificare la risposta selezionata
-function checkAnswer(selectedAnswer) {
-    let correctAnswer = questions[currentQuestionIndex].correctAnswer;
-    let buttons = document.querySelectorAll('#answers-container button');
-    buttons.forEach(button => {
-        button.disabled = true;  // Disabilita tutti i pulsanti dopo che una risposta è stata selezionata
-    });
-
-    if (selectedAnswer === correctAnswer) {
-        document.querySelector(`#answers-container button:nth-child(${questions[currentQuestionIndex].answers.indexOf(selectedAnswer) + 1})`).classList.add('correct');
-        score++;  // Incrementa il punteggio se la risposta è corretta
-    } else {
-        document.querySelector(`#answers-container button:nth-child(${questions[currentQuestionIndex].answers.indexOf(correctAnswer) + 1})`).classList.add('correct');
-        document.querySelector(`#answers-container button:nth-child(${questions[currentQuestionIndex].answers.indexOf(selectedAnswer) + 1})`).classList.add('incorrect');
+// Controlla la risposta
+function checkAnswer(selectedAnswerIndex) {
+    const correctAnswerIndex = questions[currentQuestionIndex].answers.indexOf(questions[currentQuestionIndex].correctAnswer);
+    if (selectedAnswerIndex === correctAnswerIndex) {
+        // Aggiungi animazione di magia
+        const magic = document.createElement('div');
+        magic.classList.add('magic-effect');
+        document.body.appendChild(magic);
+        setTimeout(() => magic.remove(), 1000);
     }
 
-    document.getElementById('next-question').style.display = 'block';  // Mostra il pulsante per la domanda successiva
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showResult();
+    }
 }
 
-// Funzione per passare alla domanda successiva
-function nextQuestion() {
-    currentQuestionIndex++;  // Incrementa l'indice della domanda
-    loadQuestion();  // Carica la nuova domanda
-}
-
-// Funzione per mostrare il risultato finale
+// Mostra il risultato finale
 function showResult() {
-    const resultMessage = document.getElementById('result-message');
-    const resultLogo = document.getElementById('result-logo');
-
-    // Determina il risultato in base al punteggio
-    if (score / questions.length >= 0.9) {
-        resultMessage.textContent = `Congratulazioni! Sei stato assegnato a ${selectedHouse}!`;
-        resultLogo.src = `images/houses/${selectedHouse.toLowerCase()}.png`;
-    } else if (score / questions.length >= 0.7) {
-        const randomHouse = ['Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin'].filter(house => house !== selectedHouse)[Math.floor(Math.random() * 3)];
-        resultMessage.textContent = `Hai fatto del tuo meglio! Sei stato assegnato a ${randomHouse}.`;
-        resultLogo.src = `images/houses/${randomHouse.toLowerCase()}.png`;
-    } else {
-        resultMessage.textContent = "Mi spiace, non sei stato ammesso a Hogwarts.";
-        resultLogo.src = "images/denied.png";
-    }
-
-    showScreen('result-screen');  // Mostra lo schermo del risultato
+    alert('Il quiz è finito! Calcolando il risultato...');
 }
 
-// Carica le domande all'inizio
+// Carica le domande quando il gioco inizia
 loadQuestions();
