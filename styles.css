@@ -1,11 +1,12 @@
-/* Reset default styles */
+
+/* Reset di base */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Styling for the body */
+/* Impostazioni generali */
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
@@ -13,23 +14,10 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    overflow: hidden;
     padding: 20px;
 }
 
-/* Main container */
-#main-container {
-    width: 100%;
-    max-width: 600px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    position: relative;
-    overflow: hidden;
-}
-
-/* Base styling for all screens */
+/* Stile per le schermate */
 .screen {
     display: none;
     background-image: url('images/letter.jpg');
@@ -39,39 +27,40 @@ body {
     padding: 20px;
     border-radius: 10px;
     position: relative;
-    height: 100%; /* Ensure the screen takes full height */
+    height: 100%;
 }
 
 .screen.active {
     display: block;
 }
 
-/* Logo Styling */
-#hogwarts-logo {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 150px; /* Initial width for larger screens */
-    height: auto;
-    z-index: 10;
-}
-
-/* Styling for headings */
 h1 {
     text-align: center;
-    margin-top: 120px; /* Adjust margin to make space for the logo */
-    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
-/* Input and button styles */
-input[type="text"] {
+/* Casate */
+#houses-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+}
+
+.house {
+    text-align: center;
+    cursor: pointer;
+    width: 200px;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.house:hover {
+    opacity: 1;
+}
+
+.house img {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
+    height: auto;
 }
 
 button {
@@ -83,151 +72,25 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-bottom: 10px;
 }
 
 button:hover {
     background-color: #45a049;
 }
 
-button.hidden {
-    display: none;
+/* Animazioni di magia */
+@keyframes sparkle {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.5); opacity: 0; }
 }
 
-/* Styling for error messages */
-.error {
-    color: red;
-    text-align: center;
-    font-size: 14px;
-}
-
-/* House styling */
-.house {
-    display: inline-block;
-    text-align: center;
-    margin: 10px;
-    cursor: pointer;
-}
-
-.house img {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    margin-bottom: 10px;
-}
-
-/* Quiz buttons */
-#answers-container button {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    background-color: #2196F3;
-    color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#answers-container button:hover {
-    background-color: #0b7dda;
-}
-
-/* Result screen styles */
-#result-logo {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    margin: 20px auto;
-    display: block;
-}
-
-/* Ranking button */
-#view-ranking {
-    background-color: #f39c12;
-}
-
-#view-ranking:hover {
-    background-color: #e67e22;
-}
-
-/* Admin panel button */
-#admin-panel button {
-    background-color: #f44336;
-}
-
-#admin-panel button:hover {
-    background-color: #e53935;
-}
-
-/* Back to home button */
-#back-to-home {
-    background-color: #3498db;
-}
-
-#back-to-home:hover {
-    background-color: #2980b9;
-}
-
-/* Mobile Optimization */
-@media (max-width: 768px) {
-    body {
-        padding: 10px; /* Reduce padding for smaller screens */
-    }
-
-    #main-container {
-        padding: 15px; /* Adjust main container padding */
-    }
-
-    #hogwarts-logo {
-        width: 120px; /* Reduce logo size on smaller screens */
-    }
-
-    h1 {
-        margin-top: 90px; /* Adjust space above the header for smaller screens */
-        font-size: 24px;
-    }
-
-    input[type="text"], button {
-        font-size: 14px;
-    }
-
-    .house img {
-        width: 80px; /* Resize house images for smaller screens */
-        height: 80px;
-    }
-
-    #answers-container button {
-        font-size: 14px; /* Smaller font size for mobile */
-    }
-
-    #result-logo {
-        width: 80px; /* Smaller logo in result screen */
-        height: 80px;
-    }
-}
-
-/* Extra mobile optimization for very small screens */
-@media (max-width: 480px) {
-    #hogwarts-logo {
-        width: 100px; /* Further reduce logo size for very small screens */
-    }
-
-    h1 {
-        margin-top: 80px; /* More space on top */
-        font-size: 20px;
-    }
-
-    .house img {
-        width: 60px; /* Further reduce house image size */
-        height: 60px;
-    }
-
-    input[type="text"], button {
-        font-size: 12px; /* Adjust font size */
-    }
-
-    #answers-container button {
-        font-size: 12px; /* Adjust button text size */
-    }
+.magic-effect {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    background: url('images/sparkle.png') no-repeat center center;
+    animation: sparkle 1s infinite;
 }
