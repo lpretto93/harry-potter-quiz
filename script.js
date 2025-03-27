@@ -1,99 +1,75 @@
-// Global variables
-let currentUser = "";
-let selectedHouse = "";
-let currentQuestionIndex = 0;
-let score = 0;
 
-const questions = [
-    { question: "Qual è il simbolo della casa di Grifondoro?", answers: ["Leone", "Serpente", "Tasso", "Aquila"], correct: 0 },
-    { question: "Chi è il fondatore di Serpeverde?", answers: ["Godric", "Salazar", "Helga", "Rowena"], correct: 1 },
-    // Add more questions as needed
-];
+let questions = [];  // Array per le domande
+let currentQuestionIndex = 0;  // Indice della domanda corrente
+let score = 0;  // Punteggio dell'utente
 
-// Navigation functions
-function showScreen(screenId) {
-    document.querySelectorAll('.screen').forEach(screen => {
-        screen.classList.remove('active');
-    });
-    const screenElement = document.getElementById(screenId);
-    if (screenElement) {
-        screenElement.classList.add('active');
-    } else {
-        console.error(`Schermata con ID ${screenId} non trovata.`);
-    }
-}
-
-// Event listeners for the start screen
-const usernameInput = document.getElementById('username-input');
-const usernameSubmit = document.getElementById('username-submit');
-const usernameError = document.getElementById('username-error');
-
-usernameSubmit.addEventListener('click', () => {
-    const username = usernameInput.value.trim();
-    if (username === "") {
-        alert("Per favore, inserisci un nome valido.");
-        return;
-    }
-
-    // Check if the user has already participated (simulation)
-    if (localStorage.getItem(username)) {
-        usernameError.classList.remove('hidden');
-    } else {
-        currentUser = username;
-        showScreen('letter-screen');
-    }
-});
-
-// Event for going to the houses screen
-const toHousesButton = document.getElementById('to-houses');
-toHousesButton.addEventListener('click', () => {
-    console.log('Pulsante "Scopri le casate" cliccato.');
-    showScreen('houses-screen');
-});
-
-// Event listeners for choosing houses
-const houses = document.querySelectorAll('.house');
-houses.forEach(house => {
-    house.addEventListener('click', () => {
-        selectedHouse = house.getAttribute('data-house');
-        showScreen('quiz-screen');
-        loadQuestion();
-    });
-});
-
-// Quiz functions
-const questionElement = document.getElementById('question');
-const answersContainer = document.getElementById('answers-container');
-const nextQuestionButton = document.getElementById('next-question');
-
-function loadQuestion() {
-    const currentQuestion = questions[currentQuestionIndex];
-    questionElement.textContent = currentQuestion.question;
-    answersContainer.innerHTML = "";
-
-    currentQuestion.answers.forEach((answer, index) => {
-        const button = document.createElement('button');
-        button.textContent = answer;
-        button.addEventListener('click', () => {
-            if (index === currentQuestion.correct) {
-                score++;
+// Funzione per caricare le domande da JSON
+function loadQuestions() {
+    fetch('questions.json')  // Carica il file JSON
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Impossibile caricare il file JSON');
             }
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length) {
-                loadQuestion();
-            } else {
-                showResult();
-            }
+            return response.json();
+        })
+        .then(data => {
+            questions = data.questions;  // Memorizza le domande
+            loadQuestion();  // Carica la prima domanda
+        })
+        .catch(error => {
+            console.error('Errore nel caricare le domande:', error);
         });
-        answersContainer.appendChild(button);
-    });
 }
 
-// Function to show the result
+// Funzione per caricare la domanda corrente
+function loadQuestion() {
+    if (currentQuestionIndex < questions.length) {
+        const currentQuestion = questions[currentQuestionIndex];
+        document.getElementById('question').textContent = currentQuestion.question;
+        let answers = currentQuestion.answers;
+        let buttons = document.querySelectorAll('#answers-container button');
+        buttons.forEach((button, index) => {
+            button.textContent = answers[index];
+            button.classList.remove('correct', 'incorrect');
+            button.disabled = false;
+        });
+        document.getElementById('next-question').style.display = 'none';  // Nascondi il pulsante per la domanda successiva fino a che l'utente non risponde
+    } else {
+        showResult();  // Mostra il risultato finale quando tutte le domande sono completate
+    }
+}
+
+// Funzione per verificare la risposta selezionata
+function checkAnswer(selectedAnswer) {
+    let correctAnswer = questions[currentQuestionIndex].correctAnswer;
+    let buttons = document.querySelectorAll('#answers-container button');
+    buttons.forEach(button => {
+        button.disabled = true;  // Disabilita tutti i pulsanti dopo che una risposta è stata selezionata
+    });
+
+    if (selectedAnswer === correctAnswer) {
+        document.querySelector(`#answers-container button:nth-child(${questions[currentQuestionIndex].answers.indexOf(selectedAnswer) + 1})`).classList.add('correct');
+        score++;  // Incrementa il punteggio se la risposta è corretta
+    } else {
+        document.querySelector(`#answers-container button:nth-child(${questions[currentQuestionIndex].answers.indexOf(correctAnswer) + 1})`).classList.add('correct');
+        document.querySelector(`#answers-container button:nth-child(${questions[currentQuestionIndex].answers.indexOf(selectedAnswer) + 1})`).classList.add('incorrect');
+    }
+
+    document.getElementById('next-question').style.display = 'block';  // Mostra il pulsante per la domanda successiva
+}
+
+// Funzione per passare alla domanda successiva
+function nextQuestion() {
+    currentQuestionIndex++;  // Incrementa l'indice della domanda
+    loadQuestion();  // Carica la nuova domanda
+}
+
+// Funzione per mostrare il risultato finale
 function showResult() {
     const resultMessage = document.getElementById('result-message');
     const resultLogo = document.getElementById('result-logo');
 
+    // Determina il risultato in base al punteggio
     if (score / questions.length >= 0.9) {
         resultMessage.textContent = `Congratulazioni! Sei stato assegnato a ${selectedHouse}!`;
         resultLogo.src = `images/houses/${selectedHouse.toLowerCase()}.png`;
@@ -106,20 +82,8 @@ function showResult() {
         resultLogo.src = "images/denied.png";
     }
 
-    showScreen('result-screen');
+    showScreen('result-screen');  // Mostra lo schermo del risultato
 }
 
-// Event listeners for viewing the ranking
-const viewRankingButton = document.getElementById('view-ranking');
-viewRankingButton.addEventListener('click', () => {
-    localStorage.setItem(currentUser, true);
-    alert("Classifica non implementata in questa demo.");
-    // Redirect or implement ranking here
-});
-
-// Funzione per mostrare il risultato
-function showResult() {
-    const resultMessage = document.getElementById('result-message');
-    const resultLogo = document.getElementById('result-logo');
-
-   
+// Carica le domande all'inizio
+loadQuestions();
